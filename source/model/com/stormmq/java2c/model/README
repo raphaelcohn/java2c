@@ -1,0 +1,282 @@
+	// We can cope with overloaded methods by renaming to include a suffix of the types.
+	// We don't want to do this unless we have to, though, as it is exceedingly irritating to read
+	// It is also exceedingly irritating to make calls, as we then need to know which method we're resolving to...
+	// We can trivially support overloading by number of arguments, though. Identifying types at call sites is far more than we'd like to do... and would require access to bytecode, in effect.
+
+	public class Single extends CObject implements Comparable
+	{
+		public static final int a = 50;
+		public static int b;
+		static
+		{
+			b = 20;
+		}
+		private static int c = 10;
+		static
+		{
+			c = 20;
+		}
+
+		private final int index;
+
+		@Overrides
+		public boolean equals(@Nullable final CObject that)
+		{
+			if (that == null)
+			{
+				return false;
+			}
+
+			return this.index == that.index;
+		}
+
+		@Overrides
+		@inline(Force)
+		@flatten
+		@hot
+		public int hashCode()
+		{
+			return index;
+		}
+
+		@Overrides
+
+		@pure(Constant)
+		@cold
+		public static int divideByTwo(final int value)
+		{
+			return value / 2;
+		}
+
+		@Deprecated
+		private void printHello()
+		{
+		}
+
+		@SuppressWarnings("UnusedDeclaration")
+		private static void notUsed(@NotNull @sentinel final Object... varargs)
+		{
+		}
+
+		// In this case, because c_signed_int is a primitive, we do not generate an __attribute__((returns_nonnull))
+		// Nor do we generate __attribute__((nonnull(varargs))) for varargs
+		@NotNull
+		private static c_signed_int myPrintf(@NotNull final Pointer<my_object> my_object, @NotNull @format_arg final Pointer<c_char> my_format, @NotNull @format(printf) Object... varargs)
+		{
+		}
+
+		public Index(@NotNull final Allocator allocator, final int index)
+		{
+			super(allocator);
+			this.index = index;
+		}
+	}
+
+
+	In Equality.h:-
+
+
+	// required for use of _Bool
+	#include <stdbool.h>
+
+	typedef struct com_stormmq_java2c_Equality
+	{
+		_Bool equals(com_stormmq_java2c_Equality * this, com_stormmq_java2c_Equality * that);
+
+		signed long hashCode(com_stormmq_java2c_Equality * this);
+	} com_stormmq_java2c_Equality;
+
+	(There is no Equality.c)
+
+
+
+	In Index.h:-
+
+	// required for use of _Bool
+	#include <stdbool.h>
+	// required for use of NULL
+	#include <stdlib.h>
+
+
+	/* If we're not using GNU C, elide __attribute__ */
+    #ifndef __GNUC__
+    # ifndef __attribute__(x)
+    #  define  __attribute__(x)  /*NOTHING*/
+    # endif
+    #endif
+
+
+
+
+	typedef struct com_stormmq_java2c_Index
+	{
+		// conversion of Java 'int'
+		const int32_t index;
+	}
+
+	// the restrict qualifier is possible because we know that Index is (a) final and (b) consists of immutable fields
+	// we can't add it to the interface, because we can't be sure that all objects implementing Equality are final and immutable
+	//  __attribute((nonnull (1)))__  is always possible, because  this  is always present!
+	//  __attribute((nothrow))__  is present, because there is no throws clause (and we do not allow unchecked exceptions)
+	extern _Bool com_stormmq_java2c_Index_equals(com_stormmq_java2c_Equality * restrict this, com_stormmq_java2c_Equality * that) __attribute__((nonnull (1))) __attribute((nothrow))__;
+
+	inline extern int32_t com_stormmq_java2c_Index_hashCode() __attribute((nonnull (1), always_inline, flatten, nothrow, hot))__;
+
+	extern int com_stormmq_java2c_Index_divideByTwo(final int32_t value) __attribute((pure, const, cold, nothrow))__;
+
+	// no private definitions
+
+	extern com_stormmq_java2c_Index * restrict com_stormmq_java2c_Index_new(const uint32_t int index) __attribute__((returns_nonnull, nothrow));
+
+	In Index.c:-
+
+	#include "Index.h"
+
+
+	extern _Bool com_stormmq_java2c_Index_equals(com_stormmq_java2c_Equality * restrict this, com_stormmq_java2c_Equality * that)
+	{
+		if (that == NULL)
+		{
+			return false;
+		}
+
+		return this->index == that->index;
+	}
+
+	inline extern int32_t com_stormmq_java2c_Index_hashCode(com_stormmq_java2c_Equality * restrict this)
+	{
+		return this->index;
+	}
+
+	extern int32_t com_stormmq_java2c_Index_divideByTwo(final int32_t value)
+	{
+		return value / 2;
+	}
+
+	// This weird syntax is because attributes only apply to function definitions...
+	static void com_stormmq_java2c_Index_hello(com_stormmq_java2c_Equality * restrict this) __attribute((nonnull (1), nothrow, deprecated))__;
+	static void com_stormmq_java2c_Index_hello(com_stormmq_java2c_Equality * restrict this)
+	{
+	}
+
+	// @SuppressWarnings("UnusedDeclaration") ==> notused attribute
+	// @sentinel means that varargs are terminated by a NULL
+	static void com_stormmq_java2c_Index_notUsed(...) __attribute__((unused, sentinel (0), nothrow));
+	static void com_stormmq_java2c_Index_notUsed(...)
+	{
+	}
+
+	// In this case, because c_signed_int is a primitive, we do not generate an __attribute__((returns_nonnull))
+	// Nor do we generate __attribute__((nonnull(varargs))) for varargs
+	// @format using @format_arg, thus seconds attribute argument is 2
+	// third argument is position of vargs (1 based, corrected for any this) UNLESS the FormatArchetype is strftime OR the varargs type is va_list
+	// @format can only be used on a varargs
+	static signed int com_stormmq_java2c_Index_myPrintf(const my_object * my_object, const char * my_format, @format(printf) Object... varargs) __attribute((nonnull(1,2), format_arg(2), format(printf, 2, 3), nothrow))__;
+	static signed int com_stormmq_java2c_Index_myPrintf(const my_object * my_object, const char * my_format, @format(printf) Object... varargs)
+	{
+	}
+
+	// use 'this' as it's a java keyword
+	extern com_stormmq_java2c_Index * com_stormmq_java2c_Index_this()
+	{
+		// must include stdlib.h
+		// cmalloc should be used because we want to mimic java (to support field initializers and instance initializers, aka anonymous blocks)
+		// we can optimise to malloc if we detect that all fields are immutable (ie final) (or there are no initializer expressions and no field assignments and we can be sure the constructor covers all cases / use an annotation)
+		return cmalloc(sizeof(com_stormmq_java2c_Index));
+
+		// TODO: We must have fixed-up all functions at this point, as a super class constructor can call functions defined in a child
+	}
+
+	// constructor body proper -
+	extern com_stormmq_java2c_Index * com_stormmq_java2c_Index_new(const uint32_t int index)
+	{
+
+
+		/*
+			Order:-
+				- create an instance
+				- make all fields the default value (using cmalloc - set to zero)
+				- if first line is to 'this(xxxx)', branch to that constructor
+					- call super class construction logic, and so on recursively
+				- else
+					- call super class construction logic, and so on recursively
+				- run our construction logic:-
+					- run field initializer expressions and initializer expressions (anonymous blocks) in order
+					- run our constructor body.
+
+			In effect, the first line of the constructor, super() or this(), is special (and super() is inferred).
+
+		*/
+
+		<call this or super>
+
+		<insert block of code from field initalizer 1>
+		<insert block of code from instance initalizer A>
+		...
+
+
+
+
+		this->index = index;
+	}
+
+	// can use the attribute  __attribute__((constructor)), although order is problematic [takes a priority, but it's dangerous]
+
+	// static construction code - do we return the class type at this point?
+
+	// not sure we're allowed to make this const.
+	extern const uint32_t a;
+	extern const uint32_t b;
+	extern const uint32_t c;
+	extern void com_stormmq_java2c_Index_static() __attribute((nothrow))__;
+	extern void com_stormmq_java2c_Index_static()
+	{
+		a = 50;
+		{
+			b = 20;
+		}
+		c = 10;
+		{
+			c = 20;
+		}
+	}
+
+
+
+
+
+
+Consider
+	- using __attribute((hot/cold))__ on labels when using try-catch-finally blocks
+	- nothrow for functions that do not throw exceptions
+	- nonnull and return_nonnull attributes for @NotNull
+	- whether we can use leaf functions?
+	- deduce use of nothrow if function never returns except by exception?
+	- ?alloc_size
+
+	- constructor / destructor attributes for static initialisation?
+
+	Built Ins:-
+		__builtin_unreachable  after throw new MyException(); (ie to mark code that should be unreachable, particularly for functions that always throw exceptions)
+			- may be a special case with say  throw new UnreachableException();
+
+		__builtin_expect  for branch prediction with if statements (ie to suggest the most common route)
+			eg  if (__builtin_expect (ptr != NULL, 1))
+                           foo (*ptr);
+            function is actually _Bool __builtin_expect(c_unsigned_long, c_unsigned_long)
+
+        __builtin_prefetch (const void *addr, ...)
+
+		__builtin_bswap64 and friends (also some built in bit counting functions)
+
+
+             __builtin_constant_p (EXPRESSION) ? (EXPRESSION) : -1,  for some initializers...
+
+	TODO: _Decimal32 et al (eg __builtin_infd32)
+
+	Also :
+
+	@Deprecated ==> deprecated attribute
+	@NotNull ==> nonnull and return_nonnull attributes (except for primitives, varargs)
+	@SuppressWarnings("UnusedDeclaration") ==> notused attribute
+
