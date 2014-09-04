@@ -23,9 +23,10 @@ set($ENV{HELLO} "world")
 # "$(PROJECT_BINARY_DIR)/TutorialConfig.h"
 #)
 
+# placed into default build folder, 'output', created by our build script
 configure_file(
  "TutorialConfig.h.in"
- "output/TutorialConfig.h"
+ "TutorialConfig.h"
 )
 # add the binary tree to the search path for include files so that we will find TutorialConfig.h
 include_directories("output")

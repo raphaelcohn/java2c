@@ -1,0 +1,41 @@
+function main_prepareOutputPath()
+{
+	if [ -d "$build_outputPath" ]; then
+		return 0
+	fi
+	
+	if [ -e "$build_outputPath" ]; then
+		rm -rf "$build_outputPath"
+	fi
+	
+	mkdir -m 0755 -p "$build_outputPath"
+}
+
+function main_compileProjects()
+{
+	local project
+	local projectSourcePath
+	local projectBuildPath
+	for project in "${build_projects[@]}"
+	do
+		projectSourcePath="$build_sourcePath"/"$project"
+		if [ ! -d "$projectSourcePath" ]; then
+			global_exitError "Project '$project' is not in build_sourcePath '$build_sourcePath'"
+		fi
+		
+		projectBuildPath="$build_outputPath"/"$project"
+		if [ -e "$projectBuildPath" ]; then
+			rm -rf "$projectBuildPath"
+		fi
+		mkdir -m 0755 -p "$projectBuildPath"
+		
+		pushd "$projectBuildPath" 1>/dev/null
+			
+			cmake "$projectSourcePath" 1>"$projectBuildPath"/cmake.config.txt 2>/dev/null
+			
+		popd 1>/dev/null
+
+		# target could be 'clean', or we could clean first, with --clean-first
+		cmake --build "$projectBuildPath" --target "$project" --clean-first --use-stderr -- --jobs "$build_numberOfCpus" --load-average "$build_loadAverage"
+	done
+}
