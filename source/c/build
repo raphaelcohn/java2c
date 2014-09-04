@@ -6,4 +6,6 @@ readonly cmake_Path="/Applications/CLion EAP.app/Contents/bin/cmake/bin/cmake"
 readonly binaryOutputFolderPath="$(pwd)"/output
 
 readonly numberOfCpus=8
+
+mkdir -m 0755 -p "$binaryOutputFolderPath"
 "$cmake_Path" --build "$binaryOutputFolderPath" --target "$projectName" -- --jobs "$numberOfCpus"
