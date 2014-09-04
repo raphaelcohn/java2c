@@ -12,6 +12,7 @@ project(c)
 set(java2c_VERSION 1234)
 message("$ENV{PATH}")
 set($ENV{HELLO} "world")
+# set(CMAKE_CXX_FLAGS "-g -Wall")
 
 # Simple templating
 # PROJECT_SOURCE_DIR is the source directory

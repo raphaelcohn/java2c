@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 
 readonly projectName="c"
-
 readonly cmake_Path="/Applications/CLion EAP.app/Contents/bin/cmake/bin/cmake"
-readonly binaryOutputFolderPath="$(pwd)"/output
+readonly sourceFolderPath="$(pwd)"
+readonly binaryOutputFolderPath="$sourceFolderPath"/output
 
 readonly numberOfCpus=8
 
 mkdir -m 0755 -p "$binaryOutputFolderPath"
-"$cmake_Path" --build "$binaryOutputFolderPath" --target "$projectName" -- --jobs "$numberOfCpus"
+pushd "$sourceFolderPath" 1>/dev/null
+
+	"$cmake_Path"
+
+popd 1>/dev/null
+
+
+# target could be 'clean', or we could clean first, with --clean-first
+"$cmake_Path" --build "$binaryOutputFolderPath" --target "$projectName" --clean-first --use-stderr -- --jobs "$numberOfCpus"
