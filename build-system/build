@@ -108,17 +108,17 @@ function build_exitError()
 
 function build_exitHelp()
 {
-	echo -n -E "Usage 1: ${global_ourName} -h
-Usage 2: ${global_ourName} [-v] -- [projects...]
+	echo -n -E "Usage 1: ${global_ourName} -h|--help
+Usage 2: ${global_ourName} [-v|--verbose] -- [projects...]
 
 Usages
     1       Show Help
     2       Build projects
 
 Argument-less Switches
-    Switch  Explanation            Default
-    -h      show this help
-    -v      be more verbose        ${global_verbosity}
+    Switch  Long-Switch  Explanation            Default
+    -h      --help       show this help
+    -v      --verbose    be more verbose        ${global_verbosity}
 
 Argumented Switches
     Switch  Default
@@ -195,6 +195,7 @@ function build_parseCommandLine()
 					
 					help)
 						build_parseCommandLine_longOption_noValue
+						build_exitHelp
 					;;
 					
 					help=*)
@@ -203,6 +204,7 @@ function build_parseCommandLine()
 					
 					verbose)
 						build_parseCommandLine_longOption_noValue
+						global_verbosity=$((global_verbosity+1))
 					;;
 					
 					verbose=*)
