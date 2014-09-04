@@ -25,10 +25,10 @@ set($ENV{HELLO} "world")
 
 configure_file(
  "TutorialConfig.h.in"
- "$(PROJECT_BINARY_DIR)/TutorialConfig.h"
+ "output/TutorialConfig.h"
 )
 # add the binary tree to the search path for include files so that we will find TutorialConfig.h
-include_directories("${PROJECT_BINARY_DIR}")
+include_directories("output")
 
 #include_directories("/usr/local/Cellar/gcc/4.9.1//lib/gcc/x86_64-apple-darwin12.0.0/4.9.1/include")
 

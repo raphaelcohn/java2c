@@ -7,10 +7,11 @@ readonly binaryOutputFolderPath="$sourceFolderPath"/output
 
 readonly numberOfCpus=8
 
+rm -rf "$binaryOutputFolderPath"
 mkdir -m 0755 -p "$binaryOutputFolderPath"
-pushd "$sourceFolderPath" 1>/dev/null
+pushd "$binaryOutputFolderPath" 1>/dev/null
 
-	"$cmake_Path"
+	"$cmake_Path" "$sourceFolderPath"
 
 popd 1>/dev/null
 
