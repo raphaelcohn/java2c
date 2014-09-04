@@ -1,101 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Javac" />
-    <resourceExtensions />
-    <wildcardResourcePatterns>
-      <entry name="!?*.java" />
-      <entry name="!?*.form" />
-      <entry name="!?*.class" />
-      <entry name="!?*.groovy" />
-      <entry name="!?*.scala" />
-      <entry name="!?*.flex" />
-      <entry name="!?*.kt" />
-      <entry name="!?*.clj" />
-    </wildcardResourcePatterns>
-    <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
-      </profile>
-    </annotationProcessing>
-  </component>
-  <component name="CopyrightManager" default="">
-    <module2copyright />
-  </component>
-  <component name="DependencyValidationManager">
-    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
-  </component>
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
-  <component name="EntryPointsManager">
-    <entry_points version="2.0" />
-  </component>
-  <component name="ProjectCodeStyleSettingsManager">
-    <option name="PER_PROJECT_SETTINGS">
-      <value>
-        <XML>
-          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
-        </XML>
-      </value>
-    </option>
-  </component>
-  <component name="ProjectDictionaryState">
-    <dictionary name="raphcohn">
-      <words>
-        <w>extern</w>
-        <w>initializers</w>
-        <w>stdbool</w>
-        <w>stdint</w>
-        <w>transpiler</w>
-      </words>
-    </dictionary>
-  </component>
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
-      <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />
-      <module fileurl="file://$PROJECT_DIR$/samples2/samples2.iml" filepath="$PROJECT_DIR$/samples2/samples2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/samples3/samples3.iml" filepath="$PROJECT_DIR$/samples3/samples3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/transpiler/transpiler.iml" filepath="$PROJECT_DIR$/transpiler/transpiler.iml" />
-    </modules>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/../intellij" />
-  </component>
-  <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
-  </component>
-  <component name="libraryTable">
-    <library name="annotations">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/../library/annotations/7.0.3/annotations.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$PROJECT_DIR$/../library/annotations/7.0.3/src_annotations.zip!/" />
-      </SOURCES>
-    </library>
-    <library name="jopt-simple">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/4.5/jopt-simple-4.5.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/4.5/jopt-simple-4.5-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/4.5/jopt-simple-4.5-sources.jar!/" />
-      </SOURCES>
-    </library>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/annotations.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
-    <option name="annotationTypeSettings">
-      <map>
-        <entry key="ExpPriority" value="-16777216;-1;-8355712;WAVE_UNDERSCORE;0;" />
-        <entry key="HighPriority" value="-65536;-1;-65536;WAVE_UNDERSCORE;1;" />
-        <entry key="IgnorePriority" value="-16777216;-1;-8650628;WAVE_UNDERSCORE;0;" />
-        <entry key="LowPriority" value="-16777216;-1;-16711936;BOXED;0;" />
-        <entry key="NormalPriority" value="-16777216;-1;-5066240;WAVE_UNDERSCORE;2;" />
-      </map>
-    </option>
     <option name="_basePreferences">
       <map>
         <entry key="property.analysisEffortLevel" value="default" />
@@ -286,15 +208,6 @@
         <entry key="STYLE" value="true" />
       </map>
     </option>
-    <option name="_annotationTypeSettings">
-      <map>
-        <entry key="ExpPriority" value="-16777216;-1;-8355712;WAVE_UNDERSCORE;0;" />
-        <entry key="HighPriority" value="-65536;-1;-65536;WAVE_UNDERSCORE;1;" />
-        <entry key="IgnorePriority" value="-16777216;-1;-8650628;WAVE_UNDERSCORE;0;" />
-        <entry key="LowPriority" value="-16777216;-1;-16711936;BOXED;0;" />
-        <entry key="NormalPriority" value="-16777216;-1;-5066240;WAVE_UNDERSCORE;2;" />
-      </map>
-    </option>
   </component>
-</project>
+</module>
 

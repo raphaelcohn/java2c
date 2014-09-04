@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+readonly projectName="c"
+
+readonly cmake_Path="/Applications/CLion EAP.app/Contents/bin/cmake/bin/cmake"
+readonly binaryOutputFolderPath="$(pwd)"/output
+
+readonly numberOfCpus=8
+"$cmake_Path" --build "$binaryOutputFolderPath" --target "$projectName" -- --jobs "$numberOfCpus"
