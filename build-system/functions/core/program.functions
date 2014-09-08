@@ -1,0 +1,17 @@
+global_uses core.execute
+
+core_program_functions=''
+
+core_program_functionRegister()
+{
+	if [ -z "$core_program_functions" ]; then
+		core_program_functions="$1"
+	else
+		core_program_functions="$core_program_functions $1"
+	fi
+}
+
+core_program_execute()
+{
+	core_execute_functions $core_program_functions
+}

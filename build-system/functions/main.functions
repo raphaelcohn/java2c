@@ -1,16 +1,5 @@
 global_uses cpucount
 
-program_functions=''
-
-program_functionRegister()
-{
-	if [ -z "$program_functions" ]; then
-		program_functions="$1"
-	else
-		program_functions="$program_functions $1"
-	fi
-}
-
 program_functionRegister cpucount_computeMakeJobsAndLoadAverage
 
 main_prepareOutputPath()

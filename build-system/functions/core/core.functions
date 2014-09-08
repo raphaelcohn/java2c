@@ -1,1 +1,1 @@
-global_uses core.dependency core.trap core.temporaryFiles core.execute
+global_uses core.dependency core.trap core.temporaryFiles core.execute core.program

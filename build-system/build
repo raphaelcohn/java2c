@@ -362,10 +362,11 @@ exists for the detected <distributionName>. Additional path files are used for a
 	global_loadAnyConfiguration
 	global_parseCommandLine "$@"
 	
-	global_uses core program
+	global_uses core
 	core_dependency_installDependencies
 	
-	core_execute_functions $program_functions
+	global_uses main
+	core_program_execute
 }
 
 _program_helpMessage_description="Builds projects using CMake"
