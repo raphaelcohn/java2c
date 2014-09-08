@@ -1,1 +1,7 @@
 global_uses core.dependency core.trap core.temporaryFiles core.execute core.program
+
+core_which()
+{
+	local program="$1"
+	command -v "$program"
+}

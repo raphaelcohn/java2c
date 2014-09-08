@@ -1,6 +1,6 @@
 core_dependency_check_Homebrew_checkFunction()
 {
-	if which brew 1>/dev/null 2>/dev/null; then
+	if core_which brew 1>/dev/null 2>/dev/null; then
 		readonly core_dependency_distributionName="Homebrew"
 		return 0
 	fi

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 global_main()
 {
@@ -38,82 +39,22 @@ global_main()
 	# Such a critical piece is code executed before and during command line arg parsing
 	global_dirname()
 	{
-		local -r converted="${1%/*}"
+		local converted="${1%/*}"
 		if [ "$converted" = "$1" ]; then
 			echo "."
 		else
 			echo "$converted"
 		fi
 	}
-
+	
 	global_basename()
 	{
 		echo "${1##*/}"
 	}
 
-	global_setTracing()
-	{
-		# is set -x on?
-		if [[ "$-" == *x* ]]; then
-			export global_bash_tracing="yes"
-		elif [ ! -z "$global_bash_tracing" ]; then
-			if [ "$global_bash_tracing" = "yes" ]; then
-				set -x
-			fi
-		fi
-	}
-
-	global_setSaneEnvironmentDefaults()
-	{
-		set +o allexport -o braceexpand +o emacs -o errexit +o errtrace +o functrace +o hashall +o histexpand +o history +o ignoreeof -o interactive-comments +o keyword +o monitor +o noclobber +o noexec +o noglob +o nolog +o notify +o nounset +o onecmd +o physical +o pipefail +o posix +o verbose +o vi
-	
-		unset BASH_ENV
-		unset BASH_XTRACEFD
-		unset CDPATH
-		unset ENV
-		unset FCEDIT
-		unset FIGNORE
-		unset FUNCNEST
-		unset GLOBIGNORE
-		unset HISTCONTROL
-		unset HISTFILE
-		unset HISTFILESIZE
-		unset HISTIGNORE
-		unset HISTSIZE
-		unset HISTTIMEFORMAT
-		unset HOSTFILE
-		unset IGNOREEOF
-		unset INPUTRC
-		unset MAIL
-		unset MAILCHECK
-		unset MAILPATH
-		unset TMOUT
-	
-		umask 022
-	}
-
-	global_findOurNameAndPath()
-	{
-		readonly global_ourSymlinkName="$(global_basename "$0")"
-		pushd "$(global_dirname "$0")" >/dev/null
-			readonly global_ourSymlinkPath="$(pwd)"
-		popd >/dev/null
-	
-		local potentialSymlink="$0"
-		while readlink "$potentialSymlink" 1>/dev/null
-		do
-			potentialSymlink="$(readlink "$potentialSymlink")"
-		done
-
-		readonly global_ourName="$(global_basename "$potentialSymlink")"
-		pushd "$(global_dirname "$potentialSymlink")" >/dev/null
-			readonly global_ourPath="$(pwd)"
-		popd >/dev/null
-	}
-
 	global_exitError()
 	{
-		global_exitError "$1"
+		global_message FAIL "$1"
 		exit 1
 	}
 
@@ -168,9 +109,183 @@ exists for the detected <distributionName>. Additional path files are used for a
 "
 	}
 	
+	global_setTracing()
+	{
+		# is set -x on?
+		if [[ "$-" == *x* ]]; then
+			export global_bash_tracing="yes"
+		elif [ ! -z "$global_bash_tracing" ]; then
+			if [ "$global_bash_tracing" = "yes" ]; then
+				set -x
+			fi
+		fi
+	}
+	
+	_global_resolveSymlink()
+	{
+		local potentialSymlink="$0"
+		while readlink "$potentialSymlink" 1>/dev/null
+		do
+			potentialSymlink="$(readlink "$potentialSymlink")"
+		done
+		_global_resolveSymlink_result="$potentialSymlink"
+	}
+	
+	global_findOurName()
+	{
+		readonly global_ourSymlinkName="$(global_basename "$0")"
+		
+		local _global_resolveSymlink_result
+		_global_resolveSymlink
+		
+		readonly global_ourName="$(global_basename "$_global_resolveSymlink_result")"
+	}
+	
+	# Common bash-isms and bugs in dash https://wiki.ubuntu.com/DashAsBinSh
+	# Shell workarounds FAQ http://cfajohnson.com/shell/cus-faq-2.html#Q11
+	# dash echo escapes output, yuck, with no -E, it seems
+	global_detectShell()
+	{
+		read -r shebang_path shebang_shell <"$0"
+
+		if [ "$shebang_path" = '/usr/bin/env' ]; then
+			if [ -z "$shebang_shell" ]; then
+				global_exitError "All shell scripts run under env should use 'env' with a shell"
+			fi
+			global_shell="$shebang_shell"
+		else
+			global_shell="$(global_basename "$shebang_path")"
+		fi
+	}
+	
+	global_rejectShells()
+	{	
+		case "$global_shell" in
+			
+			rbash)
+				global_exitError "The shell '$global_shell' is explicitly not supported"
+			;;
+			
+			# busybox is a dash derivative
+			ash|dash)
+				global_exitError "The shell '$global_shell' should not be specified in the she-bang"
+			;;
+			
+			# tcsh is the default choice on FreeBSD, DragonFlyBSD and DesktopBSD. Unlikely that code would have worked to this point.
+			csh|tcsh)
+				global_exitError "C shells such as '$global_shell' are not supported"
+			;;
+			
+			sh|bash)
+				:
+			;;
+			
+			*)
+				global_exitError "The shell '$global_shell' is not known"
+			;;
+			
+		esac
+	}
+	
+	global_addMissingBuiltins()
+	{
+		if [ "$global_shell" = 'sh' ]; then
+			
+			global_pushdCount=0
+
+			pushd()
+			{
+				local path="$1"
+				eval "global_pushdStack${global_pushdCount}='$(pwd)'"
+				global_pushdCount=$((global_pushdCount+1))
+				cd "$path" 1>/dev/null
+			}
+
+			popd()
+			{
+				global_pushdCount=$((global_pushdCount-1))
+				eval "local path=\"\$global_pushdStack${global_pushdCount}\""
+				eval "unset global_pushdStack${global_pushdCount}"
+				cd "$path" 1>/dev/null
+			}
+			
+		fi
+	}
+	
+	global_setSaneEnvironmentDefaults()
+	{
+		if [ "$global_shell" = 'bash' ]; then
+			set -o braceexpand
+			set +o errtrace
+			set +o functrace
+			set +o hashall
+			set +o histexpand
+			set +o history
+			set -o interactive-comments
+			set +o keyword
+			set +o onecmd
+			set +o physical
+			set +o pipefail
+			set +o posix
+		fi
+		
+		set +o allexport
+		set +o emacs
+		set -o errexit
+		set +o ignoreeof
+		set +o monitor
+		set +o noclobber
+		set +o noexec
+		set +o noglob
+		set +o nolog
+		set +o notify
+		set +o nounset
+		set +o verbose
+		set +o vi
+
+		unset CDPATH
+		unset HISTSIZE
+		unset MAILCHECK
+		unset MAILPATH
+
+		if [ "$global_shell" = 'bash' ]; then
+			unset BASH_ENV
+			unset BASH_XTRACEFD
+			unset ENV
+			unset FCEDIT
+			unset FIGNORE
+			unset FUNCNEST
+			unset GLOBIGNORE
+			unset HISTCONTROL
+			unset HISTFILE
+			unset HISTFILESIZE
+			unset HISTIGNORE
+			unset HISTTIMEFORMAT
+			unset HOSTFILE
+			unset IGNOREEOF
+			unset INPUTRC
+			unset MAIL
+			unset TMOUT
+		fi
+		umask 022
+	}
+
+	global_findOurPath()
+	{
+		pushd "$(global_dirname "$0")" >/dev/null
+			readonly global_ourSymlinkPath="$(pwd)"
+		popd >/dev/null
+		
+		local _global_resolveSymlink_result
+		_global_resolveSymlink
+		
+		pushd "$(global_dirname "$_global_resolveSymlink_result")" >/dev/null
+			readonly global_ourPath="$(pwd)"
+		popd >/dev/null
+	}
+	
 	_global_initialiseGlobalConfiguration()
 	{
-		global_shell=bash
 		global_configPath="$global_ourPath"/config
 		global_functionsPath="$global_ourPath"/functions
 		global_verbosity=0
@@ -356,8 +471,12 @@ exists for the detected <distributionName>. Additional path files are used for a
 	}
 
 	global_setTracing
+	global_findOurName
+	global_detectShell
+	global_rejectShells
+	global_addMissingBuiltins
 	global_setSaneEnvironmentDefaults
-	global_findOurNameAndPath
+	global_findOurPath
 	global_initialiseConfiguration
 	global_loadAnyConfiguration
 	global_parseCommandLine "$@"
@@ -407,8 +526,10 @@ _program_parseNonOptionArguments()
 	build_projects=("$@")
 }
 
+# TODO: Not sh friendly
 _program_initialiseConfiguration()
 {
+	# TODO: Not sh friendly
 	pushd "$global_ourSymlinkPath"/source 1>/dev/null
 		build_sourcePath="$(pwd)"
 	popd 1>/dev/null
