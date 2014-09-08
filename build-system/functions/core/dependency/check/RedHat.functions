@@ -1,4 +1,4 @@
-function dependency_check_RedHat_checkFunction()
+dependency_check_RedHat_checkFunction()
 {
 	# https://github.com/coto/server-easy-install/blob/master/lib/core.sh
 	# Also /etc/SuSE-release, /etc/mandrake-release, /etc/UnitedLinux-release and /etc/debian_version
@@ -10,7 +10,7 @@ function dependency_check_RedHat_checkFunction()
 }
 dependency_check_register dependency_check_RedHat_checkFunction
 
-function dependency_check_RedHat_packageManager()
+dependency_check_RedHat_packageManager()
 {
 	dependency_check_CentOS_packageManager
 }

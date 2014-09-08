@@ -1,6 +1,6 @@
 global_uses core.dependency.check
 
-function dependency_requiresProgram()
+dependency_requiresProgram()
 {
 	local -r programName="$1"
 	shift 1
@@ -29,7 +29,7 @@ dependency_functions+=(dependency_ensureWeAreRunningBash4)
 # See Gnu config.guess http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob;f=config.guess;hb=HEAD (yuck)
 # See uname -s list at wikipedia https://en.wikipedia.org/wiki/Uname
 dependency_osFamily=''
-function dependency_determineOsFamily()
+dependency_determineOsFamily()
 {
 	case "$OSTYPE" in
 		
@@ -73,7 +73,7 @@ function dependency_determineOsFamily()
 }
 dependency_functions+=(dependency_determineOsFamily)
 
-function dependency_determineDistributionName()
+dependency_determineDistributionName()
 {
 	local dependency_check_function
 	for dependency_check_function in "${dependency_check_functions[@]}"
@@ -95,7 +95,7 @@ function dependency_determineDistributionName()
 }
 dependency_functions+=(dependency_determineDistributionName)
 
-function dependency_setUpAliases()
+dependency_setUpAliases()
 {
 	local -r pathsFile="$global_configPath"/paths.d/"$dependency_distributionName".path
 	if [ ! -f "$pathsFile" ]; then
@@ -139,7 +139,7 @@ function dependency_setUpAliases()
 }
 dependency_functions+=(dependency_setUpAliases)
 
-function dependency_installDependencies()
+dependency_installDependencies()
 {
 	local dependency_function
 	for dependency_function in "${dependency_functions[@]}"

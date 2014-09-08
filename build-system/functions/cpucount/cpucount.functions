@@ -1,7 +1,7 @@
 # Finds number of hyperthreaded CPUs (ie double number of CPUs) - ignores cpuset, etc
 dependency_requiresProgram sysctl macosx bsd
 cpucount_discoveredNumberOfCpus=0
-function cpucount_findNumberOfHyperthreadedCpus()
+cpucount_findNumberOfHyperthreadedCpus()
 {
 	# Should work under Linux and Cygwin
 	if [ -f /proc/cpuinfo ]; then
@@ -33,7 +33,7 @@ function cpucount_findNumberOfHyperthreadedCpus()
 
 cpucount_makeJobs=1
 cpucount_makeLoadAverage=1.00
-function cpucount_computeMakeJobsAndLoadAverage()
+cpucount_computeMakeJobsAndLoadAverage()
 {
 	# converts strings to 0, ie 'max' goes to 0
 	local -ir configuredCpuCount=$1

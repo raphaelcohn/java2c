@@ -2,7 +2,7 @@ global_uses cpucount
 
 _program_functions+=(cpucount_computeMakeJobsAndLoadAverage)
 
-function main_prepareOutputPath()
+main_prepareOutputPath()
 {
 	if [ -d "$build_outputPath" ]; then
 		return 0
@@ -16,7 +16,7 @@ function main_prepareOutputPath()
 }
 _program_functions+=(main_prepareOutputPath)
 
-function _main_initialiseCmake()
+_main_initialiseCmake()
 {
 	# cmake initialises whateer folder is PWD
 	pushd "$projectBuildPath" 1>/dev/null
@@ -26,7 +26,7 @@ function _main_initialiseCmake()
 	popd 1>/dev/null
 }
 
-function main_compileProjects()
+main_compileProjects()
 {
 	local project
 	local projectSourcePath

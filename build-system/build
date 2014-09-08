@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-function global_main()
+global_main()
 {
-	function global_message()
+	global_message()
 	{
 		local messageKind="$1"
 		local message="$2"
@@ -36,7 +36,7 @@ function global_main()
 	# The purpose of these functions is to provide internal implementations of logic we can't be 100%
 	# sure of exists in the environment or is implemented as we would like for critical pieces of code.
 	# Such a critical piece is code executed before and during command line arg parsing
-	function global_dirname()
+	global_dirname()
 	{
 		local -r converted="${1%/*}"
 		if [ "$converted" = "$1" ]; then
@@ -46,12 +46,12 @@ function global_main()
 		fi
 	}
 
-	function global_basename()
+	global_basename()
 	{
 		echo "${1##*/}"
 	}
 
-	function global_setTracing()
+	global_setTracing()
 	{
 		# is set -x on?
 		if [[ "$-" == *x* ]]; then
@@ -63,7 +63,7 @@ function global_main()
 		fi
 	}
 
-	function global_setSaneEnvironmentDefaults()
+	global_setSaneEnvironmentDefaults()
 	{
 		set +o allexport -o braceexpand +o emacs -o errexit +o errtrace +o functrace +o hashall +o histexpand +o history +o ignoreeof -o interactive-comments +o keyword +o monitor +o noclobber +o noexec +o noglob +o nolog +o notify +o nounset +o onecmd +o physical +o pipefail +o posix +o verbose +o vi
 	
@@ -92,7 +92,7 @@ function global_main()
 		umask 022
 	}
 
-	function global_findOurNameAndPath()
+	global_findOurNameAndPath()
 	{
 		readonly global_ourSymlinkName="$(global_basename "$0")"
 		pushd "$(global_dirname "$0")" >/dev/null
@@ -111,19 +111,19 @@ function global_main()
 		popd >/dev/null
 	}
 
-	function global_exitError()
+	global_exitError()
 	{
 		global_message FAIL "$1"
 		exit 1
 	}
 
-	function global_exitHelp()
+	global_exitHelp()
 	{
 		global_helpMessage 1>&2
 		exit 2
 	}
 
-	function global_helpMessage()
+	global_helpMessage()
 	{
 		echo -E "${global_ourName}
 $_program_helpMessage_description
@@ -168,7 +168,7 @@ exists for the detected <distributionName>. Additional path files are used for a
 "
 	}
 	
-	function _global_initialiseGlobalConfiguration()
+	_global_initialiseGlobalConfiguration()
 	{
 		global_shell=bash
 		global_configPath="$global_ourPath"/config
@@ -176,25 +176,25 @@ exists for the detected <distributionName>. Additional path files are used for a
 		global_verbosity=0
 	}
 
-	function global_initialiseConfiguration()
+	global_initialiseConfiguration()
 	{
 		_global_initialiseGlobalConfiguration
 		_program_initialiseConfiguration
 	}
 
-	function global_loadAnyConfiguration()
+	global_loadAnyConfiguration()
 	{
 		:
 	}
 
-	function global_parseCommandLine_longOption()
+	global_parseCommandLine_longOption()
 	{
 		longOptionValue="${!OPTIND}"
 		OPTIND=$((OPTIND+1))
 		longOptionName="$OPTARG"
 	}
 
-	function global_parseCommandLine_longOption_noValue()
+	global_parseCommandLine_longOption_noValue()
 	{
 		global_parseCommandLine_longOption
 		if [ -n "$longOptionValue" ]; then
@@ -202,13 +202,13 @@ exists for the detected <distributionName>. Additional path files are used for a
 		fi
 	}
 
-	function global_parseCommandLine_longOptionEquals()
+	global_parseCommandLine_longOptionEquals()
 	{
 		longOptionValue="${OPTARG#*=}"
 		longOptionName="${OPTARG%=$longOptionValue}"
 	}
 
-	function global_parseCommandLine_longOptionEquals_noValue()
+	global_parseCommandLine_longOptionEquals_noValue()
 	{
 		global_parseCommandLine_longOptionEquals
 		if [ -n "$longOptionValue" ]; then
@@ -216,14 +216,14 @@ exists for the detected <distributionName>. Additional path files are used for a
 		fi
 	}
 	
-	function global_parseCommandLine_longOptionUnknown()
+	global_parseCommandLine_longOptionUnknown()
 	{
 		if [ "$OPTERR" = 1 ] && [ "${optspec:0:1}" != ":" ]; then
 			global_message FAIL "Invalid option --${OPTARG}"
 		fi
 	}
 	
-	function global_parseCommandLine()
+	global_parseCommandLine()
 	{
 		local -r getoptsStringExtra="$1"
 		local -r getoptsString=":hv-:${getoptsStringExtra}"
@@ -291,7 +291,7 @@ exists for the detected <distributionName>. Additional path files are used for a
 	}
 	
 	global_usesAlreadySourced=()
-	function global_uses()
+	global_uses()
 	{
 		while [ $# -ne 0 ]
 		do
@@ -378,7 +378,7 @@ _program_helpMessage_argumentedOptions=""
 _program_helpMessage_argumentlessOptions=""
 _program_helpMessage_nonOptionArguments="build_projects is a list of projects to build"
 
-function _program_parseCommandLineLongOption()
+_program_parseCommandLineLongOption()
 {
 	case "$OPTARG" in
 		
@@ -389,7 +389,7 @@ function _program_parseCommandLineLongOption()
 	esac
 }
 
-function _program_parseCommandLineShortOption()
+_program_parseCommandLineShortOption()
 {
 	case "$option" in
 		
@@ -400,7 +400,7 @@ function _program_parseCommandLineShortOption()
 	esac
 }
 
-function _program_parseNonOptionArguments()
+_program_parseNonOptionArguments()
 {
 	if [ $# -eq 0 ]; then
 		global_exitError "No projects specified"
@@ -408,7 +408,7 @@ function _program_parseNonOptionArguments()
 	build_projects=("$@")
 }
 
-function _program_initialiseConfiguration()
+_program_initialiseConfiguration()
 {
 	pushd "$global_ourSymlinkPath"/source 1>/dev/null
 		build_sourcePath="$(pwd)"

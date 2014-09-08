@@ -1,4 +1,4 @@
-function dependency_check_Cygwin_checkFunction()
+dependency_check_Cygwin_checkFunction()
 {
 	if [ -x /bin/cygcheck.exe ]; then
 		readonly dependency_distributionName="Cygwin"
@@ -8,7 +8,7 @@ function dependency_check_Cygwin_checkFunction()
 }
 dependency_check_register dependency_check_Cygwin_checkFunction
 
-function dependency_check_Cygwin_packageManager()
+dependency_check_Cygwin_packageManager()
 {
 	global_message FAIL "Please run the Cygwin setup-x86.exe to install the packages $@"
 }

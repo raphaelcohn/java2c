@@ -1,4 +1,4 @@
-function dependency_check_Fedora_checkFunction()
+dependency_check_Fedora_checkFunction()
 {
 	if [ -f /etc/fedora-release ]; then
 		readonly dependency_distributionName="Fedora"
@@ -8,7 +8,7 @@ function dependency_check_Fedora_checkFunction()
 }
 dependency_check_register dependency_check_Fedora_checkFunction
 
-function dependency_check_Fedora_packageManager()
+dependency_check_Fedora_packageManager()
 {
 	dependency_check_CentOS_packageManager
 }

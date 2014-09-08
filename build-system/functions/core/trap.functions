@@ -1,4 +1,4 @@
-function trapHandlers_runAll()
+trapHandlers_runAll()
 {
 	# Done to make sure we're not got a cwd that prevents us unmounting
 	cd /
@@ -10,7 +10,7 @@ function trapHandlers_runAll()
 	done
 }
 
-function trapHandlers_addNext()
+trapHandlers_addNext()
 {
 	# INT (interrupt) is Ctrl-C
 	# EXIT is just end of program
@@ -20,12 +20,12 @@ function trapHandlers_addNext()
 	trapHandlers+=("$trapHandler")
 }
 
-function trapHandlers_removeLast()
+trapHandlers_removeLast()
 {
 	unset trapHandlers[$((${#trapHandlers[*]}-1))]
 }
 
-function trap_addOnCleanUp()
+trap_addOnCleanUp()
 {
 	trap_addOnTrapEXIT "$1"
 	trap_addOnTrapINT "$1"
@@ -36,7 +36,7 @@ function trap_addOnCleanUp()
 	trap_addOnTrapPIPE "$1"
 }
 
-function _trap_executeOnTrap()
+_trap_executeOnTrap()
 {
 	local handler
 	for handler in "$@"
@@ -47,12 +47,12 @@ function _trap_executeOnTrap()
 
 trap_handlersEXIT=()
 
-function trap_executeOnTrapEXIT()
+trap_executeOnTrapEXIT()
 {
 	_trap_executeOnTrap "${trap_handlersEXIT[@]}"
 }
 
-function trap_addOnTrapEXIT()
+trap_addOnTrapEXIT()
 {
 	local -r handler="$1"
 	trap_handlersEXIT+=("$handler")
@@ -62,12 +62,12 @@ trap trap_executeOnTrapEXIT EXIT
 
 #trap_handlersDEBUG=()
 #
-#function trap_executeOnTrapDEBUG()
+#trap_executeOnTrapDEBUG()
 #{
 #	_trap_executeOnTrap "${trap_handlersDEBUG[@]}"
 #}
 
-#function trap_addOnTrapDEBUG()
+#trap_addOnTrapDEBUG()
 #{
 #	local -r handler="$1"
 #	trap_handlersDEBUG+=("$handler")
@@ -77,12 +77,12 @@ trap trap_executeOnTrapEXIT EXIT
 
 trap_handlersHUP=()
 
-function trap_executeOnTrapHUP()
+trap_executeOnTrapHUP()
 {
 	_trap_executeOnTrap "${trap_handlersHUP[@]}"
 }
 
-function trap_addOnTrapHUP()
+trap_addOnTrapHUP()
 {
 	local -r handler="$1"
 	trap_handlersHUP+=("$handler")
@@ -93,12 +93,12 @@ trap trap_executeOnTrapHUP HUP
 # Ctrl-C: terminate gracefully
 trap_handlersINT=()
 
-function trap_executeOnTrapINT()
+trap_executeOnTrapINT()
 {
 	_trap_executeOnTrap "${trap_handlersINT[@]}"
 }
 
-function trap_addOnTrapINT()
+trap_addOnTrapINT()
 {
 	local -r handler="$1"
 	trap_handlersINT+=("$handler")
@@ -109,12 +109,12 @@ trap trap_executeOnTrapINT INT
 # Ctrl-\: terminate and dump core
 trap_handlersQUIT=()
 
-function trap_executeOnTrapQUIT()
+trap_executeOnTrapQUIT()
 {
 	_trap_executeOnTrap "${trap_handlersQUIT[@]}"
 }
 
-function trap_addOnTrapQUIT()
+trap_addOnTrapQUIT()
 {
 	local -r handler="$1"
 	trap_handlersQUIT+=("$handler")
@@ -126,12 +126,12 @@ trap trap_executeOnTrapQUIT QUIT
 
 trap_handlersABRT=()
 
-function trap_executeOnTrapABRT()
+trap_executeOnTrapABRT()
 {
 	_trap_executeOnTrap "${trap_handlersABRT[@]}"
 }
 
-function trap_addOnTrapABRT()
+trap_addOnTrapABRT()
 {
 	local -r handler="$1"
 	trap_handlersABRT+=("$handler")
@@ -143,12 +143,12 @@ trap trap_executeOnTrapABRT ABRT
 
 trap_handlersPIPE=()
 
-function trap_executeOnTrapPIPE()
+trap_executeOnTrapPIPE()
 {
 	_trap_executeOnTrap "${trap_handlersPIPE[@]}"
 }
 
-function trap_addOnTrapPIPE()
+trap_addOnTrapPIPE()
 {
 	local -r handler="$1"
 	trap_handlersPIPE+=("$handler")
@@ -160,12 +160,12 @@ trap trap_executeOnTrapPIPE PIPE
 
 trap_handlersTERM=()
 
-function trap_executeOnTrapTERM()
+trap_executeOnTrapTERM()
 {
 	_trap_executeOnTrap "${trap_handlersTERM[@]}"
 }
 
-function trap_addOnTrapTERM()
+trap_addOnTrapTERM()
 {
 	local -r handler="$1"
 	trap_handlersTERM+=("$handler")
@@ -178,12 +178,12 @@ trap trap_executeOnTrapTERM TERM
 # Ctrl-Z: suspend execution
 trap_handlersTSTP=()
 
-function trap_executeOnTrapTSTP()
+trap_executeOnTrapTSTP()
 {
 	_trap_executeOnTrap "${trap_handlersTSTP[@]}"
 }
 
-function trap_addOnTrapTSTP()
+trap_addOnTrapTSTP()
 {
 	local -r handler="$1"
 	trap_handlersTSTP+=("$handler")
@@ -196,12 +196,12 @@ trap trap_executeOnTrapTSTP TSTP
 # Ctrl-T sends INFO
 trap_handlersINFO=()
 
-function trap_executeOnTrapINFO()
+trap_executeOnTrapINFO()
 {
 	_trap_executeOnTrap "${trap_handlersINFO[@]}"
 }
 
-function trap_addOnTrapINFO()
+trap_addOnTrapINFO()
 {
 	local -r handler="$1"
 	trap_handlersINFO+=("$handler")

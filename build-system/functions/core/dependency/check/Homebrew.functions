@@ -1,4 +1,4 @@
-function dependency_check_Homebrew_checkFunction()
+dependency_check_Homebrew_checkFunction()
 {
 	if which brew 1>/dev/null 2>/dev/null; then
 		readonly dependency_distributionName="Homebrew"
@@ -8,7 +8,7 @@ function dependency_check_Homebrew_checkFunction()
 }
 dependency_check_register dependency_check_Homebrew_checkFunction
 
-function dependency_check_Homebrew_packageManager()
+dependency_check_Homebrew_packageManager()
 {
 	# eg diffutils, openssh, awk
 	brew tap homebrew/dupes 1>/dev/null 2>/dev/null
