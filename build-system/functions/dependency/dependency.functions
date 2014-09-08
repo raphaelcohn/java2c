@@ -1,5 +1,16 @@
 global_uses dependency.check
 
+function dependency_requiresProgram()
+{
+	local -r programName="$1"
+	shift 1
+	local operatingSystem
+	for operatingSystem in "$@"
+	do
+		:
+	done
+}
+
 dependency_functions=()
 
 function dependency_ensureWeAreRunningBash4()
@@ -9,6 +20,58 @@ function dependency_ensureWeAreRunningBash4()
 	fi
 }
 dependency_functions+=(dependency_ensureWeAreRunningBash4)
+
+# Also MACHTYPE
+# Also HOSTTYPE
+# Also OSTYPE
+# Also uname -s
+# See Gnu shtool http://www.gnu.org/software/shtool/ (slow)
+# See Gnu config.guess http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob;f=config.guess;hb=HEAD (yuck)
+# See uname -s list at wikipedia https://en.wikipedia.org/wiki/Uname
+dependency_osFamily=''
+function dependency_determineOsFamily()
+{
+	case "$OSTYPE" in
+		
+		cygwin)
+			dependency_osFamily=cygwin
+		;;
+		
+		# eg linux-gnu
+		linux*)
+			dependency_osFamily=linux
+		;;
+		
+		# Part of MinGW, eg Git Bash and msysGit
+		msys)
+			dependency_osFamily=msys
+		;;
+		
+		# darwin12 [Mountain Lion], darwin9.0 [Leopard]
+		darwin*)
+			dependency_osFamily=macosx
+		;;
+		
+		# ?
+		solaris*)
+			dependency_osFamily=solaris
+		;;
+		
+		# ?
+		# netbsd is known; freebsd et al are guesses
+		netbsd|freebsd|openbsd)
+			dependency_osFamily=bsd
+		;;
+		
+		*)
+			dependency_osFamily="$OSTYPE"
+		;;
+		
+	esac
+	
+	# the ostype windows is also reserved but isn't obviously useful
+}
+dependency_functions+=(dependency_determineOsFamily)
 
 function dependency_determineDistributionName()
 {

@@ -1,3 +1,9 @@
+global_uses cpucount
+
+main_functions=()
+
+main_functions+=(cpucount_computeMakeJobsAndLoadAverage)
+
 function main_prepareOutputPath()
 {
 	if [ -d "$build_outputPath" ]; then
@@ -9,6 +15,17 @@ function main_prepareOutputPath()
 	fi
 	
 	mkdir -m 0755 -p "$build_outputPath"
+}
+main_functions+=(main_prepareOutputPath)
+
+function _main_initialiseCmake()
+{
+	# cmake initialises whateer folder is PWD
+	pushd "$projectBuildPath" 1>/dev/null
+		
+		cmake "$projectSourcePath" 1>"$projectBuildPath"/cmake.config.txt 2>/dev/null
+		
+	popd 1>/dev/null
 }
 
 function main_compileProjects()
@@ -29,13 +46,19 @@ function main_compileProjects()
 		fi
 		mkdir -m 0755 -p "$projectBuildPath"
 		
-		pushd "$projectBuildPath" 1>/dev/null
-			
-			cmake "$projectSourcePath" 1>"$projectBuildPath"/cmake.config.txt 2>/dev/null
-			
-		popd 1>/dev/null
+		_main_initialiseCmake
 
 		# target could be 'clean', or we could clean first, with --clean-first
-		cmake --build "$projectBuildPath" --target "$project" --clean-first --use-stderr -- --jobs "$build_numberOfCpus" --load-average "$build_loadAverage"
+		cmake --build "$projectBuildPath" --target "$project" --clean-first --use-stderr -- --jobs "$cpucount_makeJobs" --load-average "$cpucount_makeLoadAverage"
+	done
+}
+main_functions+=(main_compileProjects)
+
+function main_execute()
+{
+	local main_function
+	for main_function in "${main_functions[@]}"
+	do
+		$main_function
 	done
 }

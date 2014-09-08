@@ -6,11 +6,16 @@ cmake_minimum_required(VERSION 2.8.4)
 # 3: set(CMAKE_C_COMPILER "gcc-4.2")
 # 3: set(CMAKE_CXX_COMPILER "/usr/bin/g++-4.2")
 
-project(c)
+project
+(
+c
+)
+
+add_definitions(-std=c99)
 
 # Setting variables
 set(java2c_VERSION 1234)
-message("$ENV{PATH}")
+message("Hello $(ENV{PATH}) World")
 set($ENV{HELLO} "world")
 # set(CMAKE_CXX_FLAGS "-g -Wall")
 
@@ -33,5 +38,9 @@ include_directories("output")
 
 #include_directories("/usr/local/Cellar/gcc/4.9.1//lib/gcc/x86_64-apple-darwin12.0.0/4.9.1/include")
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES
+main.cpp
+java_lang_Object.c
+)
+
 add_executable(c ${SOURCE_FILES})

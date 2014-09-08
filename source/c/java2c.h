@@ -15,6 +15,10 @@
 
 java2c_ExternCStart
 
+typedef void (*java2c_functionPointer)(void);
+
+// reserved methods available to us include
+// super, this, new, do, while, for, strictfp, float, double, int, long, void, etc
 
 java2c_ExternCEnd
 

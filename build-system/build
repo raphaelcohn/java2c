@@ -1,115 +1,330 @@
 #!/usr/bin/env bash
 
-function global_message()
+function global_main()
 {
-	local messageKind="$1"
-	local message="$2"
+	function global_message()
+	{
+		local messageKind="$1"
+		local message="$2"
 	
-	case "$messageKind" in
+		case "$messageKind" in
 		
-		WARN|FAIL|PASS)
-			echo "$global_ourName: $messageKind: $message" 1>&2
-			if [ "$messageKind" = "FAIL" ]; then
-				exit 1
-			fi
-		;;
-		
-		INFO)
-			if [ $global_verbosity -gt 0 ]; then
+			WARN|FAIL|PASS)
 				echo "$global_ourName: $messageKind: $message" 1>&2
-			fi
-		;;
+			;;
 		
-		DEBUG)
-			if [ $global_verbosity -gt 1 ]; then
+			INFO)
+				if [ $global_verbosity -gt 0 ]; then
+					echo "$global_ourName: $messageKind: $message" 1>&2
+				fi
+			;;
+		
+			DEBUG)
+				if [ $global_verbosity -gt 1 ]; then
+					echo "$global_ourName: $messageKind: $message" 1>&2
+				fi
+			;;
+		
+			*)
 				echo "$global_ourName: $messageKind: $message" 1>&2
-			fi
-		;;
-		
-		*)
-			echo "$global_ourName: $messageKind: $message" 1>&2
-			exit 3
-		;;
+				exit 3
+			;;
 	
-	esac
-}
+		esac
+	}
 
-# The purpose of these functions is to provide internal implementations of logic we can't be 100%
-# sure of exists in the environment or is implemented as we would like for critical pieces of code.
-# Such a critical piece is code executed before and during command line arg parsing
-function global_dirname()
-{
-	local -r converted="${1%/*}"
-	if [ "$converted" = "$1" ]; then
-		echo "."
-	else
-		echo "$converted"
-	fi
-}
-
-function global_basename()
-{
-	echo "${1##*/}"
-}
-
-function build_setDebugging()
-{
-	# is set -x on?
-	if [[ "$-" == *x* ]]; then
-		export build_bash_tracing="yes"
-	elif [ ! -z "$build_bash_tracing" ]; then
-		if [ "$build_bash_tracing" = "yes" ]; then
-			set -x
+	# The purpose of these functions is to provide internal implementations of logic we can't be 100%
+	# sure of exists in the environment or is implemented as we would like for critical pieces of code.
+	# Such a critical piece is code executed before and during command line arg parsing
+	function global_dirname()
+	{
+		local -r converted="${1%/*}"
+		if [ "$converted" = "$1" ]; then
+			echo "."
+		else
+			echo "$converted"
 		fi
-	fi
-}
+	}
 
-function build_setSaneEnvironmentDefaults()
-{
-	set +o allexport -o braceexpand +o emacs -o errexit +o errtrace +o functrace +o hashall +o histexpand +o history +o ignoreeof -o interactive-comments +o keyword +o monitor +o noclobber +o noexec +o noglob +o nolog +o notify +o nounset +o onecmd +o physical +o pipefail +o posix +o verbose +o vi
+	function global_basename()
+	{
+		echo "${1##*/}"
+	}
+
+	function global_setDebugging()
+	{
+		# is set -x on?
+		if [[ "$-" == *x* ]]; then
+			export build_bash_tracing="yes"
+		elif [ ! -z "$build_bash_tracing" ]; then
+			if [ "$build_bash_tracing" = "yes" ]; then
+				set -x
+			fi
+		fi
+	}
+
+	function global_setSaneEnvironmentDefaults()
+	{
+		set +o allexport -o braceexpand +o emacs -o errexit +o errtrace +o functrace +o hashall +o histexpand +o history +o ignoreeof -o interactive-comments +o keyword +o monitor +o noclobber +o noexec +o noglob +o nolog +o notify +o nounset +o onecmd +o physical +o pipefail +o posix +o verbose +o vi
 	
-	unset BASH_ENV
-	unset BASH_XTRACEFD
-	unset CDPATH
-	unset ENV
-	unset FCEDIT
-	unset FIGNORE
-	unset FUNCNEST
-	unset GLOBIGNORE
-	unset HISTCONTROL
-	unset HISTFILE
-	unset HISTFILESIZE
-	unset HISTIGNORE
-	unset HISTSIZE
-	unset HISTTIMEFORMAT
-	unset HOSTFILE
-	unset IGNOREEOF
-	unset INPUTRC
-	unset MAIL
-	unset MAILCHECK
-	unset MAILPATH
-	unset TMOUT
+		unset BASH_ENV
+		unset BASH_XTRACEFD
+		unset CDPATH
+		unset ENV
+		unset FCEDIT
+		unset FIGNORE
+		unset FUNCNEST
+		unset GLOBIGNORE
+		unset HISTCONTROL
+		unset HISTFILE
+		unset HISTFILESIZE
+		unset HISTIGNORE
+		unset HISTSIZE
+		unset HISTTIMEFORMAT
+		unset HOSTFILE
+		unset IGNOREEOF
+		unset INPUTRC
+		unset MAIL
+		unset MAILCHECK
+		unset MAILPATH
+		unset TMOUT
 	
-	umask 022
+		umask 022
+	}
+
+	function global_findOurNameAndPath()
+	{
+		readonly global_ourSymlinkName="$(global_basename "$0")"
+		pushd "$(global_dirname "$0")" >/dev/null
+			readonly global_ourSymlinkPath="$(pwd)"
+		popd >/dev/null
+	
+		local potentialSymlink="$0"
+		while readlink "$potentialSymlink" 1>/dev/null
+		do
+			potentialSymlink="$(readlink "$potentialSymlink")"
+		done
+
+		readonly global_ourName="$(global_basename "$potentialSymlink")"
+		pushd "$(global_dirname "$potentialSymlink")" >/dev/null
+			readonly global_ourPath="$(pwd)"
+		popd >/dev/null
+	}
+
+	function global_exitError()
+	{
+		global_message FAIL "$1"
+		exit 1
+	}
+
+	function global_exitHelp()
+	{
+		_program_helpMessage 1>&2
+		exit 2
+	}
+
+	function _global_initialiseGlobalConfiguration()
+	{
+		global_shell=bash
+		global_configPath="$global_ourPath"/config
+		global_functionsPath="$global_ourPath"/functions
+		global_verbosity=0
+	}
+
+	function global_initialiseConfiguration()
+	{
+		_global_initialiseGlobalConfiguration
+		_program_initialiseConfiguration
+	}
+
+	function global_loadAnyConfiguration()
+	{
+		:
+	}
+
+	function global_parseCommandLine_longOption()
+	{
+		longOptionValue="${!OPTIND}"
+		OPTIND=$((OPTIND+1))
+		longOptionName="$OPTARG"
+	}
+
+	function global_parseCommandLine_longOption_noValue()
+	{
+		global_parseCommandLine_longOption
+		if [ -n "$longOptionValue" ]; then
+			global_message FAIL "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
+		fi
+	}
+
+	function global_parseCommandLine_longOptionEquals()
+	{
+		longOptionValue="${OPTARG#*=}"
+		longOptionName="${OPTARG%=$longOptionValue}"
+	}
+
+	function global_parseCommandLine_longOptionEquals_noValue()
+	{
+		global_parseCommandLine_longOptionEquals
+		if [ -n "$longOptionValue" ]; then
+			global_message FAIL "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
+		fi
+	}
+	
+	function global_parseCommandLine_longOptionUnknown()
+	{
+		if [ "$OPTERR" = 1 ] && [ "${optspec:0:1}" != ":" ]; then
+			global_message FAIL "Invalid option --${OPTARG}"
+		fi
+	}
+	
+	function global_parseCommandLine()
+	{
+		local -r getoptsStringExtra="$1"
+		local -r getoptsString=":hv-:${getoptsStringExtra}"
+
+		local OPTERR=1
+		local OPTIND=1
+		local OPTARG
+		local option
+		local longOptionValue
+		local longOptionName
+		while getopts "$getoptsString" option
+		do
+			# https://stackoverflow.com/questions/402377/using-getopts-in-bash-shell-script-to-get-long-and-short-command-line-options/7680682
+			case "$option" in
+			
+				-)
+					case "$OPTARG" in
+					
+						help)
+							global_parseCommandLine_longOption_noValue
+							global_exitHelp
+						;;
+					
+						help=*)
+							global_parseCommandLine_longOptionEquals_noValue
+						;;
+					
+						verbose)
+							global_parseCommandLine_longOption_noValue
+							global_verbosity=$((global_verbosity+1))
+						;;
+					
+						verbose=*)
+							global_parseCommandLine_longOptionEquals_noValue
+						;;
+					
+						*)
+							_program_parseCommandLineLongOption
+						;;
+					
+					esac
+				;;
+			
+				h)
+					global_exitHelp
+				;;
+			
+				v)
+					global_verbosity=$((global_verbosity+1))
+				;;
+			
+				'?')
+					global_exitError "Invalid option -${OPTARG}"
+				;;
+			
+				*)
+					_program_parseCommandLineShortOption
+				;;
+			
+			esac
+		done
+	
+		shift $((OPTIND - 1))
+		_program_parseNonOptionArguments
+	}
+	
+	global_usesAlreadySourced=()
+	function global_uses()
+	{
+		while [ $# -ne 0 ]
+		do
+			local functionFileName="$1"
+		
+			local alreadySourcedFunctionFileName
+			local -i sourced=0
+			for alreadySourcedFunctionFileName in "${global_usesAlreadySourced[@]}"
+			do
+				if [ "$alreadySourcedFunctionFileName" = "$functionFileName" ]; then
+					sourced=1
+					break
+				fi
+			done
+			if [ $sourced -eq 1 ]; then
+				continue
+			fi
+			build_global_usesAlreadySourced+=("$functionFileName")
+			
+			local dotsToPathSlashes="${functionFileName//.//}"
+			local functionsFilePath="$global_functionsPath"/"$dotsToPathSlashes".functions
+			local functionsShellSpecificFilePath="$global_functionsPath"/"$dotsToPathSlashes"."$global_shell".functions
+			if [ -f "$functionsFilePath" ]; then
+				source "$functionsFilePath"
+				if [ -f "$functionsShellSpecificFilePath" ]; then
+					source "$functionsShellSpecificFilePath"
+				fi
+				local autoload="$global_functionsPath"/"$dotsToPathSlashes"
+				if [ -d "$autoload" ]; then
+					pushd "$autoload" 1>/dev/null
+					
+						for functionsFilePath in *.functions
+						do
+							local withoutFunctionsExtension="${functionsFilePath%.*}"
+							local withoutShellExtensionIfAny="${withoutFunctionsExtension%.*}"
+							if [ "$withoutShellExtensionIfAny"."$global_shell".functions = "$functionsFilePath" ]; then
+								# Is a shell function file - ignore
+								:
+							else
+								source "$functionsFilePath"
+								local shellExtensionFunctionFilePath="$withoutFunctionsExtension"."$global_shell".functions
+								if [ -f "$shellExtensionFunctionFilePath" ]; then
+									source "$shellExtensionFunctionFilePath"
+								fi
+							fi
+						done
+				
+					popd 1>/dev/null
+				fi
+			else
+				local finalPiece="$(global_basename "$dotsToPathSlashes")"
+				functionsFilePath="$global_functionsPath"/"$dotsToPathSlashes"/"$finalPiece".functions
+				functionsShellSpecificFilePath="$global_functionsPath"/"$dotsToPathSlashes"/"$finalPiece"."$global_shell".functions
+				source "$functionsFilePath"
+				if [ -f "$functionsShellSpecificFilePath" ]; then
+					source "$functionsShellSpecificFilePath"
+				fi
+			fi
+			shift 1
+		done
+	}
+
+	global_setDebugging
+	global_setSaneEnvironmentDefaults
+	global_findOurNameAndPath
+	global_initialiseConfiguration
+	global_loadAnyConfiguration
+	global_parseCommandLine "$@"
+	
+	global_uses dependency trap temporaryFiles main
+	dependency_installDependencies
+	main_execute
 }
 
-function build_findOurNameAndPath()
-{
-	readonly global_ourName="$(global_basename "$0")"
-	pushd "$(global_dirname "$0")" >/dev/null
-		readonly global_ourPath="$(pwd)"
-	popd >/dev/null
-}
-
-function build_exitError()
-{
-	global_message FAIL "$1"
-}
-
-function build_exitHelp()
+function _program_helpMessage()
 {
 	echo -n -E "Usage 1: ${global_ourName} -h|--help
-Usage 2: ${global_ourName} [-v|--verbose] -- [projects...]
+Usage 2: ${global_ourName} [-v|--verbose] -- [build_projects...]
 
 Usages
     1       Show Help
@@ -124,208 +339,50 @@ Argumented Switches
     Switch  Default
     --      End of arguments, beginning of projects
 
+Non-Option Arguments
+build_projects is the list of projects to build
+
 Path Files
 A path file is used to define the location of essential programs used during initial bootstrapping. It also defines a packageManager
 to automatically install any missing dependencies. Paths are used if a file <global_configPath>/paths.d/<distributionName>
 exists for the detected <distributionName>. Additional path files are used for a chosen backend
-" 1>&2
-	exit 2
+"
 }
 
-function build_loadAnyConfiguration()
+function _program_parseCommandLineLongOption()
 {
-	global_shell=bash
-	global_configPath="$global_ourPath"/config
-	global_functionsPath="$global_ourPath"/functions
-	global_verbosity=0
-	
-	pushd "$global_ourPath"/../source 1>/dev/null
-		build_sourcePath="$(pwd)"
-	popd 1>/dev/null
-	# May not exist
-	build_outputPath="$global_ourPath"/../output
-	build_numberOfCpus=8
-	build_loadAverage=7.80
+	case "$OPTARG" in
+		
+		*)
+			global_parseCommandLine_longOptionUnknown
+		;;
+		
+	esac
 }
 
-function build_parseCommandLine()
+function _program_parseCommandLineShortOption()
 {
-	function build_parseCommandLine_longOption()
-	{
-		longOptionValue="${!OPTIND}"
-		OPTIND=$((OPTIND+1))
-		longOptionName="$OPTARG"
-	}
-	
-	function build_parseCommandLine_longOption_noValue()
-	{
-		build_parseCommandLine_longOption
-		if [ -n "$longOptionValue" ]; then
-			global_message FAIL "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
-		fi
-	}
-	
-	function build_parseCommandLine_longOptionEquals()
-	{
-		longOptionValue="${OPTARG#*=}"
-		longOptionName="${OPTARG%=$longOptionValue}"
-	}
-	
-	function build_parseCommandLine_longOptionEquals_noValue()
-	{
-		build_parseCommandLine_longOptionEquals
-		if [ -n "$longOptionValue" ]; then
-			global_message FAIL "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
-		fi
-	}
-	
-	local OPTERR=1
-	local OPTIND=1
-	local OPTARG
-	local option
-	local longOptionValue
-	local longOptionName
-	while getopts :hv-: option
-	do
-		# https://stackoverflow.com/questions/402377/using-getopts-in-bash-shell-script-to-get-long-and-short-command-line-options/7680682
-		case "$option" in
-			
-			-)
-				case "$OPTARG" in
-					
-					help)
-						build_parseCommandLine_longOption_noValue
-						build_exitHelp
-					;;
-					
-					help=*)
-						build_parseCommandLine_longOptionEquals_noValue
-					;;
-					
-					verbose)
-						build_parseCommandLine_longOption_noValue
-						global_verbosity=$((global_verbosity+1))
-					;;
-					
-					verbose=*)
-						build_parseCommandLine_longOptionEquals_noValue
-					;;
-					
-					*)
-						if [ "$OPTERR" = 1 ] && [ "${optspec:0:1}" != ":" ]; then
-							global_message FAIL "Invalid option --${OPTARG}"
-						fi
-					;;
-					
-				esac
-			;;
-			
-			h)
-				build_exitHelp
-			;;
-			
-			v)
-				global_verbosity=$((global_verbosity+1))
-			;;
-			
-			'?')
-				global_message FAIL "Invalid option -${OPTARG}"
-			;;
-			
-		esac
-	done
-	
-	shift $((OPTIND - 1))
+	case "$option" in
+		
+		*)
+			:
+		;;
+		
+	esac
+}
 
+function _program_parseNonOptionArguments()
+{
 	build_projects=("$@")
 }
 
-global_usesAlreadySourced=()
-
-function global_uses()
+function _program_initialiseConfiguration()
 {
-	while [ $# -ne 0 ]
-	do
-		local functionFileName="$1"
-		
-		local alreadySourcedFunctionFileName
-		local -i sourced=0
-		for alreadySourcedFunctionFileName in "${global_usesAlreadySourced[@]}"
-		do
-			if [ "$alreadySourcedFunctionFileName" = "$functionFileName" ]; then
-				sourced=1
-				break
-			fi
-		done
-		if [ $sourced -eq 1 ]; then
-			continue
-		fi
-		build_global_usesAlreadySourced+=("$functionFileName")
-			
-		local dotsToPathSlashes="${functionFileName//.//}"
-		local functionsFilePath="$global_functionsPath"/"$dotsToPathSlashes".functions
-		local functionsShellSpecificFilePath="$global_functionsPath"/"$dotsToPathSlashes"."$global_shell".functions
-		if [ -f "$functionsFilePath" ]; then
-			source "$functionsFilePath"
-			if [ -f "$functionsShellSpecificFilePath" ]; then
-				source "$functionsShellSpecificFilePath"
-			fi
-			local autoload="$global_functionsPath"/"$dotsToPathSlashes"
-			if [ -d "$autoload" ]; then
-				pushd "$autoload" 1>/dev/null
-					
-					for functionsFilePath in *.functions
-					do
-						local withoutFunctionsExtension="${functionsFilePath%.*}"
-						local withoutShellExtensionIfAny="${withoutFunctionsExtension%.*}"
-						if [ "$withoutShellExtensionIfAny"."$global_shell".functions = "$functionsFilePath" ]; then
-							# Is a shell function file - ignore
-							:
-						else
-							source "$functionsFilePath"
-							local shellExtensionFunctionFilePath="$withoutFunctionsExtension"."$global_shell".functions
-							if [ -f "$shellExtensionFunctionFilePath" ]; then
-								source "$shellExtensionFunctionFilePath"
-							fi
-						fi
-					done
-				
-				popd 1>/dev/null
-			fi
-		else
-			local finalPiece="$(global_basename "$dotsToPathSlashes")"
-			functionsFilePath="$global_functionsPath"/"$dotsToPathSlashes"/"$finalPiece".functions
-			functionsShellSpecificFilePath="$global_functionsPath"/"$dotsToPathSlashes"/"$finalPiece"."$global_shell".functions
-			source "$functionsFilePath"
-			if [ -f "$functionsShellSpecificFilePath" ]; then
-				source "$functionsShellSpecificFilePath"
-			fi
-		fi
-		shift 1
-	done
+	pushd "$global_ourSymlinkPath"/source 1>/dev/null
+		build_sourcePath="$(pwd)"
+	popd 1>/dev/null
+	# May not exist
+	build_outputPath="$global_ourSymlinkPath"/output
 }
 
-function build_main()
-{
-	build_setDebugging
-	build_setSaneEnvironmentDefaults
-	build_findOurNameAndPath
-	build_loadAnyConfiguration
-	build_parseCommandLine "$@"
-	
-	global_uses dependency trap temporaryFiles main
-	dependency_installDependencies
-	
-	main_prepareOutputPath
-	main_compileProjects
-}
-
-build_main "$@"
-exit 0
-
-
-
-
-
-
-
+global_main "$@"

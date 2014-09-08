@@ -2,6 +2,7 @@
 #include <pthread.h>
 // just <time.h> on Linux
 #include <sys/time.h>
+#include <stdbool.h>
 java2c_ExternCStart
 
 // native, final, generic
@@ -16,7 +17,7 @@ uint32_t java_lang_Object_hashCode(java_lang_Object * const this)
 	return (uint32_t) this;
 }
 
-_Bool java_lang_Object_equals(java_lang_Object * const this, java_lang_Object * const obj)
+bool java_lang_Object_equals(java_lang_Object * const this, java_lang_Object * const obj)
 {
 	return (this == obj);
 }
@@ -24,7 +25,7 @@ _Bool java_lang_Object_equals(java_lang_Object * const this, java_lang_Object * 
 // protected
 java_lang_Object * const java_lang_Object_clone(java_lang_Object * const this)
 {
-	throw new CloneNoteSupportedException();
+	//throw new CloneNoteSupportedException();
 }
 
 java_lang_String * const java_lang_Object_toString(java_lang_Object * const this)
@@ -62,12 +63,12 @@ void java_lang_Object_wait$A(java_lang_Object * const this, uint64_t timeout, ui
 
 	if (timeout < 0)
 	{
-		throw new IllegalArgumentException("timeout value is negative");
+		//throw new IllegalArgumentException("timeout value is negative");
 	}
 
 	if (nanos < 0 || nanos > 999999)
 	{
-		throw new IllegalArgumentException("nanosecond timeout value out of range");
+		//throw new IllegalArgumentException("nanosecond timeout value out of range");
 	}
 
 	struct timeval now;
@@ -95,11 +96,11 @@ void java_lang_Object_wait$B(java_lang_Object * const this)
 	{
 		pthread_mutex_t mutex = __atomic_load_n(&(this->$mutex), __ATOMIC_CONSUME);
 
-	} while()
+	} while(0);
 
 
 	// needs atomics
-	this->synchronisationInitialised
+	//this->synchronisationInitialised
 
 	pthread_mutex_t instanceMutexVariable = PTHREAD_MUTEX_INITIALIZER;
 	pthread_cond_t instanceCondVariable = PTHREAD_COND_INITIALIZER;
