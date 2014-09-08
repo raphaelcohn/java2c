@@ -119,10 +119,55 @@ function global_main()
 
 	function global_exitHelp()
 	{
-		_program_helpMessage 1>&2
+		global_helpMessage 1>&2
 		exit 2
 	}
 
+	function global_helpMessage()
+	{
+		echo -E "${global_ourName}
+$_program_helpMessage_description
+
+Usage 1: ${global_ourName} -h|--help
+Usage 2: ${global_ourName} [-v|--verbose]${_program_helpMessage_optionsAndNonOptions}
+
+Usages
+    1       Show Help
+    2       $_program_helpMessage_usageMessage
+
+Options without Argments
+    Switch  Long-Switch  Explanation            Default
+    -h      --help       show this help
+    -v      --verbose    be more verbose        ${global_verbosity}"
+
+		if [ -n "$_program_helpMessage_argumentedOptions" ]; then
+			echo -E "$_program_helpMessage_argumentedOptions"
+		else
+			echo -E ""
+		fi
+	
+		if [ -n "$_program_helpMessage_argumentlessOptions" ]; then
+			echo -E "Options with Arguments
+Switch  Default
+$_program_helpMessage_argumentlessOptions"
+		else
+			:
+		fi
+	
+		if [ -n "$_program_helpMessage_nonOptionArguments" ]; then
+			echo -E "Non-Options
+$_program_helpMessage_nonOptionArguments
+Specify -- before the non-options to separate them from option arguments"
+		fi
+
+		echo -E "
+Path Files
+A path file is used to define the location of essential programs used during initial bootstrapping. It also defines a packageManager
+to automatically install any missing dependencies. Paths are used if a file <global_configPath>/paths.d/<distributionName>
+exists for the detected <distributionName>. Additional path files are used for a chosen backend.
+"
+	}
+	
 	function _global_initialiseGlobalConfiguration()
 	{
 		global_shell=bash
@@ -316,38 +361,22 @@ function global_main()
 	global_loadAnyConfiguration
 	global_parseCommandLine "$@"
 	
-	global_uses core main
+	# TODO: Not sh friendly
+	_program_functions=()
+	
+	global_uses core program
 	dependency_installDependencies
-	main_execute
+	
+	# TODO: Not sh friendly
+	execute_functions "${_program_functions[@]}"
 }
 
-function _program_helpMessage()
-{
-	echo -n -E "Usage 1: ${global_ourName} -h|--help
-Usage 2: ${global_ourName} [-v|--verbose] -- [build_projects...]
-
-Usages
-    1       Show Help
-    2       Build projects
-
-Argument-less Switches
-    Switch  Long-Switch  Explanation            Default
-    -h      --help       show this help
-    -v      --verbose    be more verbose        ${global_verbosity}
-
-Argumented Switches
-    Switch  Default
-    --      End of arguments, beginning of projects
-
-Non-Option Arguments
-build_projects is the list of projects to build
-
-Path Files
-A path file is used to define the location of essential programs used during initial bootstrapping. It also defines a packageManager
-to automatically install any missing dependencies. Paths are used if a file <global_configPath>/paths.d/<distributionName>
-exists for the detected <distributionName>. Additional path files are used for a chosen backend
-"
-}
+_program_helpMessage_description="Builds projects using CMake"
+_program_helpMessage_optionsAndNonOptions=" -- [build_projects...]"
+_program_helpMessage_usageMessage="Build projects"
+_program_helpMessage_argumentedOptions=""
+_program_helpMessage_argumentlessOptions=""
+_program_helpMessage_nonOptionArguments="build_projects is a list of projects to build"
 
 function _program_parseCommandLineLongOption()
 {

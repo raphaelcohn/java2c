@@ -1,8 +1,6 @@
 global_uses cpucount
 
-main_functions=()
-
-main_functions+=(cpucount_computeMakeJobsAndLoadAverage)
+_program_functions+=(cpucount_computeMakeJobsAndLoadAverage)
 
 function main_prepareOutputPath()
 {
@@ -16,7 +14,7 @@ function main_prepareOutputPath()
 	
 	mkdir -m 0755 -p "$build_outputPath"
 }
-main_functions+=(main_prepareOutputPath)
+_program_functions+=(main_prepareOutputPath)
 
 function _main_initialiseCmake()
 {
@@ -52,13 +50,4 @@ function main_compileProjects()
 		cmake --build "$projectBuildPath" --target "$project" --clean-first --use-stderr -- --jobs "$cpucount_makeJobs" --load-average "$cpucount_makeLoadAverage"
 	done
 }
-main_functions+=(main_compileProjects)
-
-function main_execute()
-{
-	local main_function
-	for main_function in "${main_functions[@]}"
-	do
-		$main_function
-	done
-}
+_program_functions+=(main_compileProjects)
