@@ -1,12 +1,6 @@
 core_dependency_check_RedHat_checkFunction()
 {
-	# https://github.com/coto/server-easy-install/blob/master/lib/core.sh
-	# Also /etc/SuSE-release, /etc/mandrake-release, /etc/UnitedLinux-release and /etc/debian_version
-	if [ -f /etc/redhat-release ]; then
-		readonly core_dependency_distributionName="RedHat"
-		return 0
-	fi
-	return 1
+	core_dependency_check_releaseFile redhat-release RedHat
 }
 core_dependency_check_register core_dependency_check_RedHat_checkFunction
 

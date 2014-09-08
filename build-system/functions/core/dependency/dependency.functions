@@ -88,6 +88,8 @@ core_dependency_determineDistributionName()
 		fi
 	done
 	
+	# Alternatively, we can use /etc/debian_version's presence in a check above
+	# Or parse /etc/lsb-release for DISTRIB_ID
 	if core_which lsb_release 1>/dev/null 2>/dev/null; then
 		local -r lsbDistributor="$(lsb_release --id --short)"
 		if [ -n "$lsbDistributor" ]; then

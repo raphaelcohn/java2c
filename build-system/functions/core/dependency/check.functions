@@ -9,4 +9,16 @@ core_dependency_check_register()
 	fi
 }
 
+core_dependency_check_releaseFile()
+{
+	local releaseFileName="$1"
+	local distributionName="$2"
+	
+	if [ -f /etc/"$releaseFileName"]; then
+		readonly core_dependency_distributionName="$distributionName"
+		return 0
+	fi
+	return 1
+}
+
 core_uses_in core/dependency/check CentOS Cygwin Fedora Homebrew RedHat
