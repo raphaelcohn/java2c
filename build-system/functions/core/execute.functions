@@ -1,8 +1,0 @@
-core_execute_functions()
-{
-	local execute_function
-	for execute_function in "$@"
-	do
-		$execute_function
-	done
-}

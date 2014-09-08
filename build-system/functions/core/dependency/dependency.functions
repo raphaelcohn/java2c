@@ -1,4 +1,4 @@
-global_uses core.dependency.check
+core_uses_in core/dependency check
 
 core_dependency_requiresProgram()
 {
@@ -13,9 +13,9 @@ core_dependency_requiresProgram()
 
 core_dependency_functions=()
 
-function core_dependency_ensureWeAreRunningBash4()
+core_dependency_ensureWeAreRunningBash4()
 {
-	if [ "$global_shell" = 'bash' ]; then
+	if [ "$global_preferredShell" = 'bash' ]; then
 		if [ ${BASH_VERSINFO[0]} != "4" ]; then
 			global_exitError "$ourName: You are not running bash 4."
 		fi
@@ -34,6 +34,8 @@ core_dependency_functions+=(core_dependency_ensureWeAreRunningBash4)
 core_dependency_osFamily=''
 core_dependency_determineOsFamily()
 {
+	# only works for bash!!!
+	
 	case "$OSTYPE" in
 		
 		cygwin)

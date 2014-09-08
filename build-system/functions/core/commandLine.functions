@@ -1,0 +1,128 @@
+core_commandLine_setLanguageDefaultsSoSortIsStableAndAnyErrorMessageParsingLogicIsReliable()
+{
+	unset LANG
+	unset LC_COLLATE
+	unset LC_CTYPE
+	unset LC_MESSAGES
+	unset LC_MONETARY
+	unset LC_NUMERIC
+	unset LC_TIME
+	unset LC_ALL
+
+	export LANG="$core_commandLine_language"
+	export LC_COLLATE="$core_commandLine_language"
+	export LC_CTYPE="$core_commandLine_language"
+	export LC_MESSAGES="$core_commandLine_language"
+	export LC_MONETARY="$core_commandLine_language"
+	export LC_NUMERIC="$core_commandLine_language"
+	export LC_TIME="$core_commandLine_language"
+	export LC_ALL=""
+	
+	# ? Also LANGUAGE, a GNU gettext extension?
+	# ignored if locale is set to 'C'
+	# pt is same as pt_PT for this variable
+	# export LANGUAGE=sv:de  for swedish then german
+}
+
+core_commandLine_parse_longOption()
+{
+	longOptionValue="${!OPTIND}"
+	OPTIND=$((OPTIND+1))
+	longOptionName="$OPTARG"
+}
+
+core_commandLine_parse_longOption_noValue()
+{
+	core_commandLine_parse_longOption
+	if [ -n "$longOptionValue" ]; then
+		core_commandLine_exitError "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
+	fi
+}
+
+core_commandLine_parse_longOptionEquals()
+{
+	longOptionValue="${OPTARG#*=}"
+	longOptionName="${OPTARG%=$longOptionValue}"
+}
+
+core_commandLine_parse_longOptionEquals_noValue()
+{
+	core_commandLine_parse_longOptionEquals
+	if [ -n "$longOptionValue" ]; then
+		core_commandLine_exitError "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
+	fi
+}
+
+core_commandLine_parse_longOptionUnknown()
+{
+	if [ "$OPTERR" = 1 ] && [ "${optspec:0:1}" != ":" ]; then
+		core_commandLine_exitError "Invalid option --${OPTARG}"
+	fi
+}
+
+core_commandLine_parse()
+{
+	local -r getoptsStringExtra="$1"
+	local -r getoptsString=":hv-:${getoptsStringExtra}"
+
+	local OPTERR=1
+	local OPTIND=1
+	local OPTARG
+	local option
+	local longOptionValue
+	local longOptionName
+	while getopts "$getoptsString" option
+	do
+		# https://stackoverflow.com/questions/402377/using-getopts-in-bash-shell-script-to-get-long-and-short-command-line-options/7680682
+		case "$option" in
+		
+			-)
+				case "$OPTARG" in
+				
+					help)
+						core_commandLine_parse_longOption_noValue
+						core_commandLine_exitHelp
+					;;
+				
+					help=*)
+						core_commandLine_parse_longOptionEquals_noValue
+					;;
+				
+					verbose)
+						core_commandLine_parse_longOption_noValue
+						core_commandLine_verbosity=$((core_commandLine_verbosity+1))
+					;;
+				
+					verbose=*)
+						core_commandLine_parse_longOptionEquals_noValue
+					;;
+				
+					*)
+						_program_parseCommandLineLongOption
+					;;
+				
+				esac
+			;;
+		
+			h)
+				core_commandLine_exitHelp
+			;;
+		
+			v)
+				core_commandLine_verbosity=$((core_commandLine_verbosity+1))
+			;;
+		
+			'?')
+				core_commandLine_exitError "Invalid option -${OPTARG}"
+			;;
+		
+			*)
+				_program_parseCommandLineShortOption
+			;;
+		
+		esac
+	done
+	
+	shift $((OPTIND - 1))
+	_program_parseNonOptionArguments "$@"
+}

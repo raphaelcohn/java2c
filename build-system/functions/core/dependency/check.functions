@@ -8,3 +8,5 @@ core_dependency_check_register()
 		core_dependency_check_functions="$core_dependency_check_functions $1"
 	fi
 }
+
+core_uses_in core/dependency/check CentOS Cygwin Fedora Homebrew RedHat

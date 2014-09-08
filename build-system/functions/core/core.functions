@@ -1,7 +1,19 @@
-global_uses core.dependency core.trap core.temporaryFiles core.execute core.program
-
 core_which()
 {
 	local program="$1"
 	command -v "$program"
 }
+
+core_uses_in()
+{
+	local namespace="$1"
+	shift 1
+	local module
+	for module in "$@"
+	do
+		global_uses "$namespace"/"$module"
+	done
+}
+
+core_uses_in core dependency
+core_uses_in core dependency trap temporaryFiles program

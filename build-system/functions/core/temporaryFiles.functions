@@ -1,4 +1,4 @@
-global_uses core.trap
+core_uses_in core trap
 
 core_temporaryFiles_filesToRemoveOnExit=()
 core_temporaryFiles_removeAll()

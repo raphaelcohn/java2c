@@ -3,6 +3,30 @@ set -e
 
 global_main()
 {
+	# dash by default escapes backslashes, other echos behave differently. This way is defensive.
+	global_echo()
+	{
+		printf '%s\n' "$1"
+	}
+
+	# The purpose of global_dirname and global_basename is to provide internal implementations of logic we can't be 100%
+	# sure of exists in the environment or is implemented as we would like for critical pieces of code.
+	# Such a critical piece is code executed before and during command line arg parsing
+	global_dirname()
+	{
+		local converted="${1%/*}"
+		if [ "$converted" = "$1" ]; then
+			printf '%s' '.'
+		else
+			printf '%s' "$converted"
+		fi
+	}
+	
+	global_basename()
+	{
+		printf '%s' "${1##*/}"
+	}
+	
 	global_message()
 	{
 		local messageKind="$1"
@@ -11,45 +35,27 @@ global_main()
 		case "$messageKind" in
 		
 			WARN|FAIL|PASS)
-				echo "$global_ourName: $messageKind: $message" 1>&2
+				global_echo "$global_ourName: $messageKind: $message" 1>&2
 			;;
 		
 			INFO)
 				if [ $global_verbosity -gt 0 ]; then
-					echo "$global_ourName: $messageKind: $message" 1>&2
+					global_echo "$global_ourName: $messageKind: $message" 1>&2
 				fi
 			;;
 		
 			DEBUG)
 				if [ $global_verbosity -gt 1 ]; then
-					echo "$global_ourName: $messageKind: $message" 1>&2
+					global_echo "$global_ourName: $messageKind: $message" 1>&2
 				fi
 			;;
 		
 			*)
-				echo "$global_ourName: $messageKind: $message" 1>&2
+				global_echo "$global_ourName: $messageKind: $message" 1>&2
 				exit 3
 			;;
 	
 		esac
-	}
-
-	# The purpose of these functions is to provide internal implementations of logic we can't be 100%
-	# sure of exists in the environment or is implemented as we would like for critical pieces of code.
-	# Such a critical piece is code executed before and during command line arg parsing
-	global_dirname()
-	{
-		local converted="${1%/*}"
-		if [ "$converted" = "$1" ]; then
-			echo "."
-		else
-			echo "$converted"
-		fi
-	}
-	
-	global_basename()
-	{
-		echo "${1##*/}"
 	}
 
 	global_exitError()
@@ -66,7 +72,7 @@ global_main()
 
 	global_helpMessage()
 	{
-		echo -E "${global_ourName}
+		printf '%s' "${global_ourName}
 $_program_helpMessage_description
 
 Usage 1: ${global_ourName} -h|--help
@@ -82,13 +88,13 @@ Options without Argments
     -v      --verbose    be more verbose        ${global_verbosity}"
 
 		if [ -n "$_program_helpMessage_argumentedOptions" ]; then
-			echo -E "$_program_helpMessage_argumentedOptions"
+			printf '%s' "$_program_helpMessage_argumentedOptions"
 		else
-			echo -E ""
+			printf '\n'
 		fi
 	
 		if [ -n "$_program_helpMessage_argumentlessOptions" ]; then
-			echo -E "Options with Arguments
+			printf '%s' "Options with Arguments
 Switch  Default
 $_program_helpMessage_argumentlessOptions"
 		else
@@ -96,12 +102,12 @@ $_program_helpMessage_argumentlessOptions"
 		fi
 	
 		if [ -n "$_program_helpMessage_nonOptionArguments" ]; then
-			echo -E "Non-Options
+			printf '%s' "Non-Options
 $_program_helpMessage_nonOptionArguments
 Specify -- before the non-options to separate them from option arguments"
 		fi
 
-		echo -E "
+		printf '%s' "
 Path Files
 A path file is used to define the location of essential programs used during initial bootstrapping. It also defines a packageManager
 to automatically install any missing dependencies. Paths are used if a file <global_configPath>/paths.d/<distributionName>
@@ -111,14 +117,21 @@ exists for the detected <distributionName>. Additional path files are used for a
 	
 	global_setTracing()
 	{
-		# is set -x on?
-		if [[ "$-" == *x* ]]; then
-			export global_bash_tracing="yes"
-		elif [ ! -z "$global_bash_tracing" ]; then
-			if [ "$global_bash_tracing" = "yes" ]; then
-				set -x
-			fi
-		fi
+		case "$-" in
+			
+			*x*)
+				export global_bash_tracing="yes"
+			;;
+			
+			*)
+				if [ -n "$global_bash_tracing" ]; then
+					if [ "$global_bash_tracing" = "yes" ]; then
+						set -x
+					fi
+				fi
+			;;
+			
+		esac
 	}
 	
 	_global_resolveSymlink()
@@ -141,55 +154,24 @@ exists for the detected <distributionName>. Additional path files are used for a
 		readonly global_ourName="$(global_basename "$_global_resolveSymlink_result")"
 	}
 	
-	# Common bash-isms and bugs in dash https://wiki.ubuntu.com/DashAsBinSh
-	# Shell workarounds FAQ http://cfajohnson.com/shell/cus-faq-2.html#Q11
-	# dash echo escapes output, yuck, with no -E, it seems
-	global_detectShell()
+	_global_builtInDoesNotExist()
 	{
-		read -r shebang_path shebang_shell <"$0"
-
-		if [ "$shebang_path" = '/usr/bin/env' ]; then
-			if [ -z "$shebang_shell" ]; then
-				global_exitError "All shell scripts run under env should use 'env' with a shell"
-			fi
-			global_shell="$shebang_shell"
-		else
-			global_shell="$(global_basename "$shebang_path")"
+		local builtInName="$1"
+		local value="$(PATH='' command -v "$builtInName")"
+		if [ "$builtInName" = "$value" ]; then
+			return 1
 		fi
-	}
-	
-	global_rejectShells()
-	{	
-		case "$global_shell" in
-			
-			rbash)
-				global_exitError "The shell '$global_shell' is explicitly not supported"
-			;;
-			
-			# busybox is a dash derivative
-			ash|dash)
-				global_exitError "The shell '$global_shell' should not be specified in the she-bang"
-			;;
-			
-			# tcsh is the default choice on FreeBSD, DragonFlyBSD and DesktopBSD. Unlikely that code would have worked to this point.
-			csh|tcsh)
-				global_exitError "C shells such as '$global_shell' are not supported"
-			;;
-			
-			sh|bash)
-				:
-			;;
-			
-			*)
-				global_exitError "The shell '$global_shell' is not known"
-			;;
-			
-		esac
+		return 0
 	}
 	
 	global_addMissingBuiltins()
 	{
-		if [ "$global_shell" = 'sh' ]; then
+		# bash, zsh are known to support this
+		if _global_builtInDoesNotExist pushd; then
+			
+			if ! _global_builtInDoesNotExist popd; then
+				global_exitError "Weird shell does not have pushd but does have popd (?feature detection bug?)!"
+			fi
 			
 			global_pushdCount=0
 
@@ -208,27 +190,34 @@ exists for the detected <distributionName>. Additional path files are used for a
 				eval "unset global_pushdStack${global_pushdCount}"
 				cd "$path" 1>/dev/null
 			}
+		
+		else
+			
+			pushd()
+			{
+				builtin pushd "$@" 1>/dev/null
+			}
+		
+			popd()
+			{
+				builtin popd "$@" 1>/dev/null
+			}
+			
+		fi
+		
+		# bash, zsh are known to support this
+		if _global_builtInDoesNotExist source; then
+			
+			source()
+			{
+				. "$@"
+			}
 			
 		fi
 	}
 	
 	global_setSaneEnvironmentDefaults()
 	{
-		if [ "$global_shell" = 'bash' ]; then
-			set -o braceexpand
-			set +o errtrace
-			set +o functrace
-			set +o hashall
-			set +o histexpand
-			set +o history
-			set -o interactive-comments
-			set +o keyword
-			set +o onecmd
-			set +o physical
-			set +o pipefail
-			set +o posix
-		fi
-		
 		set +o allexport
 		set +o emacs
 		set -o errexit
@@ -242,52 +231,107 @@ exists for the detected <distributionName>. Additional path files are used for a
 		set +o nounset
 		set +o verbose
 		set +o vi
-
+		
+		# unset will fail if, and only if, we've been source'd and they have been made readonly. Unlikely.
+		
+		# MUST be unset before making use of cd - which is needed for the dash / sh 'pushd' replacement, which in turn is needed by global_findOurPath
 		unset CDPATH
 		unset HISTSIZE
 		unset MAILCHECK
 		unset MAILPATH
-
-		if [ "$global_shell" = 'bash' ]; then
-			unset BASH_ENV
-			unset BASH_XTRACEFD
-			unset ENV
-			unset FCEDIT
-			unset FIGNORE
-			unset FUNCNEST
-			unset GLOBIGNORE
-			unset HISTCONTROL
-			unset HISTFILE
-			unset HISTFILESIZE
-			unset HISTIGNORE
-			unset HISTTIMEFORMAT
-			unset HOSTFILE
-			unset IGNOREEOF
-			unset INPUTRC
-			unset MAIL
-			unset TMOUT
-		fi
-		umask 022
+		
+		# bash specific, but since at this stage of execution we can't be sure we're running under bash, we do nothing
+		unset BASH_ENV
+		unset BASH_XTRACEFD
+		unset ENV
+		unset FCEDIT
+		unset FIGNORE
+		unset FUNCNEST
+		unset GLOBIGNORE
+		unset HISTCONTROL
+		unset HISTFILE
+		unset HISTFILESIZE
+		unset HISTIGNORE
+		unset HISTTIMEFORMAT
+		unset HOSTFILE
+		unset IGNOREEOF
+		unset INPUTRC
+		unset MAIL
+		unset TMOUT
 	}
 
 	global_findOurPath()
 	{
-		pushd "$(global_dirname "$0")" >/dev/null
+		pushd "$(global_dirname "$0")"
 			readonly global_ourSymlinkPath="$(pwd)"
-		popd >/dev/null
+		popd
 		
 		local _global_resolveSymlink_result
 		_global_resolveSymlink
 		
-		pushd "$(global_dirname "$_global_resolveSymlink_result")" >/dev/null
+		pushd "$(global_dirname "$_global_resolveSymlink_result")"
 			readonly global_ourPath="$(pwd)"
-		popd >/dev/null
+		popd
+	}
+	
+	# We can not determine the interpreter running us (short of using lsof with $$ and awk) in a simple, reliable way
+	# So instead we exec ourselves once, using our process id as a check against user environment interference
+	# Common bash-isms and bugs in dash https://wiki.ubuntu.com/DashAsBinSh
+	# Shell workarounds FAQ http://cfajohnson.com/shell/cus-faq-2.html#Q11
+	# dash echo escapes output, yuck, with no -E, it seems
+	# https://stackoverflow.com/questions/3199893/howto-detect-bash-from-shell-script  - lsof -p $$ is probably best, but lsof and awk are dependencies - so we just rexec
+	global_rexecUnderCorrectShell()
+	{
+		if [ "$global_shell_rexecing" = "$$" ]; then
+			# we've been successfully re-exec'd
+			unset global_shell_rexecing
+		else
+			# exec -a doesn't work in dash
+			global_shell_rexecing=$$ exec "$global_ourSymlinkPath"/"$global_ourSymlinkName" "$@"
+		fi
+	}
+	
+	global_determinePreferredShell()
+	{
+		read -r shebang_path shebang_shell <"$0"
+
+		if [ "$shebang_path" = '#!/usr/bin/env' ]; then
+			if [ -z "$shebang_shell" ]; then
+				global_exitError "All shell scripts run under env should use 'env' with a shell"
+			fi
+			global_preferredShell="$shebang_shell"
+		else
+			global_preferredShell="$(global_basename "$shebang_path")"
+		fi
+	}
+	
+	# There's a bug it dash that means that if a set -o fails, we can't stop it even with || true or set +e!
+	global_setSaneOptions()
+	{
+		# dash fails here regardless of set -e, so this code MUST run after re-exec'd shell
+		if [ "$global_preferredShell" = 'bash' ]; then
+			set -o braceexpand
+			set +o errtrace
+			set +o functrace
+			set +o hashall
+			set +o histexpand
+			set +o history
+			set -o interactive-comments
+			set +o keyword
+			set +o onecmd
+			set +o physical
+			set +o pipefail
+			set +o posix
+		fi
 	}
 	
 	_global_initialiseGlobalConfiguration()
 	{
 		global_configPath="$global_ourPath"/config
 		global_functionsPath="$global_ourPath"/functions
+		# can be en_GB.UTF-8 or 'C' (but that's not unicode aware)
+		# A more sophisticated scheme would use locale -a and hunt for an UTF-8 locale
+		global_language='en_US.UTF-8'
 		global_verbosity=0
 	}
 
@@ -296,196 +340,62 @@ exists for the detected <distributionName>. Additional path files are used for a
 		_global_initialiseGlobalConfiguration
 		_program_initialiseConfiguration
 	}
-
+	
 	global_loadAnyConfiguration()
 	{
 		:
 	}
-
-	global_parseCommandLine_longOption()
-	{
-		longOptionValue="${!OPTIND}"
-		OPTIND=$((OPTIND+1))
-		longOptionName="$OPTARG"
-	}
-
-	global_parseCommandLine_longOption_noValue()
-	{
-		global_parseCommandLine_longOption
-		if [ -n "$longOptionValue" ]; then
-			global_exitError "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
-		fi
-	}
-
-	global_parseCommandLine_longOptionEquals()
-	{
-		longOptionValue="${OPTARG#*=}"
-		longOptionName="${OPTARG%=$longOptionValue}"
-	}
-
-	global_parseCommandLine_longOptionEquals_noValue()
-	{
-		global_parseCommandLine_longOptionEquals
-		if [ -n "$longOptionValue" ]; then
-			global_exitError "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
-		fi
-	}
 	
-	global_parseCommandLine_longOptionUnknown()
-	{
-		if [ "$OPTERR" = 1 ] && [ "${optspec:0:1}" != ":" ]; then
-			global_exitError "Invalid option --${OPTARG}"
-		fi
-	}
-	
-	global_parseCommandLine()
-	{
-		local -r getoptsStringExtra="$1"
-		local -r getoptsString=":hv-:${getoptsStringExtra}"
-
-		local OPTERR=1
-		local OPTIND=1
-		local OPTARG
-		local option
-		local longOptionValue
-		local longOptionName
-		while getopts "$getoptsString" option
-		do
-			# https://stackoverflow.com/questions/402377/using-getopts-in-bash-shell-script-to-get-long-and-short-command-line-options/7680682
-			case "$option" in
-			
-				-)
-					case "$OPTARG" in
-					
-						help)
-							global_parseCommandLine_longOption_noValue
-							global_exitHelp
-						;;
-					
-						help=*)
-							global_parseCommandLine_longOptionEquals_noValue
-						;;
-					
-						verbose)
-							global_parseCommandLine_longOption_noValue
-							global_verbosity=$((global_verbosity+1))
-						;;
-					
-						verbose=*)
-							global_parseCommandLine_longOptionEquals_noValue
-						;;
-					
-						*)
-							_program_parseCommandLineLongOption
-						;;
-					
-					esac
-				;;
-			
-				h)
-					global_exitHelp
-				;;
-			
-				v)
-					global_verbosity=$((global_verbosity+1))
-				;;
-			
-				'?')
-					global_exitError "Invalid option -${OPTARG}"
-				;;
-			
-				*)
-					_program_parseCommandLineShortOption
-				;;
-			
-			esac
-		done
-		
-		shift $((OPTIND - 1))
-		_program_parseNonOptionArguments "$@"
-	}
-	
-	# TODO: Not sh friendly
-	#global_usesAlreadySourced=()
+	global_usesAlreadySourced=''
 	global_uses()
 	{
-		while [ $# -ne 0 ]
+		local namespacedFunctions
+		local alreadySourcedNamespacedFunctions
+		local moduleName
+		local relativeFunctionsFileName
+		local functionsFilePath
+		local sourced
+		for namespacedFunction in "$@"
 		do
-			local functionFileName="$1"
-		
-			local alreadySourcedFunctionFileName
-			local -i sourced=0
-			for alreadySourcedFunctionFileName in "${global_usesAlreadySourced[@]}"
+			# skip if already sourced
+			# Does not handle spaces in filenames, unfortunately
+			for alreadySourcedNamespacedFunction in $global_usesAlreadySourced
 			do
-				if [ "$alreadySourcedFunctionFileName" = "$functionFileName" ]; then
-					sourced=1
-					break
+				if [ "$namespacedFunction" = "$alreadySourcedNamespacedFunction" ]; then
+					continue 2
 				fi
 			done
-			if [ $sourced -eq 1 ]; then
-				continue
-			fi
-			build_global_usesAlreadySourced+=("$functionFileName")
 			
-			local dotsToPathSlashes="${functionFileName//.//}"
-			local functionsFilePath="$global_functionsPath"/"$dotsToPathSlashes".functions
-			local functionsShellSpecificFilePath="$global_functionsPath"/"$dotsToPathSlashes"."$global_shell".functions
-			if [ -f "$functionsFilePath" ]; then
-				source "$functionsFilePath"
-				if [ -f "$functionsShellSpecificFilePath" ]; then
-					source "$functionsShellSpecificFilePath"
+			global_usesAlreadySourced="$global_usesAlreadySourced $namespacedFunction"
+			moduleName="$(global_basename "$namespacedFunction")"
+			sourced=0
+			for relativeFunctionsFilePath in "$namespacedFunction"."$global_preferredShell" "$namespacedFunction" "$namespacedFunction"/"$moduleName"."$global_preferredShell" "$namespacedFunction"/"$moduleName"
+			do
+				functionsFilePath="$global_functionsPath"/"$relativeFunctionsFilePath".functions
+				if [ -f "$functionsFilePath" ]; then
+					source "$functionsFilePath" || global_exitError "Can not load functions '$functionsFilePath'"
+					sourced=1
 				fi
-				local autoload="$global_functionsPath"/"$dotsToPathSlashes"
-				if [ -d "$autoload" ]; then
-					pushd "$autoload" 1>/dev/null
-					
-						for functionsFilePath in *.functions
-						do
-							local withoutFunctionsExtension="${functionsFilePath%.*}"
-							local withoutShellExtensionIfAny="${withoutFunctionsExtension%.*}"
-							if [ "$withoutShellExtensionIfAny"."$global_shell".functions = "$functionsFilePath" ]; then
-								# Is a shell function file - ignore
-								:
-							else
-								source "$functionsFilePath"
-								local shellExtensionFunctionFilePath="$withoutFunctionsExtension"."$global_shell".functions
-								if [ -f "$shellExtensionFunctionFilePath" ]; then
-									source "$shellExtensionFunctionFilePath"
-								fi
-							fi
-						done
-				
-					popd 1>/dev/null
-				fi
-			else
-				local finalPiece="$(global_basename "$dotsToPathSlashes")"
-				functionsFilePath="$global_functionsPath"/"$dotsToPathSlashes"/"$finalPiece".functions
-				functionsShellSpecificFilePath="$global_functionsPath"/"$dotsToPathSlashes"/"$finalPiece"."$global_shell".functions
-				source "$functionsFilePath"
-				if [ -f "$functionsShellSpecificFilePath" ]; then
-					source "$functionsShellSpecificFilePath"
-				fi
+			done
+			if [ $sourced -eq 0 ]; then
+				global_exitError "Can not load functions for namespace '$namespacedFunction'"
 			fi
-			shift 1
 		done
 	}
 
 	global_setTracing
 	global_findOurName
-	global_detectShell
-	global_rejectShells
 	global_addMissingBuiltins
 	global_setSaneEnvironmentDefaults
 	global_findOurPath
+	global_rexecUnderCorrectShell "$@"
+	global_determinePreferredShell
+	global_setSaneOptions
 	global_initialiseConfiguration
 	global_loadAnyConfiguration
-	global_parseCommandLine "$@"
 	
 	global_uses core
-	core_dependency_installDependencies
-	
-	global_uses main
-	core_program_execute
+	core_program_execute "$@"
 }
 
 _program_helpMessage_description="Builds projects using CMake"
@@ -494,6 +404,16 @@ _program_helpMessage_usageMessage="Build projects"
 _program_helpMessage_argumentedOptions=""
 _program_helpMessage_argumentlessOptions=""
 _program_helpMessage_nonOptionArguments="build_projects is a list of projects to build"
+
+_program_initialiseConfiguration()
+{
+	pushd "$global_ourSymlinkPath"/source 1>/dev/null
+		build_sourcePath="$(pwd)"
+	popd 1>/dev/null
+	
+	# May not exist
+	build_outputPath="$global_ourSymlinkPath"/output
+}
 
 _program_parseCommandLineLongOption()
 {
@@ -522,19 +442,10 @@ _program_parseNonOptionArguments()
 	if [ $# -eq 0 ]; then
 		global_exitError "No projects specified"
 	fi
+	
 	# TODO: Not sh friendly, and objects violently if dash as a syntax error!
-	build_projects=("$@")
-}
-
-# TODO: Not sh friendly
-_program_initialiseConfiguration()
-{
-	# TODO: Not sh friendly
-	pushd "$global_ourSymlinkPath"/source 1>/dev/null
-		build_sourcePath="$(pwd)"
-	popd 1>/dev/null
-	# May not exist
-	build_outputPath="$global_ourSymlinkPath"/output
+	# Problem is we want to preserve in an array if using bash 4...
+	#build_projects=("$@")
 }
 
 global_main "$@"
