@@ -16,7 +16,7 @@ dependency_functions=()
 function dependency_ensureWeAreRunningBash4()
 {
 	if [ ${BASH_VERSINFO[0]} != "4" ]; then
-		global_message FAIL "$ourName: You are not running bash 4."
+		global_exitError "$ourName: You are not running bash 4."
 	fi
 }
 dependency_functions+=(dependency_ensureWeAreRunningBash4)
@@ -76,7 +76,7 @@ dependency_functions+=(dependency_determineOsFamily)
 dependency_determineDistributionName()
 {
 	local dependency_check_function
-	for dependency_check_function in "${dependency_check_functions[@]}"
+	for dependency_check_function in $dependency_check_functions
 	do
 		if $dependency_check_function; then
 			return 0
@@ -91,7 +91,7 @@ dependency_determineDistributionName()
 		fi
 	fi
 	
-	global_message FAIL "Could not determine distribution"
+	global_exitError "Could not determine distribution"
 }
 dependency_functions+=(dependency_determineDistributionName)
 
@@ -119,7 +119,7 @@ dependency_setUpAliases()
 			hash -p "$absolutePath" "$binaryName"
 		else
 			if [ "$packageName" = "zzz-built-in" ]; then
-				global_message FAIL "Essential binary $binaryName not in expected path $absolutePath and no installation is possible"
+				global_exitError "Essential binary $binaryName not in expected path $absolutePath and no installation is possible"
 			fi
 			unaliasedBinaries["${binaryName}"]="$absolutePath"
 			installPackages["${packageName}"]=1

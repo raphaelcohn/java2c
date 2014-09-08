@@ -1,6 +1,17 @@
 global_uses cpucount
 
-_program_functions+=(cpucount_computeMakeJobsAndLoadAverage)
+program_functions=''
+
+program_functionRegister()
+{
+	if [ -z "$program_functions" ]; then
+		program_functions="$1"
+	else
+		program_functions="$program_functions $1"
+	fi
+}
+
+program_functionRegister cpucount_computeMakeJobsAndLoadAverage
 
 main_prepareOutputPath()
 {
@@ -14,7 +25,7 @@ main_prepareOutputPath()
 	
 	mkdir -m 0755 -p "$build_outputPath"
 }
-_program_functions+=(main_prepareOutputPath)
+program_functionRegister main_prepareOutputPath
 
 _main_initialiseCmake()
 {
@@ -50,4 +61,4 @@ main_compileProjects()
 		cmake --build "$projectBuildPath" --target "$project" --clean-first --use-stderr -- --jobs "$cpucount_makeJobs" --load-average "$cpucount_makeLoadAverage"
 	done
 }
-_program_functions+=(main_compileProjects)
+program_functionRegister main_compileProjects

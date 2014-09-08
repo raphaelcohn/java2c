@@ -113,7 +113,7 @@ global_main()
 
 	global_exitError()
 	{
-		global_message FAIL "$1"
+		global_exitError "$1"
 		exit 1
 	}
 
@@ -198,7 +198,7 @@ exists for the detected <distributionName>. Additional path files are used for a
 	{
 		global_parseCommandLine_longOption
 		if [ -n "$longOptionValue" ]; then
-			global_message FAIL "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
+			global_exitError "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
 		fi
 	}
 
@@ -212,14 +212,14 @@ exists for the detected <distributionName>. Additional path files are used for a
 	{
 		global_parseCommandLine_longOptionEquals
 		if [ -n "$longOptionValue" ]; then
-			global_message FAIL "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
+			global_exitError "The --${longOptionName} option does not take arguments (eg '${longOptionValue}')"
 		fi
 	}
 	
 	global_parseCommandLine_longOptionUnknown()
 	{
 		if [ "$OPTERR" = 1 ] && [ "${optspec:0:1}" != ":" ]; then
-			global_message FAIL "Invalid option --${OPTARG}"
+			global_exitError "Invalid option --${OPTARG}"
 		fi
 	}
 	
@@ -285,12 +285,13 @@ exists for the detected <distributionName>. Additional path files are used for a
 			
 			esac
 		done
-	
+		
 		shift $((OPTIND - 1))
-		_program_parseNonOptionArguments
+		_program_parseNonOptionArguments "$@"
 	}
 	
-	global_usesAlreadySourced=()
+	# TODO: Not sh friendly
+	#global_usesAlreadySourced=()
 	global_uses()
 	{
 		while [ $# -ne 0 ]
@@ -361,14 +362,10 @@ exists for the detected <distributionName>. Additional path files are used for a
 	global_loadAnyConfiguration
 	global_parseCommandLine "$@"
 	
-	# TODO: Not sh friendly
-	_program_functions=()
-	
 	global_uses core program
 	dependency_installDependencies
 	
-	# TODO: Not sh friendly
-	execute_functions "${_program_functions[@]}"
+	execute_functions $program_functions
 }
 
 _program_helpMessage_description="Builds projects using CMake"
@@ -405,6 +402,7 @@ _program_parseNonOptionArguments()
 	if [ $# -eq 0 ]; then
 		global_exitError "No projects specified"
 	fi
+	# TODO: Not sh friendly, and objects violently if dash as a syntax error!
 	build_projects=("$@")
 }
 

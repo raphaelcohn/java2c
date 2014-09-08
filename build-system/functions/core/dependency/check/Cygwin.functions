@@ -10,5 +10,5 @@ dependency_check_register dependency_check_Cygwin_checkFunction
 
 dependency_check_Cygwin_packageManager()
 {
-	global_message FAIL "Please run the Cygwin setup-x86.exe to install the packages $@"
+	global_exitError "Please run the Cygwin setup-x86.exe to install the packages $@"
 }
