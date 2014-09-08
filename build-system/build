@@ -373,6 +373,9 @@ function _program_parseCommandLineShortOption()
 
 function _program_parseNonOptionArguments()
 {
+	if [ $# -eq 0 ]; then
+		global_exitError "No projects specified"
+	fi
 	build_projects=("$@")
 }
 

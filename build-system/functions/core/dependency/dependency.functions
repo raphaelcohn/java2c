@@ -1,4 +1,4 @@
-global_uses dependency.check
+global_uses core.dependency.check
 
 function dependency_requiresProgram()
 {

@@ -1,4 +1,4 @@
-global_uses trap
+global_uses core.trap
 
 temporaryFiles_filesToRemoveOnExit=()
 function temporaryFiles_removeAll()
