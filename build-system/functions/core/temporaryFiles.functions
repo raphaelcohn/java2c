@@ -1,21 +1,21 @@
 global_uses core.trap
 
-temporaryFiles_filesToRemoveOnExit=()
-temporaryFiles_removeAll()
+core_temporaryFiles_filesToRemoveOnExit=()
+core_temporaryFiles_removeAll()
 {
-	rm -rf -- "${temporaryFiles_filesToRemoveOnExit[@]}"
+	rm -rf -- "${core_temporaryFiles_filesToRemoveOnExit[@]}"
 }
 
-temporaryFiles_newFileToRemoveOnExit()
+core_temporaryFiles_newFileToRemoveOnExit()
 {
 	TMP_FILE="$(mktemp -t "$ourName".XXXXXXXXXXXX)"
-	temporaryFiles_filesToRemoveOnExit+=("$TMP_FILE")
+	core_temporaryFiles_filesToRemoveOnExit+=("$TMP_FILE")
 }
 
-temporaryFiles_newFolderToRemoveOnExit()
+core_temporaryFiles_newFolderToRemoveOnExit()
 {
 	TMP_FOLDER="$(mktemp -t "$ourName".XXXXXXXXXXXX -d)"
-	temporaryFiles_filesToRemoveOnExit+=("$TMP_FOLDER")
+	core_temporaryFiles_filesToRemoveOnExit+=("$TMP_FOLDER")
 }
 
-trap_addOnCleanUp temporaryFiles_removeAll
+core_trap_addOnCleanUp core_temporaryFiles_removeAll

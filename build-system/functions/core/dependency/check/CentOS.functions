@@ -1,14 +1,14 @@
-dependency_check_CentOS_checkFunction()
+core_dependency_check_CentOS_checkFunction()
 {
 	if [ -f /etc/centos-release ]; then
-		readonly dependency_distributionName="CentOS"
+		readonly core_dependency_distributionName="CentOS"
 		return 0
 	fi
 	return 1
 }
-dependency_check_register dependency_check_CentOS_checkFunction
+core_dependency_check_register core_dependency_check_CentOS_checkFunction
 
-dependency_check_CentOS_packageManager()
+core_dependency_check_CentOS_packageManager()
 {
 	if [ $global_verbosity -gt 0 ]; then
 		local -r yumVerbosity=""

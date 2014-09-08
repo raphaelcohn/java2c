@@ -1,5 +1,5 @@
 # Finds number of hyperthreaded CPUs (ie double number of CPUs) - ignores cpuset, etc
-dependency_requiresProgram sysctl macosx bsd
+core_dependency_requiresProgram sysctl macosx bsd
 cpucount_discoveredNumberOfCpus=0
 cpucount_findNumberOfHyperthreadedCpus()
 {
@@ -9,7 +9,7 @@ cpucount_findNumberOfHyperthreadedCpus()
 		return 0
 	fi
 	
-	case "$dependency_osFamily" in
+	case "$core_dependency_osFamily" in
 		
 		macosx|bsd)
 			# Works on MacOS X, FreeBSD, OpenBSD: also hw.logicalcpu

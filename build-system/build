@@ -363,9 +363,9 @@ exists for the detected <distributionName>. Additional path files are used for a
 	global_parseCommandLine "$@"
 	
 	global_uses core program
-	dependency_installDependencies
+	core_dependency_installDependencies
 	
-	execute_functions $program_functions
+	core_execute_functions $program_functions
 }
 
 _program_helpMessage_description="Builds projects using CMake"

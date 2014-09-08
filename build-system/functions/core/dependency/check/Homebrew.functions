@@ -1,14 +1,14 @@
-dependency_check_Homebrew_checkFunction()
+core_dependency_check_Homebrew_checkFunction()
 {
 	if which brew 1>/dev/null 2>/dev/null; then
-		readonly dependency_distributionName="Homebrew"
+		readonly core_dependency_distributionName="Homebrew"
 		return 0
 	fi
 	return 1
 }
-dependency_check_register dependency_check_Homebrew_checkFunction
+core_dependency_check_register core_dependency_check_Homebrew_checkFunction
 
-dependency_check_Homebrew_packageManager()
+core_dependency_check_Homebrew_packageManager()
 {
 	# eg diffutils, openssh, awk
 	brew tap homebrew/dupes 1>/dev/null 2>/dev/null
