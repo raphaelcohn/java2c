@@ -51,13 +51,13 @@ function global_main()
 		echo "${1##*/}"
 	}
 
-	function global_setDebugging()
+	function global_setTracing()
 	{
 		# is set -x on?
 		if [[ "$-" == *x* ]]; then
-			export build_bash_tracing="yes"
-		elif [ ! -z "$build_bash_tracing" ]; then
-			if [ "$build_bash_tracing" = "yes" ]; then
+			export global_bash_tracing="yes"
+		elif [ ! -z "$global_bash_tracing" ]; then
+			if [ "$global_bash_tracing" = "yes" ]; then
 				set -x
 			fi
 		fi
@@ -309,14 +309,14 @@ function global_main()
 		done
 	}
 
-	global_setDebugging
+	global_setTracing
 	global_setSaneEnvironmentDefaults
 	global_findOurNameAndPath
 	global_initialiseConfiguration
 	global_loadAnyConfiguration
 	global_parseCommandLine "$@"
 	
-	global_uses dependency trap temporaryFiles main
+	global_uses core main
 	dependency_installDependencies
 	main_execute
 }
