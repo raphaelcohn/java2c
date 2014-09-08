@@ -63,57 +63,6 @@ global_main()
 		global_message FAIL "$1"
 		exit 1
 	}
-
-	global_exitHelp()
-	{
-		global_helpMessage 1>&2
-		exit 2
-	}
-
-	global_helpMessage()
-	{
-		printf '%s' "${global_ourName}
-$_program_helpMessage_description
-
-Usage 1: ${global_ourName} -h|--help
-Usage 2: ${global_ourName} [-v|--verbose]${_program_helpMessage_optionsAndNonOptions}
-
-Usages
-    1       Show Help
-    2       $_program_helpMessage_usageMessage
-
-Options without Argments
-    Switch  Long-Switch  Explanation            Default
-    -h      --help       show this help
-    -v      --verbose    be more verbose        ${global_verbosity}"
-
-		if [ -n "$_program_helpMessage_argumentedOptions" ]; then
-			printf '%s' "$_program_helpMessage_argumentedOptions"
-		else
-			printf '\n'
-		fi
-	
-		if [ -n "$_program_helpMessage_argumentlessOptions" ]; then
-			printf '%s' "Options with Arguments
-Switch  Default
-$_program_helpMessage_argumentlessOptions"
-		else
-			:
-		fi
-	
-		if [ -n "$_program_helpMessage_nonOptionArguments" ]; then
-			printf '%s' "Non-Options
-$_program_helpMessage_nonOptionArguments
-Specify -- before the non-options to separate them from option arguments"
-		fi
-
-		printf '%s' "
-Path Files
-A path file is used to define the location of essential programs used during initial bootstrapping. It also defines a packageManager
-to automatically install any missing dependencies. Paths are used if a file <global_configPath>/paths.d/<distributionName>
-exists for the detected <distributionName>. Additional path files are used for a chosen backend.
-"
-	}
 	
 	global_setTracing()
 	{
