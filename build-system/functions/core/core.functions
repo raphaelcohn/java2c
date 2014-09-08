@@ -15,5 +15,4 @@ core_uses_in()
 	done
 }
 
-core_uses_in core dependency
 core_uses_in core dependency trap temporaryFiles program

@@ -2,7 +2,7 @@ global_uses cpucount
 
 core_program_functionRegister cpucount_computeMakeJobsAndLoadAverage
 
-main_prepareOutputPath()
+build_prepareOutputPath()
 {
 	if [ -d "$build_outputPath" ]; then
 		return 0
@@ -14,9 +14,9 @@ main_prepareOutputPath()
 	
 	mkdir -m 0755 -p "$build_outputPath"
 }
-core_program_functionRegister main_prepareOutputPath
+core_program_functionRegister build_prepareOutputPath
 
-_main_initialiseCMake()
+_build_initialiseCMake()
 {
 	# cmake initialises whateer folder is PWD
 	pushd "$projectBuildPath"
@@ -26,7 +26,7 @@ _main_initialiseCMake()
 	popd 1>/dev/null
 }
 
-main_compileProjects()
+build_compileProjects()
 {
 	local project
 	local projectSourcePath
@@ -44,10 +44,10 @@ main_compileProjects()
 		fi
 		mkdir -m 0755 -p "$projectBuildPath"
 		
-		_main_initialiseCMake
+		_build_initialiseCMake
 
 		# target could be 'clean', or we could clean first, with --clean-first
 		cmake --build "$projectBuildPath" --target "$project" --clean-first --use-stderr -- --jobs "$cpucount_makeJobs" --load-average "$cpucount_makeLoadAverage"
 	done
 }
-core_program_functionRegister main_compileProjects
+core_program_functionRegister build_compileProjects

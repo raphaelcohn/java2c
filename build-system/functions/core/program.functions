@@ -30,4 +30,4 @@ core_program_functionRegister core_commandLine_setLanguageDefaultsSoSortIsStable
 core_program_functionRegister core_commandLine_parse
 core_program_functionRegister core_dependency_installDependencies
 
-global_uses main
+global_uses "$global_ourName"
