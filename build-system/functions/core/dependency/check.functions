@@ -14,7 +14,7 @@ core_dependency_check_releaseFile()
 	local releaseFileName="$1"
 	local distributionName="$2"
 	
-	if [ -f /etc/"$releaseFileName"]; then
+	if [ -f /etc/"$releaseFileName" ]; then
 		readonly core_dependency_distributionName="$distributionName"
 		return 0
 	fi

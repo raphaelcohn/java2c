@@ -347,13 +347,6 @@ global_main()
 	core_program_execute "$@"
 }
 
-_program_helpMessage_description="Builds projects using CMake"
-_program_helpMessage_optionsAndNonOptions=" -- [build_projects...]"
-_program_helpMessage_usageMessage="Build projects"
-_program_helpMessage_argumentedOptions=""
-_program_helpMessage_argumentlessOptions=""
-_program_helpMessage_nonOptionArguments="build_projects is a list of projects to build"
-
 _program_initialiseConfiguration()
 {
 	pushd "$global_ourSymlinkPath"/source 1>/dev/null
@@ -362,39 +355,6 @@ _program_initialiseConfiguration()
 	
 	# May not exist
 	build_outputPath="$global_ourSymlinkPath"/output
-}
-
-_program_parseCommandLineLongOption()
-{
-	case "$OPTARG" in
-		
-		*)
-			global_parseCommandLine_longOptionUnknown
-		;;
-		
-	esac
-}
-
-_program_parseCommandLineShortOption()
-{
-	case "$option" in
-		
-		*)
-			:
-		;;
-		
-	esac
-}
-
-_program_parseNonOptionArguments()
-{
-	if [ $# -eq 0 ]; then
-		global_exitError "No projects specified"
-	fi
-	
-	# TODO: Not sh friendly, and objects violently if dash as a syntax error!
-	# Problem is we want to preserve in an array if using bash 4...
-	#build_projects=("$@")
 }
 
 global_main "$@"
