@@ -40,6 +40,19 @@ _program_parseNonOptionArguments()
 	#build_projects=("$@")
 }
 
+_program_initialiseDefaults()
+{
+	# Fails if path doesn't exist!
+	xxxxx: fail
+	
+	pushd "$global_ourSymlinkPath"/source 1>/dev/null
+		build_sourcePath="$(pwd)"
+	popd 1>/dev/null
+	
+	# May not exist
+	build_outputPath="$global_ourSymlinkPath"/output
+}
+
 
 global_uses cpucount
 
