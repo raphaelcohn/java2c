@@ -24,7 +24,7 @@ core_program_setUmask()
 core_program_functionRegister \
 	core_program_setUmask
 	core_commandLine_setLanguageDefaultsSoSortIsStableAndAnyErrorMessageParsingLogicIsReliable
-	core_program_
+	_program_initialiseDefaults
 	core_commandLine_parse
 	core_dependency_installDependencies
 

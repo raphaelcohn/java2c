@@ -5,8 +5,6 @@ _program_helpMessage_argumentedOptions=""
 _program_helpMessage_argumentlessOptions=""
 _program_helpMessage_nonOptionArguments="build_projects is a list of projects to build"
 
-xxxx: rename these from _program_ to something more useful? but minimal cut-and-paste error, too!
-
 _program_parseCommandLineLongOption()
 {
 	case "$OPTARG" in
@@ -37,6 +35,8 @@ _program_parseNonOptionArguments()
 	
 	# TODO: Not sh friendly, and objects violently if dash as a syntax error!
 	# Problem is we want to preserve in an array if using bash 4...
+	
+	xxxx: initialise varargs
 	#build_projects=("$@")
 }
 
