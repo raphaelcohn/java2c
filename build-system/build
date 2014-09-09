@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env dash
 set -e
+set -u
 
 global_main()
 {
@@ -25,6 +26,25 @@ global_main()
 	global_basename()
 	{
 		printf '%s' "${1##*/}"
+	}
+
+	global_testVariableIsUnset()
+	{
+		local variableName="$1"
+		local evaluate="[ \"\${$variableName+unset}\" != 'unset' ]"
+		eval "$evaluate"
+	}
+	
+	global_testVariableIsSet()
+	{
+		! global_testVariableIsUnset "$1"
+	}
+	
+	global_setVariableIfUnset()
+	{
+		local variableName="$1"
+		local variableDefaultValue="$2"
+		eval "$variableName=\"\${$variableName-$variableDefaultValue}\""
 	}
 	
 	global_message()
@@ -177,7 +197,7 @@ global_main()
 		set +o noglob
 		set +o nolog
 		set +o notify
-		set +o nounset
+		set -o nounset
 		set +o verbose
 		set +o vi
 		
@@ -188,11 +208,11 @@ global_main()
 		unset HISTSIZE
 		unset MAILCHECK
 		unset MAILPATH
+		unset ENV
 		
 		# bash specific, but since at this stage of execution we can't be sure we're running under bash, we do nothing
 		unset BASH_ENV
 		unset BASH_XTRACEFD
-		unset ENV
 		unset FCEDIT
 		unset FIGNORE
 		unset FUNCNEST
@@ -229,15 +249,19 @@ global_main()
 	# Shell workarounds FAQ http://cfajohnson.com/shell/cus-faq-2.html#Q11
 	# dash echo escapes output, yuck, with no -E, it seems
 	# https://stackoverflow.com/questions/3199893/howto-detect-bash-from-shell-script  - lsof -p $$ is probably best, but lsof and awk are dependencies - so we just rexec
+	# Also defends against being source'd and being run under dash when the interpreter is bash, say.
 	global_rexecUnderCorrectShell()
 	{
-		if [ "$global_shell_rexecing" = "$$" ]; then
-			# we've been successfully re-exec'd
-			unset global_shell_rexecing
-		else
-			# exec -a doesn't work in dash
-			global_shell_rexecing=$$ exec "$global_ourSymlinkPath"/"$global_ourSymlinkName" "$@"
+		if global_testVariableIsSet global_shell_rexecing; then
+			if [ "$global_shell_rexecing" = "$$" ]; then
+				# we've been successfully re-exec'd
+				unset global_shell_rexecing
+				return 0
+			fi
 		fi
+		
+		# exec -a doesn't work in dash
+		global_shell_rexecing=$$ exec "$global_ourSymlinkPath"/"$global_ourSymlinkName" "$@"
 	}
 	
 	global_determinePreferredShell()
@@ -254,7 +278,7 @@ global_main()
 		fi
 	}
 	
-	# There's a bug it dash that means that if a set -o fails, we can't stop it even with || true or set +e!
+	# There's a bug in dash that means that if a set -o fails, we can't stop it even with || true or set +e!
 	global_setSaneOptions()
 	{
 		# dash fails here regardless of set -e, so this code MUST run after re-exec'd shell
@@ -274,25 +298,125 @@ global_main()
 		fi
 	}
 	
-	_global_initialiseGlobalConfiguration()
+	global_shellCompatibilityFunctions()
 	{
-		global_configPath="$global_ourPath"/config
-		global_functionsPath="$global_ourPath"/functions
-		# can be en_GB.UTF-8 or 'C' (but that's not unicode aware)
-		# A more sophisticated scheme would use locale -a and hunt for an UTF-8 locale
-		global_language='en_US.UTF-8'
-		global_verbosity=0
-	}
-
-	global_initialiseConfiguration()
-	{
-		_global_initialiseGlobalConfiguration
-		_program_initialiseConfiguration
+		if [ "$global_preferredShell" = 'bash' ]; then
+			global_indirectVariableValue()
+			{
+				local variable="$1"
+				echo "${!1}"
+			}
+		else
+			global_indirectVariableValue()
+			{
+				eval "printf '%s' \"\$$1\""
+			}
+		fi
 	}
 	
-	global_loadAnyConfiguration()
+	# brachiopod ostracod gastropod
+	# lampshell cockleshell shellwork shellfire
+	readonly global_libraryName=shellfire
+	
+	global_loadAnyDefaults()
 	{
-		:
+		global_callbackIfPathIsExtant()
+		{
+			local callback="$1"
+			if global_testVariableIsUnset "$3"; then
+				local path="$2"
+			else
+				local environmentVariablePrefixingPath="$2"
+				local relativePath="$3"
+				
+				local blacklistedEnvironmentVariable
+				for blacklistedEnvironmentVariable in $global_defaultsBlacklistedEnvironmentVariables
+				do
+					if [ "$blacklistedEnvironmentVariable" = "$environmentVariablePrefixingPath" ]; then
+						return 0
+					fi
+				done
+			
+				if global_testVariableIsUnset "$environmentVariable"; then
+					return 0
+				fi
+				local parentPath="$(global_indirectVariableValue "$environmentVariable")"
+				if [ -z "$parentPath" ]; then
+					return 0
+				fi
+				local path="${parentPath}${relativePath}"
+			fi
+		
+			if [ -e "$path" ]; then
+				if [ -r "$path" ]; then
+					$callback "$path"
+				fi
+			fi
+		}
+	
+		global_loadAnyDefaultsFile_callback()
+		{
+			local filePath="$1"
+			if [ -f "$filePath" ]; then
+				if [ -x "$filePath" ]; then
+					global_message WARN "File '$filePath' is executable and should not be; ignoring"
+					return 0
+				fi
+				source "$filePath" || global_exitError "Could not load '$filePath'"
+			fi
+		}
+		
+		global_loadAnyDefaultsFolder_callback()
+		{
+			local folderPath="$1"
+			if [ -d "$folderPath" ]; then
+				if [ -x "$folderPath" ]; then
+					local filePath
+					for filePath in "$folderPath"/*
+					do
+						global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback "$filePath"
+					done
+				fi
+			fi
+		}
+		
+		# One could disable further processing with a 'disable further processing' option
+		# Using gdb to unset a readonly variable: 
+		# Weird HOME behaviour in bash:
+		# - if HOME is changed, ~ also changes
+		# - if HOME is unset, ~ reverts to showing correct user home (but HOME is still unset); works even if LOGNAME and USER are unset, too
+		# But in dash, ksh and dash
+		# - if HOME is unset, ~ now doesn't work, but ~SOMEUSER/ does
+		
+		# Security Protection: So, if a more global script unsets an environment variable or makes it readonly but empty, then the environment variable directed file will be ignored unless we're hacked using gdb https://stackoverflow.com/questions/17397069/unset-readonly-variable-in-bash.
+		# This can be defended against only by adding to the blacklist in one of the '/etc' files.
+		# NOTE: HOME is required under dash, ksh and zsh for '~' unless we use '~$LOGNAME' or '~$USER'
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback /etc/"${global_libraryName}"rc
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback /etc/"${global_libraryName}"rc.d
+		
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback /etc/"${global_ourName}"rc
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback /etc/"${global_ourName}"rc.d
+		
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback HOME /."${global_libraryName}"rc
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback HOME /."${global_libraryName}"rc.d
+		
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback ${global_libraryName}_RC ''
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback ${global_libraryName}_RC_D ''
+		
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback HOME /."${global_ourName}"rc
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback HOME /."${global_ourName}"rc.d
+		
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback ${global_ourName}_RC ''
+		global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback ${global_ourName}_RC_D ''
+		
+		# /opt/<package-name>, /bin, /usr/bin, /usr/local/bin, $HOME/bin installation locations? /sbin et al, too?
+		
+		# A more sophisticated scheme would use locale -a and hunt for an UTF-8 locale, but language needs to be stable over multiple invocations if data is persistent
+		# Can also be 'en_GB.UTF-8' or 'C' (but that's not unicode aware)
+		global_setVariableIfUnset global_language 'en_US.UTF-8'
+		global_setVariableIfUnset global_verbosity 0
+		global_setVariableIfUnset global_configPath "$global_ourPath"/etc
+		global_setVariableIfUnset global_functionsPath "$global_ourPath"/lib
 	}
 	
 	global_usesAlreadySourced=''
@@ -340,21 +464,11 @@ global_main()
 	global_rexecUnderCorrectShell "$@"
 	global_determinePreferredShell
 	global_setSaneOptions
-	global_initialiseConfiguration
-	global_loadAnyConfiguration
+	global_shellCompatibilityFunctions
+	global_loadAnyDefaults
 	
 	global_uses core
 	core_program_execute "$@"
-}
-
-_program_initialiseConfiguration()
-{
-	pushd "$global_ourSymlinkPath"/source 1>/dev/null
-		build_sourcePath="$(pwd)"
-	popd 1>/dev/null
-	
-	# May not exist
-	build_outputPath="$global_ourSymlinkPath"/output
 }
 
 global_main "$@"

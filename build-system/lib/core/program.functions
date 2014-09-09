@@ -1,0 +1,31 @@
+core_uses_in core commandLine dependency
+
+core_program_functions=''
+
+core_program_functionRegister()
+{
+	core_program_functions="$core_program_functions $@"
+}
+
+core_program_execute()
+{
+	local core_program_function
+	for core_program_function in $core_program_functions
+	do
+		$core_program_function "$@"
+	done
+}
+
+core_program_setUmask()
+{
+	umask 022
+}
+
+core_program_functionRegister \
+	core_program_setUmask
+	core_commandLine_setLanguageDefaultsSoSortIsStableAndAnyErrorMessageParsingLogicIsReliable
+	core_program_
+	core_commandLine_parse
+	core_dependency_installDependencies
+
+global_uses "$global_ourName"
