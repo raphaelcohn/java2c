@@ -22,10 +22,9 @@ core_program_setUmask()
 }
 
 core_program_functionRegister \
-	core_program_setUmask
-	core_commandLine_setLanguageDefaultsSoSortIsStableAndAnyErrorMessageParsingLogicIsReliable
-	_program_initialiseDefaults
-	core_commandLine_parse
+	core_program_setUmask \
+	core_commandLine_setLanguageDefaultsSoSortIsStableAndAnyErrorMessageParsingLogicIsReliable \
+	core_commandLine_parse \
 	core_dependency_installDependencies
 
 global_uses "$global_ourName"

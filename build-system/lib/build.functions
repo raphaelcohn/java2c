@@ -1,22 +1,15 @@
-_program_helpMessage_description="Builds projects using CMake"
-_program_helpMessage_optionsAndNonOptions=" -- [build_projects...]"
-_program_helpMessage_usageMessage="Build projects"
-_program_helpMessage_argumentedOptions=""
-_program_helpMessage_argumentlessOptions=""
-_program_helpMessage_nonOptionArguments="build_projects is a list of projects to build"
+# Might be needed in help text
+_program_default_build_sourcePath="$global_ourSymlinkPath"/source
+_program_default_build_outputPath="$global_ourSymlinkPath"/output
 
-_program_parseCommandLineLongOption()
-{
-	case "$OPTARG" in
-		
-		*)
-			global_parseCommandLine_longOptionUnknown
-		;;
-		
-	esac
-}
+_program_commandLine_helpMessage_description="Builds projects using CMake"
+_program_commandLine_helpMessage_optionsAndNonOptions=" -- [build_projects...]"
+_program_commandLine_helpMessage_usageMessage="Build projects"
+_program_commandLine_helpMessage_argumentedOptions=""
+_program_commandLine_helpMessage_argumentlessOptions=""
+_program_commandLine_helpMessage_nonOptionArguments="build_projects is a list of projects to build"
 
-_program_parseCommandLineShortOption()
+_program_commandLine_handleShortOption()
 {
 	case "$option" in
 		
@@ -27,7 +20,18 @@ _program_parseCommandLineShortOption()
 	esac
 }
 
-_program_parseNonOptionArguments()
+_program_commandLine_handleLongOption()
+{
+	case "$OPTARG" in
+		
+		*)
+			global_parseCommandLine_longOptionUnknown
+		;;
+		
+	esac
+}
+
+_program_commandLine_handleNonOptions()
 {
 	if [ $# -eq 0 ]; then
 		global_exitError "No projects specified"
@@ -40,26 +44,38 @@ _program_parseNonOptionArguments()
 	#build_projects=("$@")
 }
 
-_program_initialiseDefaults()
+_program_commandLine_validate()
 {
-	# Fails if path doesn't exist!
-	xxxxx: fail
+	global_setVariableIfUnset build_sourcePath "$_program_default_build_sourcePath"
+	global_setVariableIfUnset build_outputPath "$_program_default_build_outputPath"
+		
+	if [ ! -e "$build_sourcePath" ]; then
+		global_exitError "The build_sourcePath '$build_sourcePath' does not exist"
+	fi
+	if [ ! -d "$build_sourcePath" ]; then
+		global_exitError "The build_sourcePath '$build_sourcePath' is not a directory"
+	fi
+	if [ ! -r "$build_sourcePath" ]; then
+		global_exitError "The build_sourcePath '$build_sourcePath' is not a readable directory"
+	fi
+	if [ ! -r "$build_sourcePath" ]; then
+		global_exitError "The build_sourcePath '$build_sourcePath' is not a searchable directory"
+	fi
 	
-	pushd "$global_ourSymlinkPath"/source 1>/dev/null
-		build_sourcePath="$(pwd)"
-	popd 1>/dev/null
-	
-	# May not exist
-	build_outputPath="$global_ourSymlinkPath"/output
+	# build_outputPath may not exist at this point in time
 }
+
 
 
 global_uses cpucount
 
 core_program_functionRegister cpucount_computeMakeJobsAndLoadAverage
 
+
 build_prepareOutputPath()
 {
+	xxxx: Build Lock
+	
 	if [ -d "$build_outputPath" ]; then
 		return 0
 	fi
