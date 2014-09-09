@@ -2,8 +2,19 @@
 set -e
 set -u
 
-# brachiopod ostracod gastropod
-# lampshell cockleshell shellwork shellfire
+# Early as possible to stop users running shell scripts as setuid / setgid
+# Not a perfect defence as exported functions can have replaced builtin, set, etc...
+if [ -u "$0" ]; then
+	builtin echo "We can not be run with setuid (set user id) set"
+	builtin exit 1
+fi
+if [ -g "$0" ]; then
+	builtin echo "We can not be run with setgid (set group id) set"
+	builtin exit 1
+fi
+
+# depends_on readlink, stat
+
 readonly global_libraryName=shellfire
 
 # dash by default escapes backslashes, other echos behave differently. This way is defensive.
@@ -92,25 +103,92 @@ global_exitError()
 	global_message FAIL "$1"
 	exit 1
 }
-	
-_global_resolveSymlink()
+
+global_setSaneEnvironmentDefaults()
 {
-	local potentialSymlink="$0"
-	while readlink "$potentialSymlink" 1>/dev/null
-	do
-		potentialSymlink="$(readlink "$potentialSymlink")"
-	done
-	_global_resolveSymlink_result="$potentialSymlink"
+	set +o allexport
+	set +o emacs
+	set -o errexit
+	set +o ignoreeof
+	set +o monitor
+	set +o noclobber
+	set +o noexec
+	set +o noglob
+	set +o nolog
+	set +o notify
+	set -o nounset
+	set +o verbose
+	set +o vi
+	
+	# unset will fail if, and only if, we've been source'd and they have been made readonly. Unlikely.
+	
+	# MUST be unset before making use of cd
+	unset CDPATH
+	unset HISTSIZE
+	unset MAILCHECK
+	unset MAILPATH
+	unset ENV
+	
+	# bash specific, but since at this stage of execution we can't be sure we're running under bash, we do nothing
+	unset BASH_ENV
+	unset BASH_XTRACEFD
+	unset FCEDIT
+	unset FIGNORE
+	unset FUNCNEST
+	unset GLOBIGNORE
+	unset HISTCONTROL
+	unset HISTFILE
+	unset HISTFILESIZE
+	unset HISTIGNORE
+	unset HISTTIMEFORMAT
+	unset HOSTFILE
+	unset IGNOREEOF
+	unset INPUTRC
+	unset MAIL
+	unset TMOUT
 }
 
-global_findOurName()
+# http://mywiki.wooledge.org/BashFAQ/028 on $0
+# http://mywiki.wooledge.org/Bashism?action=show&redirect=bashism
+# realpath vs readlink, and supported OS (comments): https://unix.stackexchange.com/questions/136494/whats-the-difference-between-realpath-and-readlink-f
+global_findOurNameAndPath()
 {
 	readonly global_ourSymlinkName="$(global_compatibility_basename "$0")"
 	
-	local _global_resolveSymlink_result
-	_global_resolveSymlink
+	# Temporary assignment
+	global_ourName="$global_ourSymlinkName"
 	
-	readonly global_ourName="$(global_compatibility_basename "$_global_resolveSymlink_result")"
+	# can be empty if 'bash file' used or 'bash </path/to/file' or ksh with PATH containing '.'
+	local potential_global_ourSymlinkPath="${0%/*}"
+	if [ -z "$potential_global_ourSymlinkPath" ]; then
+		global_exitError "Do not invoke this program either by specifying a shell interpreter on a file in the current working directory (eg bash '$0') or redirecting from a pipe into a shell interpreter (eg bash [-c] <'$0') or by using ksh with a PATH containing '.'"
+	fi
+	
+	# At this point, we resolve $0 vs the current working directory
+	# If we were exec'd, we have either a relative or an absolute path
+	cd "$potential_global_ourSymlinkPath" 1>/dev/null
+		readonly global_ourSymlinkPath="$(pwd)"
+	cd - >/dev/null
+	
+	cd -P "$potential_global_ourSymlinkPath" 1>/dev/null
+		readonly global_ourPath="$(pwd)"
+	cd - >/dev/null
+	
+	# We can only follow symlinks with readlink (which doesn't work if $0 ends in \n)
+	# readlink is not on AIX, some Solaris
+	# realpath is quite rare, unfortunately, as it is perfectly suited (but it is in coreutils, so will become more common)
+	if command -v readlink 1>/dev/null; then
+		local potentialSymlink="$0"
+		while readlink "$potentialSymlink"
+		do
+			potentialSymlink="$(readlink "$potentialSymlink")"
+		done
+		readonly global_ourName="$(global_compatibility_basename "$potentialSymlink")"
+	elif command -v realpath 1>/dev/null; then
+		readonly global_ourName="$(global_compatibility_basename "$(realpath "$0")")"
+	else
+		readonly global_ourName="$global_ourSymlinkName"
+	fi
 }
 
 global_setTracing()
@@ -140,18 +218,65 @@ global_setTracing()
 	esac
 }
 
-_global_builtInDoesNotExist()
+global_determinePreferredShell()
 {
-	local builtInName="$1"
-	local value="$(PATH='' command -v "$builtInName")"
-	if [ "$builtInName" = "$value" ]; then
-		return 1
+	local shebang_path
+	local shebang_shell
+	local remainder
+	local comment
+	local shebang_path
+	
+	IFS=' ' read -r commented_shebang_path shebang_shell remainder <"$global_ourSymlinkPath"/"$global_ourSymlinkName"
+	if [ -n "$remainder" ]; then
+		global_exitError "Passing options to a shell ('#!$shebang_path $shebang_shell $remainder') is not supported"
 	fi
-	return 0
+	IFS='!' read -r comment shebang_path <<-EOF
+		$commented_shebang_path
+	EOF
+	
+	if [ -z "$shebang_shell" ]; then
+		global_preferredShell="$(global_compatibility_basename "$shebang_path")"
+	else
+		if [ "$shebang_path" != '/usr/bin/env' ]; then
+			global_exitError "All shell scripts should use '/usr/bin/env' with a shell, not #!$shebang_path $shebang_shell"
+		fi
+		global_preferredShell="$shebang_shell"
+	fi
+}
+
+# Ensures we run under a shell interpreter that we were designed for - no matter what is specified in the shebang
+# This works around packaging tools that want '#!/bin/bash', but point to an old version. Needs to be coupled into loading new shell versions.
+global_rexecUnderCorrectShell()
+{
+	if global_compatibility_testVariableIsSet global_shell_rexecing; then
+		if [ "$global_shell_rexecing" = "$$" ]; then
+			# we've been successfully re-exec'd
+			unset global_shell_rexecing
+			return 0
+		fi
+	fi
+	
+	if ! command -v "$global_preferredShell" 1>/dev/null 2>/dev/null; then
+		global_exitError "Preferred shell '$global_preferredShell' does not exist on the PATH"
+	fi
+	local shellPath="$(command -v "$global_preferredShell")"
+	
+	# exec -a doesn't work in dash
+	global_shell_rexecing=$$ exec "$shellPath" "$global_preferredShell" "$global_ourSymlinkPath"/"$global_ourSymlinkName" "$@"
 }
 
 global_addMissingBuiltins()
 {
+	_global_builtInDoesNotExist()
+	{
+		local builtInName="$1"
+		local value="$(PATH='' command -v "$builtInName")"
+		if [ "$builtInName" = "$value" ]; then
+			return 1
+		fi
+		return 0
+	}
+	
 	# bash, zsh are known to support this
 	if _global_builtInDoesNotExist pushd; then
 		
@@ -202,103 +327,6 @@ global_addMissingBuiltins()
 	fi
 }
 
-global_setSaneEnvironmentDefaults()
-{
-	set +o allexport
-	set +o emacs
-	set -o errexit
-	set +o ignoreeof
-	set +o monitor
-	set +o noclobber
-	set +o noexec
-	set +o noglob
-	set +o nolog
-	set +o notify
-	set -o nounset
-	set +o verbose
-	set +o vi
-	
-	# unset will fail if, and only if, we've been source'd and they have been made readonly. Unlikely.
-	
-	# MUST be unset before making use of cd - which is needed for the dash / sh 'pushd' replacement, which in turn is needed by global_findOurPath
-	unset CDPATH
-	unset HISTSIZE
-	unset MAILCHECK
-	unset MAILPATH
-	unset ENV
-	
-	# bash specific, but since at this stage of execution we can't be sure we're running under bash, we do nothing
-	unset BASH_ENV
-	unset BASH_XTRACEFD
-	unset FCEDIT
-	unset FIGNORE
-	unset FUNCNEST
-	unset GLOBIGNORE
-	unset HISTCONTROL
-	unset HISTFILE
-	unset HISTFILESIZE
-	unset HISTIGNORE
-	unset HISTTIMEFORMAT
-	unset HOSTFILE
-	unset IGNOREEOF
-	unset INPUTRC
-	unset MAIL
-	unset TMOUT
-}
-
-global_findOurPath()
-{
-	pushd "$(global_compatibility_dirname "$0")"
-		readonly global_ourSymlinkPath="$(pwd)"
-	popd
-	
-	local _global_resolveSymlink_result
-	_global_resolveSymlink
-	
-	pushd "$(global_compatibility_dirname "$_global_resolveSymlink_result")"
-		readonly global_ourPath="$(pwd)"
-	popd
-}
-
-# We can not determine the interpreter running us (short of using lsof with $$ and awk) in a simple, reliable way
-# So instead we exec ourselves once, using our process id as a check against user environment interference
-# Common bash-isms and bugs in dash https://wiki.ubuntu.com/DashAsBinSh
-# Shell workarounds FAQ http://cfajohnson.com/shell/cus-faq-2.html#Q11
-# dash echo escapes output, yuck, with no -E, it seems
-# https://stackoverflow.com/questions/3199893/howto-detect-bash-from-shell-script  - lsof -p $$ is probably best, but lsof and awk are dependencies - so we just rexec
-# Also defends against being source'd and being run under dash when the interpreter is bash, say.
-global_rexecUnderCorrectShell()
-{
-	if global_compatibility_testVariableIsSet global_shell_rexecing; then
-		if [ "$global_shell_rexecing" = "$$" ]; then
-			# we've been successfully re-exec'd
-			unset global_shell_rexecing
-			return 0
-		fi
-	fi
-	
-	# exec -a doesn't work in dash
-	global_shell_rexecing=$$ exec "$global_ourSymlinkPath"/"$global_ourSymlinkName" "$@"
-}
-
-# sh (as bash), sh (as dash), bash (4.1 / 4.2+), 
-# Unknown but need to work: sh (as busybox), sh (as ash)
-# Problematic: ksh93
-global_determinePreferredShell()
-{
-	read -r shebang_path shebang_shell <"$0"
-
-	if [ "$shebang_path" = '#!/usr/bin/env' ]; then
-		if [ -z "$shebang_shell" ]; then
-			global_exitError "All shell scripts run under env should use 'env' with a shell"
-		fi
-		global_preferredShell="$shebang_shell"
-	else
-		global_preferredShell="$(global_compatibility_basename "$shebang_path")"
-	fi
-}
-
-# There's a bug in dash that means that if a set -o fails, we can't stop it even with || true or set +e!
 global_installPreferredShellCompatibilityFunctions()
 {
 	case "$global_preferredShell" in
@@ -390,23 +418,16 @@ global_loadAnyDefaults()
 			fi
 		fi
 	}
-	
-	# One could disable further processing with a 'disable further processing' option
-	# Using gdb to unset a readonly variable: 
-	# Weird HOME behaviour in bash:
-	# - if HOME is changed, ~ also changes
-	# - if HOME is unset, ~ reverts to showing correct user home (but HOME is still unset); works even if LOGNAME and USER are unset, too
-	# But in dash, ksh and dash
-	# - if HOME is unset, ~ now doesn't work, but ~SOMEUSER/ does
-	
-	Before parsing, rush checks the ownership and permissions of the configuration file for possible security breaches. The configuration file is considered unsafe if any of the following conditions are met:
+		
+	Before parsing, rush checks the ownership and permissions of the configuration file for possible security breaches. The configuration file is
+	considered unsafe if any of the following conditions are met:
 
-	    It is not owned by root.
-	    It is group writable.
-	    It is world writable.
-	    It resides in a group writable directory.
-	    It resides in a world writable directory.
-	    It is a symbolic link to a file residing in a group or world writable directory. 
+	#    It is not owned by root.
+	#    It is group writable.
+	#    It is world writable.
+	#    It resides in a group writable directory.
+	#    It resides in a world writable directory.
+	#    It is a symbolic link to a file residing in a group or world writable directory. 
 	
 	
 	# Security Protection: So, if a more global script unsets an environment variable or makes it readonly but empty, then the environment variable directed file will be ignored unless we're hacked using gdb https://stackoverflow.com/questions/17397069/unset-readonly-variable-in-bash.
@@ -479,13 +500,12 @@ global_uses()
 
 global_main()
 {
-	global_findOurName
-	global_setTracing
-	global_addMissingBuiltins
 	global_setSaneEnvironmentDefaults
-	global_findOurPath
-	global_rexecUnderCorrectShell "$@"
+	global_findOurNameAndPath
+	global_setTracing
 	global_determinePreferredShell
+	global_rexecUnderCorrectShell "$@"
+	global_addMissingBuiltins
 	global_installPreferredShellCompatibilityFunctions
 	global_loadAnyDefaults
 	
