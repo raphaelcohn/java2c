@@ -113,8 +113,8 @@ core_commandLine_parse_longOptionUnknown()
 
 core_commandLine_parse()
 {
-	local -r getoptsStringExtra="$1"
-	local -r getoptsString=":hv-:${getoptsStringExtra}"
+	local getoptsStringExtra="$1"
+	local getoptsString=":hv-:${getoptsStringExtra}"
 
 	local OPTERR=1
 	local OPTIND=1

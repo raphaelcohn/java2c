@@ -7,9 +7,9 @@ core_dependency_check_register core_dependency_check_CentOS_checkFunction
 core_dependency_check_CentOS_packageManager()
 {
 	if [ $global_verbosity -gt 0 ]; then
-		local -r yumVerbosity=""
+		local yumVerbosity=""
 	else
-		local -r yumVerbosity=" --quiet"
+		local yumVerbosity=" --quiet"
 	fi
 	
 	sudo -p "Please enter your password for sudo to update yum: " yum makecache

@@ -2,7 +2,7 @@ core_uses_in core/dependency check
 
 core_dependency_requiresProgram()
 {
-	local -r programName="$1"
+	local programName="$1"
 	shift 1
 	local operatingSystem
 	for operatingSystem in "$@"
@@ -11,7 +11,12 @@ core_dependency_requiresProgram()
 	done
 }
 
-core_dependency_functions=()
+core_dependency_functions=''
+
+core_dependency_functionRegister()
+{
+	core_dependency_functions="$core_dependency_functions $@"
+}
 
 core_dependency_ensureWeAreRunningBash4()
 {
@@ -21,7 +26,7 @@ core_dependency_ensureWeAreRunningBash4()
 		fi
 	fi
 }
-core_dependency_functions+=(core_dependency_ensureWeAreRunningBash4)
+core_dependency_functionRegister core_dependency_ensureWeAreRunningBash4
 
 # Also MACHTYPE
 # Also HOSTTYPE
@@ -76,7 +81,7 @@ core_dependency_determineOsFamily()
 	
 	# the ostype windows is also reserved but isn't obviously useful
 }
-core_dependency_functions+=(core_dependency_determineOsFamily)
+core_dependency_functionRegister core_dependency_determineOsFamily
 
 core_dependency_determineDistributionName()
 {
@@ -91,7 +96,7 @@ core_dependency_determineDistributionName()
 	# Alternatively, we can use /etc/debian_version's presence in a check above
 	# Or parse /etc/lsb-release for DISTRIB_ID
 	if core_which lsb_release 1>/dev/null 2>/dev/null; then
-		local -r lsbDistributor="$(lsb_release --id --short)"
+		local lsbDistributor="$(lsb_release --id --short)"
 		if [ -n "$lsbDistributor" ]; then
 			readonly core_dependency_distributionName="$lsbDistributor"
 			return 0
@@ -100,11 +105,11 @@ core_dependency_determineDistributionName()
 	
 	global_exitError "Could not determine distribution"
 }
-core_dependency_functions+=(core_dependency_determineDistributionName)
+core_dependency_functionRegister core_dependency_determineDistributionName
 
 core_dependency_setUpAliases()
 {
-	local -r pathsFile="$global_configPath"/paths.d/"$core_dependency_distributionName".path
+	local pathsFile="$global_configPath"/paths.d/"$core_dependency_distributionName".path
 	if [ ! -f "$pathsFile" ]; then
 		return 0
 	fi
@@ -144,13 +149,13 @@ core_dependency_setUpAliases()
 	fi
 	
 }
-core_dependency_functions+=(core_dependency_setUpAliases)
+core_dependency_functionRegister core_dependency_setUpAliases
 
 core_dependency_installDependencies()
 {
 	local core_dependency_function
-	for core_dependency_function in "${core_dependency_functions[@]}"
+	for core_dependency_function in $core_dependency_functions
 	do
-		$core_dependency_function
+		$core_dependency_function "$@"
 	done
 }

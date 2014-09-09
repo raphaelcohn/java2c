@@ -36,15 +36,15 @@ cpucount_makeLoadAverage=1.00
 cpucount_computeMakeJobsAndLoadAverage()
 {
 	# converts strings to 0, ie 'max' goes to 0
-	local -ir configuredCpuCount=$1
-	local -ir configuredLoadAverageCorrection=$2
+	local -i configuredCpuCount=$1
+	local -i configuredLoadAverageCorrection=$2
 	cpucount_findNumberOfHyperthreadedCpus
 	
 	if [ $configuredCpuCount -eq 0 ]; then
 		cpucount_makeJobs=$cpucount_discoveredNumberOfCpus
 	elif [ $configuredCpuCount -lt 0 ]; then
 		# reduce number of cpus
-		local -ir potentialCpus=$((cpucount_discoveredNumberOfCpus + configuredCpuCount))
+		local -i potentialCpus=$((cpucount_discoveredNumberOfCpus + configuredCpuCount))
 		if [ $potentialCpus -lt 1 ]; then
 			cpucount_makeJobs=1
 		else
@@ -57,8 +57,8 @@ cpucount_computeMakeJobsAndLoadAverage()
 	if [ $configuredLoadAverageCorrection -eq 0 ]; then
 		cpucount_makeLoadAverage="${cpucount_makeJobs}.00"
 	else
-		local -ir remainingLoadAveragePercentage=$((100 - configuredLoadAverageCorrection))
-		local -ir reducedCpus=$((cpucount_makeJobs - 1))
+		local -i remainingLoadAveragePercentage=$((100 - configuredLoadAverageCorrection))
+		local -i reducedCpus=$((cpucount_makeJobs - 1))
 		cpucount_makeLoadAverage="${reducedCpus}.${remainingLoadAveragePercentage}"
 	fi
 }

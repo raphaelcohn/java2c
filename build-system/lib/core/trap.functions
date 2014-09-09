@@ -14,134 +14,134 @@ _core_trap_executeOnTrap()
 	local handler
 	for handler in "$@"
 	do
-		"${handler}"
+		$handler
 	done
 }
 
-core_trap_handlersEXIT=()
+core_trap_handlersEXIT=''
 
 core_trap_executeOnTrapEXIT()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersEXIT[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersEXIT
 }
 
 core_trap_addOnTrapEXIT()
 {
-	local -r handler="$1"
-	core_trap_handlersEXIT+=("$handler")
+	local handler="$1"
+	core_trap_handlersEXIT="$core_trap_handlersEXIT $handler"
 }
 
 trap core_trap_executeOnTrapEXIT EXIT
 
-#core_trap_handlersDEBUG=()
+#core_trap_handlersDEBUG=''
 #
 #core_trap_executeOnTrapDEBUG()
 #{
-#	_core_trap_executeOnTrap "${core_trap_handlersDEBUG[@]}"
+#	_core_trap_executeOnTrap $core_trap_handlersDEBUG
 #}
 
 #core_trap_addOnTrapDEBUG()
 #{
-#	local -r handler="$1"
-#	core_trap_handlersDEBUG+=("$handler")
+#	local handler="$1"
+#	core_trap_handlersDEBUG="$core_trap_handlersDEBUG $handler"
 #}
 
 #trap core_trap_executeOnTrapDEBUG DEBUG
 
-core_trap_handlersHUP=()
+core_trap_handlersHUP=''
 
 core_trap_executeOnTrapHUP()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersHUP[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersHUP
 }
 
 core_trap_addOnTrapHUP()
 {
-	local -r handler="$1"
-	core_trap_handlersHUP+=("$handler")
+	local handler="$1"
+	core_trap_handlersHUP="$core_trap_handlersHUP $handler"
 }
 
 trap core_trap_executeOnTrapHUP HUP
 
 # Ctrl-C: terminate gracefully
-core_trap_handlersINT=()
+core_trap_handlersINT=''
 
 core_trap_executeOnTrapINT()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersINT[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersINT
 }
 
 core_trap_addOnTrapINT()
 {
-	local -r handler="$1"
-	core_trap_handlersINT+=("$handler")
+	local handler="$1"
+	core_trap_handlersINT="$core_trap_handlersINT $handler"
 }
 
 trap core_trap_executeOnTrapINT INT
 
 # Ctrl-\: terminate and dump core
-core_trap_handlersQUIT=()
+core_trap_handlersQUIT=''
 
 core_trap_executeOnTrapQUIT()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersQUIT[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersQUIT
 }
 
 core_trap_addOnTrapQUIT()
 {
-	local -r handler="$1"
-	core_trap_handlersQUIT+=("$handler")
+	local handler="$1"
+	core_trap_handlersQUIT="$core_trap_handlersQUIT $handler"
 }
 
 trap core_trap_executeOnTrapQUIT QUIT
 
 # ILL, TRAP
 
-core_trap_handlersABRT=()
+core_trap_handlersABRT=''
 
 core_trap_executeOnTrapABRT()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersABRT[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersABRT
 }
 
 core_trap_addOnTrapABRT()
 {
-	local -r handler="$1"
-	core_trap_handlersABRT+=("$handler")
+	local handler="$1"
+	core_trap_handlersABRT="$core_trap_handlersABRT $handler"
 }
 
 trap core_trap_executeOnTrapABRT ABRT
 
 # EMT, FPE, KILL, BUS, SEGV, SYS
 
-core_trap_handlersPIPE=()
+core_trap_handlersPIPE=''
 
 core_trap_executeOnTrapPIPE()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersPIPE[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersPIPE
 }
 
 core_trap_addOnTrapPIPE()
 {
-	local -r handler="$1"
-	core_trap_handlersPIPE+=("$handler")
+	local handler="$1"
+	core_trap_handlersPIPE="$core_trap_handlersPIPE $handler"
 }
 
 trap core_trap_executeOnTrapPIPE PIPE
 
 # ALRM
 
-core_trap_handlersTERM=()
+core_trap_handlersTERM=''
 
 core_trap_executeOnTrapTERM()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersTERM[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersTERM
 }
 
 core_trap_addOnTrapTERM()
 {
-	local -r handler="$1"
-	core_trap_handlersTERM+=("$handler")
+	local handler="$1"
+	core_trap_handlersTERM="$core_trap_handlersTERM $handler"
 }
 
 trap core_trap_executeOnTrapTERM TERM
@@ -149,17 +149,17 @@ trap core_trap_executeOnTrapTERM TERM
 # URG, STOP
 
 # Ctrl-Z: suspend execution
-core_trap_handlersTSTP=()
+core_trap_handlersTSTP=''
 
 core_trap_executeOnTrapTSTP()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersTSTP[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersTSTP
 }
 
 core_trap_addOnTrapTSTP()
 {
-	local -r handler="$1"
-	core_trap_handlersTSTP+=("$handler")
+	local handler="$1"
+	core_trap_handlersTSTP="$core_trap_handlersTSTP $handler"
 }
 
 trap core_trap_executeOnTrapTSTP TSTP
@@ -167,47 +167,47 @@ trap core_trap_executeOnTrapTSTP TSTP
 # TSTP, CONT, CHLD, TTIN, TTOU, IO, XCPU, XFSZ, VTALRM, PROF, WINCH
 
 # Ctrl-T sends INFO
-core_trap_handlersINFO=()
+core_trap_handlersINFO=''
 
 core_trap_executeOnTrapINFO()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersINFO[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersINFO
 }
 
 core_trap_addOnTrapINFO()
 {
-	local -r handler="$1"
-	core_trap_handlersINFO+=("$handler")
+	local handler="$1"
+	core_trap_handlersINFO="$core_trap_handlersINFO $handler"
 }
 
 trap core_trap_executeOnTrapINFO INFO
 
-core_trap_handlersUSR1=()
+core_trap_handlersUSR1=''
 
-function core_trap_executeOnTrapUSR1()
+core_trap_executeOnTrapUSR1()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersUSR1[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersUSR1
 }
 
-function core_trap_addOnTrapUSR1()
+core_trap_addOnTrapUSR1()
 {
-	local -r handler="$1"
-	core_trap_handlersUSR1+=("$handler")
+	local handler="$1"
+	core_trap_handlersUSR1="$core_trap_handlersUSR1 $handler"
 }
 
 trap core_trap_executeOnTrapUSR1 USR1
 
-core_trap_handlersUSR2=()
+core_trap_handlersUSR2=''
 
-function core_trap_executeOnTrapUSR2()
+core_trap_executeOnTrapUSR2()
 {
-	_core_trap_executeOnTrap "${core_trap_handlersUSR2[@]}"
+	_core_trap_executeOnTrap $core_trap_handlersUSR2
 }
 
-function core_trap_addOnTrapUSR2()
+core_trap_addOnTrapUSR2()
 {
-	local -r handler="$1"
-	core_trap_handlersUSR2+=("$handler")
+	local handler="$1"
+	core_trap_handlersUSR2="$core_trap_handlersUSR2 $handler"
 }
 
 trap core_trap_executeOnTrapUSR2 USR2
