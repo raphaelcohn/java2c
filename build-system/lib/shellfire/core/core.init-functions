@@ -1,3 +1,5 @@
+readonly core_libraryName=shellfire
+
 core_message()
 {
 	local messageKind="$1"

@@ -2,7 +2,10 @@
 
 # we assemble this file, effectively, and so should include a revision_blob or somesuch so we can tell if we're out-of-date
 # if it ends .init-functions, it goes in here. Order only matters for the final line  init_main "$@"  but we could generate that
+# if we're standing alone, then we need to set core_
 # if we're including all functions, then we need to override core_uses
+
+readonly core_libraryName=shellfire
 
 core_message()
 {
@@ -58,6 +61,11 @@ core_compatibility_testVariableIsSet()
 {
 	local variableName="$1"
 	eval "[ \"\${$variableName+unset}\" = 'unset' ]"
+}
+
+core_compatibility_indirectVariableValue()
+{
+	eval "printf '%s' \"\$$1\""
 }
 
 core_compatibility_which()
@@ -162,7 +170,7 @@ core_init_findOurNameAndPath()
 		readonly global_ourName="$global_ourSymlinkName"
 	fi
 	
-	# eg due to the fact we store the program names in a whitespace-separated variable for tracing (shellfire_trace)
+	# eg due to the fact we store the program names in a whitespace-separated variable for tracing (${core_libraryName}_trace)
 	_core_init_findOurNameAndPath_checkForWhitespaceInName()
 	{
 		local programName="$1"
@@ -201,17 +209,17 @@ core_init_setTracing()
 	case "$-" in
 		
 		*x*)
-			if core_compatibility_testVariableIsSet shellfire_trace; then
-				export shellfire_trace="$global_ourSymlinkName"
+			if core_compatibility_testVariableIsSet ${core_libraryName}_trace; then
+				export ${core_libraryName}_trace="$global_ourSymlinkName"
 			else
-				export shellfire_trace="$shellfire_trace $global_ourSymlinkName"
+				export ${core_libraryName}_trace="$(core_compatibility_indirectVariableValue ${core_libraryName}_trace) $global_ourSymlinkName"
 			fi
 		;;
 		
 		*)
-			if core_compatibility_testVariableIsSet shellfire_trace; then
+			if core_compatibility_testVariableIsSet ${core_libraryName}_trace; then
 				local program
-				for program in $shellfire_trace
+				for program in $(core_compatibility_indirectVariableValue ${core_libraryName}_trace)
 				do
 					if [ "$program" = "$global_ourSymlinkName" ]; then
 						set -x
@@ -271,6 +279,43 @@ core_init_rexecUnderCorrectShell()
 	core_init_shell_rexecing=$$ exec "$shellPath" "$global_ourSymlinkExecutablePath" "$@"
 }
 
+_core_usesAlreadySourced=''
+core_uses()
+{
+	local namespacedModules
+	local alreadySourcedNamespacedFunctions
+	local moduleName
+	local relativeFunctionsFileName
+	local functionsFilePath
+	local sourced
+	for namespacedModule in "$@"
+	do
+		# skip if already sourced
+		# Does not handle spaces in filenames, unfortunately
+		for alreadySourcedNamespacedFunction in $_core_usesAlreadySourced
+		do
+			if [ "$namespacedModule" = "$alreadySourcedNamespacedFunction" ]; then
+				continue 2
+			fi
+		done
+		
+		_core_usesAlreadySourced="$_core_usesAlreadySourced $namespacedModule"
+		moduleName="$(core_compatibility_basename "$namespacedModule")"
+		sourced=0
+		for relativeFunctionsFilePath in "$namespacedModule"."$global_preferredShell" "$namespacedModule" "$namespacedModule"/"$moduleName"."$global_preferredShell" "$namespacedModule"/"$moduleName"
+		done
+			functionsFilePath="${core_init_rootPath}"/lib/"$core_libraryName"/"$relativeFunctionsFilePath".functions
+			if [ -f "$functionsFilePath" ]; then
+				. "$functionsFilePath" || core_exitError "Can not load functions '$functionsFilePath'"
+				sourced=1
+			fi
+		done
+		if [ $sourced -eq 0 ]; then
+			core_exitError "Can not load functions for namespace '$namespacedModule'"
+		fi
+	done
+}
+
 # goal is to create three forms of executable
 # * one that is completely standalone, including paths files [but can still make use of overrides]
 # * one that is completely standalone, excluding paths files and with functions in /lib
@@ -279,7 +324,7 @@ core_init_rexecUnderCorrectShell()
 # * one that can run from checkout of git & git submodules
 
 # paths files are composable
-# * work simply by combining those defined in shellfire with local choices
+# * work simply by combining those defined in $core_libraryName with local choices
 # * allow local, git friendly, replacements OR additions
 
 # first two forms are going to require a kind of build process
@@ -293,11 +338,13 @@ core_init_main()
 	core_init_determinePreferredShell
 	core_init_rexecUnderCorrectShell "$@"
 	
-	# Risky but should work
+	# this is a bit messy and needs to be fixed
+	xxxx
+	readonly core_init_rootPath="$global_ourPath"
 	
-	xxxx core_init_functionsPath is still being used in core_use()
 	
-	. "$global_ourPath"/lib/core/core.functions
+	
+	core_uses core
 }
 
 core_init_main "$@"
