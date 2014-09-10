@@ -1,6 +1,6 @@
 core_dependency_check_Homebrew_checkFunction()
 {
-	if global_compatibility_whichNoOutput brew; then
+	if core_compatibility_whichNoOutput brew; then
 		readonly core_dependency_distributionName="Homebrew"
 		return 0
 	fi

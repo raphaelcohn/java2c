@@ -9,44 +9,55 @@ core_compatibility_dirname()
 	fi
 }
 
-# dash by default escapes backslashes, other echos behave differently. This way is defensive.
-core_compatibility_echo()
-{
-	printf '%s\n' "$1"
-}
-
-
 _core_compatibility_builtInDoesNotExist()
 {
 	local builtInName="$1"
-	local value="$(PATH='' global_compatibility_which "$builtInName")"
+	local value="$(PATH='' core_compatibility_which "$builtInName")"
 	if [ "$builtInName" = "$value" ]; then
 		return 1
 	fi
 	return 0
 }
 
-core_compatibility_functions=''
-
-core_compatibility_functionRegister()
+core_compatibility_setVariable()
 {
-	core_compatibility_functions="$core_compatibility_functions $@"
+	eval "$1='$2'"
 }
+
+core_compatibility_setWithoutQuotesVariable()
+{
+	eval "$1=$2"
+}
+
+core_compatibility_setVariableIfUnset()
+{
+	local variableName="$1"
+	local variableDefaultValue="$2"
+	
+	# This is not whitespace-safe: eval "$variableName=\"\${$variableName-$variableDefaultValue}\""
+	if core_compatibility_testVariableIsUnset "$variableName"; then
+		eval "$variableName='$variableDefaultValue'"
+	fi
+}
+
+# dash by default escapes backslashes, other echos behave differently. This way is defensive.
+core_compatibility_echo()
+{
+	printf '%s\n' "$1"
+}
+
+core_usesIn functions
 
 core_compatibility_execute()
 {
-	local core_compatibility_function
-	for core_compatibility_function in $core_compatibility_functions
-	do
-		$core_compatibility_function "$@"
-	done
+	core_functions_execute core_compatibility_functions
 }
 
 core_compatibility_setSaneShellOptions()
 {
 	:
 }
-core_compatibility_functionRegister core_compatibility_setSaneShellOptions
+core_functions_register core_compatibility_functions core_compatibility_setSaneShellOptions
 
 core_compability_installPushdAndPopd()
 {
@@ -54,7 +65,7 @@ core_compability_installPushdAndPopd()
 	if core_compatibility_builtInDoesNotExist pushd; then
 		
 		if ! core_compatibility_builtInDoesNotExist popd; then
-			init_exitError "Weird shell does not have pushd but does have popd (?feature detection bug?)!"
+			global_exitError "Weird shell does not have pushd but does have popd (?feature detection bug?)!"
 		fi
 		
 		_init_compatibility_pushdCount=0
@@ -89,7 +100,7 @@ core_compability_installPushdAndPopd()
 		
 	fi
 }
-core_compatibility_functionRegister core_compability_installPushdAndPopd
+core_functions_register core_compatibility_functions core_compability_installPushdAndPopd
 
 core_compability_installSource()
 {
@@ -103,5 +114,5 @@ core_compability_installSource()
 		
 	fi
 }
-core_compatibility_functionRegister core_compability_installSource
+core_functions_register core_compatibility_functions core_compability_installSource
 

@@ -1,27 +1,6 @@
 #!/usr/bin/env dash
 
-init_init()
-{
-	set -e
-	set -u
-
-	# Early as possible to stop users running shell scripts as setuid / setgid
-	# Not a perfect defence as exported functions can have replaced builtin, set, etc...
-	# And $0 might not be a path to this script
-	if [ -u "$0" ]; then
-		builtin echo "We can not be run with setuid (set user id) set"
-		builtin exit 1
-	fi
-	if [ -g "$0" ]; then
-		builtin echo "We can not be run with setgid (set group id) set"
-		builtin exit 1
-	fi
-
-	readonly init_libraryName=shellfire
-	# depends_on readlink, stat
-}
-init_init
-
+#@SHELLFIRE_INIT_BEGIN@#
 core_compatibility_basename()
 {
 	printf '%s' "${1##*/}"
@@ -44,28 +23,19 @@ core_compatibility_testVariableIsSet()
 	! core_compatibility_testVariableIsUnset "$1"
 }
 
-core_compatibility_setVariableIfUnset()
-{
-	local variableName="$1"
-	local variableDefaultValue="$2"
-	
-	# This is not whitespace-safe: eval "$variableName=\"\${$variableName-$variableDefaultValue}\""
-	if core_compatibility_testVariableIsUnset "$variableName"; then
-		eval "$variableName='$variableDefaultValue'"
-	fi
-}
-
-global_compatibility_which()
+core_compatibility_which()
 {
 	command -v "$1"
 }
 
-global_compatibility_whichNoOutput()
+core_compatibility_whichNoOutput()
 {
-	global_compatibility_which "$1" 1>/dev/null 2>/dev/null
+	core_compatibility_which "$1" 1>/dev/null 2>/dev/null
 }
+#@SHELLFIRE_INIT_END@#
 
-init_message()
+#@SHELLFIRE_INIT_BEGIN@#
+global_message()
 {
 	local messageKind="$1"
 	local message="$2"
@@ -104,10 +74,33 @@ init_message()
 	fi
 }
 
-init_exitError()
+global_exitError()
 {
-	init_message FAIL "$1"
+	global_message FAIL "$1"
 	exit 1
+}
+#@SHELLFIRE_INIT_END@#
+
+#@SHELLFIRE_INIT_BEGIN@#
+init_init()
+{
+	set -e
+	set -u
+
+	# Early as possible to stop users running shell scripts as setuid / setgid
+	# Not a perfect defence as exported functions can have replaced builtin, set, etc...
+	# And $0 might not be a path to this script
+	if [ -u "$0" ]; then
+		builtin echo "We can not be run with setuid (set user id) set"
+		builtin exit 1
+	fi
+	if [ -g "$0" ]; then
+		builtin echo "We can not be run with setgid (set group id) set"
+		builtin exit 1
+	fi
+
+	readonly init_libraryName=shellfire
+	# depends_on readlink, stat
 }
 
 init_setSaneEnvironmentDefaults()
@@ -167,7 +160,7 @@ init_findOurNameAndPath()
 	# can be empty if 'bash file' used or 'bash </path/to/file' or ksh with PATH containing '.'
 	local potential_global_ourSymlinkPath="${0%/*}"
 	if [ -z "$potential_global_ourSymlinkPath" ]; then
-		init_exitError "Do not invoke this program either by specifying a shell interpreter on a file in the current working directory (eg bash '$0') or redirecting from a pipe into a shell interpreter (eg bash [-c] <'$0') or by using ksh with a PATH containing '.'"
+		global_exitError "Do not invoke this program either by specifying a shell interpreter on a file in the current working directory (eg bash '$0') or redirecting from a pipe into a shell interpreter (eg bash [-c] <'$0') or by using ksh with a PATH containing '.'"
 	fi
 	
 	# At this point, we resolve $0 vs the current working directory
@@ -183,14 +176,14 @@ init_findOurNameAndPath()
 	# We can only follow symlinks with readlink (which doesn't work if $0 ends in \n)
 	# readlink is not on AIX, some Solaris
 	# realpath is quite rare, unfortunately, as it is perfectly suited (but it is in coreutils, so will become more common)
-	if global_compatibility_whichNoOutput readlink; then
+	if core_compatibility_whichNoOutput readlink; then
 		local potentialSymlink="$0"
 		while readlink "$potentialSymlink"
 		do
 			potentialSymlink="$(readlink "$potentialSymlink")"
 		done
 		readonly global_ourName="$(core_compatibility_basename "$potentialSymlink")"
-	elif global_compatibility_whichNoOutput realpath; then
+	elif core_compatibility_whichNoOutput realpath; then
 		readonly global_ourName="$(core_compatibility_basename "$(realpath "$0")")"
 	else
 		readonly global_ourName="$global_ourSymlinkName"
@@ -234,19 +227,19 @@ init_determinePreferredShell()
 	
 	IFS=' ' read -r commented_shebang_path shebang_shell remainder <"$global_ourSymlinkPath"/"$global_ourSymlinkName"
 	if [ -n "$remainder" ]; then
-		init_exitError "Passing options to a shell ('#!$shebang_path $shebang_shell $remainder') is not supported"
+		global_exitError "Passing options to a shell ('#!$shebang_path $shebang_shell $remainder') is not supported"
 	fi
 	IFS='!' read -r comment shebang_path <<-EOF
 		$commented_shebang_path
 	EOF
 	
 	if [ -z "$shebang_shell" ]; then
-		init_preferredShell="$(core_compatibility_basename "$shebang_path")"
+		global_preferredShell="$(core_compatibility_basename "$shebang_path")"
 	else
 		if [ "$shebang_path" != '/usr/bin/env' ]; then
-			init_exitError "All shell scripts should use '/usr/bin/env' with a shell, not #!$shebang_path $shebang_shell"
+			global_exitError "All shell scripts should use '/usr/bin/env' with a shell, not #!$shebang_path $shebang_shell"
 		fi
-		init_preferredShell="$shebang_shell"
+		global_preferredShell="$shebang_shell"
 	fi
 }
 
@@ -262,10 +255,10 @@ init_rexecUnderCorrectShell()
 		fi
 	fi
 	
-	if ! global_compatibility_whichNoOutput "$init_preferredShell"; then
-		init_exitError "Preferred shell '$init_preferredShell' does not exist on the PATH"
+	if ! core_compatibility_whichNoOutput "$global_preferredShell"; then
+		global_exitError "Preferred shell '$global_preferredShell' does not exist on the PATH"
 	fi
-	local shellPath="$(global_compatibility_which "$init_preferredShell")"
+	local shellPath="$(core_compatibility_which "$global_preferredShell")"
 	
 	# exec -a doesn't work in dash
 	init_shell_rexecing=$$ exec "$shellPath" "$global_ourSymlinkPath"/"$global_ourSymlinkName" "$@"
@@ -285,15 +278,16 @@ init_rexecUnderCorrectShell()
 # first two forms are going to require a kind of build process
 init_main()
 {
+	init_init
 	init_setSaneEnvironmentDefaults
 	init_findOurNameAndPath
 	init_setTracing
 	init_determinePreferredShell
 	init_rexecUnderCorrectShell "$@"
-	# the only reason this is called before sourcing core is because we need to ensure init_functionsPath is valid
-	core_configuration_load
 	
+	# Risky but should work
 	. "$init_functionsPath"/core/core.functions
-	core_execute "$@"
 }
+#@SHELLFIRE_INIT_END@#
+
 init_main "$@"

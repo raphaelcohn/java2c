@@ -39,10 +39,10 @@ core_configuration_callbackLoadFile()
 	local filePath="$1"
 	if [ -f "$filePath" ]; then
 		if [ -x "$filePath" ]; then
-			init_message WARN "File '$filePath' is executable and should not be; ignoring"
+			global_message WARN "File '$filePath' is executable and should not be; ignoring"
 			return 0
 		fi
-		. "$filePath" || init_exitError "Could not load '$filePath'"
+		. "$filePath" || global_exitError "Could not load '$filePath'"
 	fi
 }
 

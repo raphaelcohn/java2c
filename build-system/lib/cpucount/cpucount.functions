@@ -18,14 +18,14 @@ cpucount_findNumberOfHyperthreadedCpus()
 		
 		windows)
 			if [ -z "$NUMBER_OF_PROCESSORS" ]; then
-				init_exitError "Determining CPU count is not known for osFamily '$osFamily' when NUMBER_OF_PROCESSORS is unset"
+				global_exitError "Determining CPU count is not known for osFamily '$osFamily' when NUMBER_OF_PROCESSORS is unset"
 			fi
 			cpucount_discoveredNumberOfCpus="$NUMBER_OF_PROCESSORS"
 		;;
 		
 		*)
 			# might be psrinfo -p / -v, or kstat cpu_info for solaris
-			init_exitError "Determining CPU count is not known for osFamily '$osFamily'"
+			global_exitError "Determining CPU count is not known for osFamily '$osFamily'"
 		;;
 		
 	esac

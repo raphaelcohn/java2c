@@ -1,4 +1,4 @@
-core_usesAlreadySourced=''
+_core_usesAlreadySourced=''
 core_uses()
 {
 	local namespacedModules
@@ -11,26 +11,26 @@ core_uses()
 	do
 		# skip if already sourced
 		# Does not handle spaces in filenames, unfortunately
-		for alreadySourcedNamespacedFunction in $core_usesAlreadySourced
+		for alreadySourcedNamespacedFunction in $_core_usesAlreadySourced
 		do
 			if [ "$namespacedModule" = "$alreadySourcedNamespacedFunction" ]; then
 				continue 2
 			fi
 		done
 		
-		core_usesAlreadySourced="$core_usesAlreadySourced $namespacedModule"
+		_core_usesAlreadySourced="$_core_usesAlreadySourced $namespacedModule"
 		moduleName="$(core_compatibility_basename "$namespacedModule")"
 		sourced=0
-		for relativeFunctionsFilePath in "$namespacedModule"."$init_preferredShell" "$namespacedModule" "$namespacedModule"/"$moduleName"."$init_preferredShell" "$namespacedModule"/"$moduleName"
+		for relativeFunctionsFilePath in "$namespacedModule"."$global_preferredShell" "$namespacedModule" "$namespacedModule"/"$moduleName"."$global_preferredShell" "$namespacedModule"/"$moduleName"
 		done
 			functionsFilePath="$init_functionsPath"/"$relativeFunctionsFilePath".functions
 			if [ -f "$functionsFilePath" ]; then
-				. "$functionsFilePath" || init_exitError "Can not load functions '$functionsFilePath'"
+				. "$functionsFilePath" || global_exitError "Can not load functions '$functionsFilePath'"
 				sourced=1
 			fi
 		done
 		if [ $sourced -eq 0 ]; then
-			init_exitError "Can not load functions for namespace '$namespacedModule'"
+			global_exitError "Can not load functions for namespace '$namespacedModule'"
 		fi
 	done
 }
@@ -46,35 +46,20 @@ core_usesIn()
 	done
 }
 
-core_usesIn core configuration commandLine compatibility dependency trap temporaryFiles
+core_usesIn core configuration commandLine compatibility dependency functions trap temporaryFiles umask
 
-core_functions=''
-
-core_functionRegister()
-{
-	core_functions="$core_functions $@"
-}
-
-core_execute()
-{
-	local core_function
-	for core_function in $core_functions
-	do
-		$core_function "$@"
-	done
-}
-
-core_setUmask()
-{
-	umask 022
-}
-
-core_functionRegister \
+core_functions_register core_functions \
 	core_configuration_load \
 	core_configuration_defaults \
-	core_setUmask \
+	core_umask_setDefault \
 	core_commandLine_setLanguageDefaultsSoSortIsStableAndAnyErrorMessageParsingLogicIsReliable \
 	core_commandLine_parse \
 	core_dependency_installDependencies
 
 core_uses "$global_ourName"
+
+_core_executeProgram()
+{
+	core_functions_execute core_functions "$@"
+}
+_core_executeProgram

@@ -34,7 +34,7 @@ _program_commandLine_handleLongOption()
 _program_commandLine_handleNonOptions()
 {
 	if [ $# -eq 0 ]; then
-		init_exitError "No projects specified"
+		global_exitError "No projects specified"
 	fi
 	
 	# TODO: Not sh friendly, and objects violently if dash as a syntax error!
@@ -50,16 +50,16 @@ _program_commandLine_validate()
 	init_compatibility_setVariableIfUnset build_outputPath "$_program_default_build_outputPath"
 		
 	if [ ! -e "$build_sourcePath" ]; then
-		init_exitError "The build_sourcePath '$build_sourcePath' does not exist"
+		global_exitError "The build_sourcePath '$build_sourcePath' does not exist"
 	fi
 	if [ ! -d "$build_sourcePath" ]; then
-		init_exitError "The build_sourcePath '$build_sourcePath' is not a directory"
+		global_exitError "The build_sourcePath '$build_sourcePath' is not a directory"
 	fi
 	if [ ! -r "$build_sourcePath" ]; then
-		init_exitError "The build_sourcePath '$build_sourcePath' is not a readable directory"
+		global_exitError "The build_sourcePath '$build_sourcePath' is not a readable directory"
 	fi
 	if [ ! -r "$build_sourcePath" ]; then
-		init_exitError "The build_sourcePath '$build_sourcePath' is not a searchable directory"
+		global_exitError "The build_sourcePath '$build_sourcePath' is not a searchable directory"
 	fi
 	
 	# build_outputPath may not exist at this point in time
@@ -68,7 +68,7 @@ _program_commandLine_validate()
 
 
 core_uses cpucount
-core_functionRegister cpucount_computeMakeJobsAndLoadAverage
+core_functions_register core_functions cpucount_computeMakeJobsAndLoadAverage
 
 build_prepareOutputPath()
 {
@@ -84,7 +84,7 @@ build_prepareOutputPath()
 	
 	mkdir -m 0755 -p "$build_outputPath"
 }
-core_functionRegister build_prepareOutputPath
+core_functions_register core_functions build_prepareOutputPath
 
 _build_initialiseCMake()
 {
@@ -105,7 +105,7 @@ build_compileProjects()
 	do
 		projectSourcePath="$build_sourcePath"/"$project"
 		if [ ! -d "$projectSourcePath" ]; then
-			init_exitError "Project '$project' is not in build_sourcePath '$build_sourcePath'"
+			global_exitError "Project '$project' is not in build_sourcePath '$build_sourcePath'"
 		fi
 		
 		projectBuildPath="$build_outputPath"/"$project"
@@ -120,4 +120,4 @@ build_compileProjects()
 		cmake --build "$projectBuildPath" --target "$project" --clean-first --use-stderr -- --jobs "$cpucount_makeJobs" --load-average "$cpucount_makeLoadAverage"
 	done
 }
-core_functionRegister build_compileProjects
+core_functions_register core_functions build_compileProjects
