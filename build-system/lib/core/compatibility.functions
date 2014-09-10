@@ -1,4 +1,3 @@
-# The purpose of core_compatibility_dirname and core_compatibility_basename is to provide internal implementations of logic we can't be 100% sure of exists in the environment or is implemented as we would like for critical pieces of code.
 core_compatibility_dirname()
 {
 	local converted="${1%/*}"
@@ -17,6 +16,11 @@ _core_compatibility_builtInDoesNotExist()
 		return 1
 	fi
 	return 0
+}
+
+core_compatibility_indirectVariableValue()
+{
+	eval "printf '%s' \"\$$1\""
 }
 
 core_compatibility_setVariable()
@@ -38,6 +42,12 @@ core_compatibility_setVariableIfUnset()
 	if core_compatibility_testVariableIsUnset "$variableName"; then
 		eval "$variableName='$variableDefaultValue'"
 	fi
+}
+
+core_compatibility_testVariableIsUnset()
+{
+	local variableName="$1"
+	eval "[ \"\${$variableName+unset}\" != 'unset' ]"
 }
 
 # dash by default escapes backslashes, other echos behave differently. This way is defensive.
@@ -65,24 +75,24 @@ core_compability_installPushdAndPopd()
 	if core_compatibility_builtInDoesNotExist pushd; then
 		
 		if ! core_compatibility_builtInDoesNotExist popd; then
-			global_exitError "Weird shell does not have pushd but does have popd (?feature detection bug?)!"
+			core_exitError "Weird shell does not have pushd but does have popd (?feature detection bug?)!"
 		fi
 		
-		_init_compatibility_pushdCount=0
+		_core_init_compatibility_pushdCount=0
 
 		pushd()
 		{
 			local path="$1"
-			eval "init_pushdStack${_init_compatibility_pushdCount}='$(pwd)'"
-			_init_compatibility_pushdCount=$((_init_compatibility_pushdCount+1))
+			eval "core_init_pushdStack${_core_init_compatibility_pushdCount}='$(pwd)'"
+			_core_init_compatibility_pushdCount=$((_core_init_compatibility_pushdCount+1))
 			cd "$path" 1>/dev/null
 		}
 
 		popd()
 		{
-			_init_compatibility_pushdCount=$((_init_compatibility_pushdCount-1))
-			eval "local path=\"\$init_pushdStack${_init_compatibility_pushdCount}\""
-			eval "unset init_pushdStack${_init_compatibility_pushdCount}"
+			_core_init_compatibility_pushdCount=$((_core_init_compatibility_pushdCount-1))
+			eval "local path=\"\$core_init_pushdStack${_core_init_compatibility_pushdCount}\""
+			eval "unset core_init_pushdStack${_core_init_compatibility_pushdCount}"
 			cd "$path" 1>/dev/null
 		}
 	

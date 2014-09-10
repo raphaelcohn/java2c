@@ -1,3 +1,5 @@
+readonly core_configuration_libraryName=shellfire
+
 # Consider breaking this out
 core_configuration_ifPathIsExtantCallCallback()
 {
@@ -39,10 +41,10 @@ core_configuration_callbackLoadFile()
 	local filePath="$1"
 	if [ -f "$filePath" ]; then
 		if [ -x "$filePath" ]; then
-			global_message WARN "File '$filePath' is executable and should not be; ignoring"
+			core_message WARN "File '$filePath' is executable and should not be; ignoring"
 			return 0
 		fi
-		. "$filePath" || global_exitError "Could not load '$filePath'"
+		. "$filePath" || core_exitError "Could not load '$filePath'"
 	fi
 }
 
@@ -118,17 +120,17 @@ core_configuration_load()
 	# Security Protection: So, if a more global script unsets an environment variable or makes it readonly but empty, then the environment variable directed file will be ignored unless we're hacked using gdb https://stackoverflow.com/questions/17397069/unset-readonly-variable-in-bash.
 	# This can be defended against only by adding to the blacklist in one of the '/etc' files.
 	# NOTE: HOME is required under dash, ksh and zsh for '~' unless we use '~$LOGNAME' or '~$USER'
-	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFile /etc/"${init_libraryName}"rc
-	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFolder /etc/"${init_libraryName}"rc.d
+	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFile /etc/"${core_configuration_libraryName}"rc
+	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFolder /etc/"${core_configuration_libraryName}"rc.d
 	
 	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFile /etc/"${global_ourName}"rc
 	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFolder /etc/"${global_ourName}"rc.d
 	
-	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFile HOME /."${init_libraryName}"rc
-	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFolder HOME /."${init_libraryName}"rc.d
+	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFile HOME /."${core_configuration_libraryName}"rc
+	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFolder HOME /."${core_configuration_libraryName}"rc.d
 	
-	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFile ${init_libraryName}_RC ''
-	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFolder ${init_libraryName}_RC_D ''
+	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFile ${core_configuration_libraryName}_RC ''
+	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFolder ${core_configuration_libraryName}_RC_D ''
 	
 	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFile HOME /."${global_ourName}"rc
 	core_configuration_ifPathIsExtantCallCallback core_configuration_callbackLoadFolder HOME /."${global_ourName}"rc.d
@@ -144,7 +146,6 @@ core_configuration_defaults()
 	
 	# A more sophisticated scheme would use locale -a and hunt for an UTF-8 locale, but language needs to be stable over multiple invocations if data is persistent
 	# Can also be 'en_GB.UTF-8' or 'C' (but that's not unicode aware)
-	core_compatibility_setVariableIfUnset init_language 'en_US.UTF-8'
-	core_compatibility_setVariableIfUnset init_verbosity 0
-	core_compatibility_setVariableIfUnset init_functionsPath "$global_ourPath"/lib
+	core_compatibility_setVariableIfUnset core_init_language 'en_US.UTF-8'
+	core_compatibility_setVariableIfUnset core_init_verbosity 0
 }

@@ -89,7 +89,7 @@ core_dependency_ensureWeAreRunningBash4()
 			if [ "$core_dependency_osFamily" = 'macosx' ]; then
 				errorMessage="${errorMessage}. On Mac OS X, install Homebrew (see http://brew.sh/ ) and then  brew install bash ."
 			fi
-			global_exitError "$errorMessage"
+			core_exitError "$errorMessage"
 		fi
 		if [ "${BASH_VERSINFO[1]}" -lt 2 ]; then
 			# Ubuntu 14.04 using 4.3, 12.04 uses 4.2; 10.04 is obsolete in 8 months
@@ -99,7 +99,7 @@ core_dependency_ensureWeAreRunningBash4()
 			# Cygwin using 4.1
 			# Mac OS X using 3.2 (still)
 			# MinGW uses 3.1 (!)
-			global_exitError "You are not using at least bash 4.2 (Feb 2011; of major Linux distros still supported, only RHEL 6 / CentOS 6 still has bash 4.1)?"
+			core_exitError "You are not using at least bash 4.2 (Feb 2011; of major Linux distros still supported, only RHEL 6 / CentOS 6 still has bash 4.1)?"
 		fi
 	fi
 }
@@ -125,14 +125,14 @@ core_dependency_determineDistributionName()
 		fi
 	fi
 	
-	global_exitError "Could not determine distribution"
+	core_exitError "Could not determine distribution"
 }
 core_functions_register core_dependency_functions core_dependency_determineDistributionName
 
 core_dependency_setUpAliases()
 {
 	# eg paths.d
-	local pathsFile="$init_pathsFolderPath"/"$core_dependency_distributionName".path
+	local pathsFile="$core_init_pathsFolderPath"/"$core_dependency_distributionName".path
 	if [ ! -f "$pathsFile" ]; then
 		return 0
 	fi
@@ -154,7 +154,7 @@ core_dependency_setUpAliases()
 			hash -p "$absolutePath" "$binaryName"
 		else
 			if [ "$packageName" = "zzz-built-in" ]; then
-				global_exitError "Essential binary $binaryName not in expected path $absolutePath and no installation is possible"
+				core_exitError "Essential binary $binaryName not in expected path $absolutePath and no installation is possible"
 			fi
 			unaliasedBinaries["${binaryName}"]="$absolutePath"
 			installPackages["${packageName}"]=1
@@ -162,7 +162,7 @@ core_dependency_setUpAliases()
 	done <"$pathsFile"
 	
 	if [ ${#installPackages[@]} -ne 0 ]; then
-		global_message WARN "Installing missing packages ${!installPackages[@]}"
+		core_message WARN "Installing missing packages ${!installPackages[@]}"
 		core_dependency_check_${core_dependency_distributionName}_packageManager "${!installPackages[@]}"
 		for binaryName in "${!unaliasedBinaries[@]}"
 		do

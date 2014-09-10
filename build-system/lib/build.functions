@@ -25,7 +25,7 @@ _program_commandLine_handleLongOption()
 	case "$OPTARG" in
 		
 		*)
-			init_parseCommandLine_longOptionUnknown
+			core_init_parseCommandLine_longOptionUnknown
 		;;
 		
 	esac
@@ -34,7 +34,7 @@ _program_commandLine_handleLongOption()
 _program_commandLine_handleNonOptions()
 {
 	if [ $# -eq 0 ]; then
-		global_exitError "No projects specified"
+		core_exitError "No projects specified"
 	fi
 	
 	# TODO: Not sh friendly, and objects violently if dash as a syntax error!
@@ -46,20 +46,20 @@ _program_commandLine_handleNonOptions()
 
 _program_commandLine_validate()
 {
-	init_compatibility_setVariableIfUnset build_sourcePath "$_program_default_build_sourcePath"
-	init_compatibility_setVariableIfUnset build_outputPath "$_program_default_build_outputPath"
+	core_init_compatibility_setVariableIfUnset build_sourcePath "$_program_default_build_sourcePath"
+	core_init_compatibility_setVariableIfUnset build_outputPath "$_program_default_build_outputPath"
 		
 	if [ ! -e "$build_sourcePath" ]; then
-		global_exitError "The build_sourcePath '$build_sourcePath' does not exist"
+		core_exitError "The build_sourcePath '$build_sourcePath' does not exist"
 	fi
 	if [ ! -d "$build_sourcePath" ]; then
-		global_exitError "The build_sourcePath '$build_sourcePath' is not a directory"
+		core_exitError "The build_sourcePath '$build_sourcePath' is not a directory"
 	fi
 	if [ ! -r "$build_sourcePath" ]; then
-		global_exitError "The build_sourcePath '$build_sourcePath' is not a readable directory"
+		core_exitError "The build_sourcePath '$build_sourcePath' is not a readable directory"
 	fi
 	if [ ! -r "$build_sourcePath" ]; then
-		global_exitError "The build_sourcePath '$build_sourcePath' is not a searchable directory"
+		core_exitError "The build_sourcePath '$build_sourcePath' is not a searchable directory"
 	fi
 	
 	# build_outputPath may not exist at this point in time
@@ -105,7 +105,7 @@ build_compileProjects()
 	do
 		projectSourcePath="$build_sourcePath"/"$project"
 		if [ ! -d "$projectSourcePath" ]; then
-			global_exitError "Project '$project' is not in build_sourcePath '$build_sourcePath'"
+			core_exitError "Project '$project' is not in build_sourcePath '$build_sourcePath'"
 		fi
 		
 		projectBuildPath="$build_outputPath"/"$project"

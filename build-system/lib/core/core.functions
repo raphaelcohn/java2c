@@ -23,14 +23,14 @@ core_uses()
 		sourced=0
 		for relativeFunctionsFilePath in "$namespacedModule"."$global_preferredShell" "$namespacedModule" "$namespacedModule"/"$moduleName"."$global_preferredShell" "$namespacedModule"/"$moduleName"
 		done
-			functionsFilePath="$init_functionsPath"/"$relativeFunctionsFilePath".functions
+			functionsFilePath="$core_init_functionsPath"/"$relativeFunctionsFilePath".functions
 			if [ -f "$functionsFilePath" ]; then
-				. "$functionsFilePath" || global_exitError "Can not load functions '$functionsFilePath'"
+				. "$functionsFilePath" || core_exitError "Can not load functions '$functionsFilePath'"
 				sourced=1
 			fi
 		done
 		if [ $sourced -eq 0 ]; then
-			global_exitError "Can not load functions for namespace '$namespacedModule'"
+			core_exitError "Can not load functions for namespace '$namespacedModule'"
 		fi
 	done
 }

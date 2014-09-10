@@ -13,7 +13,7 @@ Usages
 Options without Argments
     Switch  Long-Switch  Explanation            Default
     -h      --help       show this help
-    -v      --verbose    be more verbose        ${init_verbosity}"
+    -v      --verbose    be more verbose        ${core_init_verbosity}"
 
 	if [ -n "$_program_commandLine_helpMessage_argumentedOptions" ]; then
 		printf '%s' "$_program_commandLine_helpMessage_argumentedOptions"
