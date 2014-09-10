@@ -1,4 +1,4 @@
-core_uses_in core/dependency check
+core_usesIn core/dependency check
 
 core_dependency_requiresProgram()
 {
@@ -20,9 +20,9 @@ core_dependency_functionRegister()
 
 core_dependency_ensureWeAreRunningBash4()
 {
-	if [ "$global_preferredShell" = 'bash' ]; then
+	if [ "$init_preferredShell" = 'bash' ]; then
 		if [ ${BASH_VERSINFO[0]} != "4" ]; then
-			global_exitError "$ourName: You are not running bash 4."
+			init_exitError "$ourName: You are not running bash 4."
 		fi
 	fi
 }
@@ -95,7 +95,7 @@ core_dependency_determineDistributionName()
 	
 	# Alternatively, we can use /etc/debian_version's presence in a check above
 	# Or parse /etc/lsb-release for DISTRIB_ID
-	if core_which lsb_release 1>/dev/null 2>/dev/null; then
+	if global_compatibility_whichNoOutput lsb_release; then
 		local lsbDistributor="$(lsb_release --id --short)"
 		if [ -n "$lsbDistributor" ]; then
 			readonly core_dependency_distributionName="$lsbDistributor"
@@ -103,13 +103,14 @@ core_dependency_determineDistributionName()
 		fi
 	fi
 	
-	global_exitError "Could not determine distribution"
+	init_exitError "Could not determine distribution"
 }
 core_dependency_functionRegister core_dependency_determineDistributionName
 
 core_dependency_setUpAliases()
 {
-	local pathsFile="$global_configPath"/paths.d/"$core_dependency_distributionName".path
+	# eg paths.d
+	local pathsFile="$init_pathsFolderPath"/"$core_dependency_distributionName".path
 	if [ ! -f "$pathsFile" ]; then
 		return 0
 	fi
@@ -131,7 +132,7 @@ core_dependency_setUpAliases()
 			hash -p "$absolutePath" "$binaryName"
 		else
 			if [ "$packageName" = "zzz-built-in" ]; then
-				global_exitError "Essential binary $binaryName not in expected path $absolutePath and no installation is possible"
+				init_exitError "Essential binary $binaryName not in expected path $absolutePath and no installation is possible"
 			fi
 			unaliasedBinaries["${binaryName}"]="$absolutePath"
 			installPackages["${packageName}"]=1
@@ -139,7 +140,7 @@ core_dependency_setUpAliases()
 	done <"$pathsFile"
 	
 	if [ ${#installPackages[@]} -ne 0 ]; then
-		global_message WARN "Installing missing packages ${!installPackages[@]}"
+		init_message WARN "Installing missing packages ${!installPackages[@]}"
 		core_dependency_check_${core_dependency_distributionName}_packageManager "${!installPackages[@]}"
 		for binaryName in "${!unaliasedBinaries[@]}"
 		do

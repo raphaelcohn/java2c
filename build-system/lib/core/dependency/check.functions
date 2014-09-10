@@ -21,4 +21,4 @@ core_dependency_check_releaseFile()
 	return 1
 }
 
-core_uses_in core/dependency/check CentOS Cygwin Fedora Homebrew Mandrake RedHat SuSE
+core_usesIn core/dependency/check CentOS Cygwin Fedora Homebrew Mandrake RedHat SuSE

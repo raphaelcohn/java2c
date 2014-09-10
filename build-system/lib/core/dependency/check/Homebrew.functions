@@ -1,6 +1,6 @@
 core_dependency_check_Homebrew_checkFunction()
 {
-	if core_which brew 1>/dev/null 2>/dev/null; then
+	if global_compatibility_whichNoOutput brew; then
 		readonly core_dependency_distributionName="Homebrew"
 		return 0
 	fi
@@ -10,15 +10,29 @@ core_dependency_check_register core_dependency_check_Homebrew_checkFunction
 
 core_dependency_check_Homebrew_packageManager()
 {
-	# eg diffutils, openssh, awk
-	brew tap homebrew/dupes 1>/dev/null 2>/dev/null
+	if [ $# -eq 0 ]; then
+		return 0
+	fi
 	
-	# eg gcc
-	brew tap homebrew/versions 1>/dev/null 2>/dev/null
+	local packageToInstall
+	local tap
+	local package
+	for packageToInstall in "$@"
+	do
+		tap="$(core_compatibility_dirname "$packageToInstall")"
+		if [ "$tap" != '.' ]; then
+			# eg diffutils, openssh, awk, rsync, gcc (homebrew/versions)
+			brew tap "$tap" 1>/dev/null 2>/dev/null
+		fi
+	done
 	
 	brew update
-	brew install "$@"
+	
+	for packageToInstall in "$@"
+	do
+		package="$(core_compatibility_basename "$packageToInstall")"
+		brew install "$package"
+	done
 	
 	# fakeroot required a  brew link
-	# rsync required  brew install homebrew/dupes/rsync  for some reason
 }

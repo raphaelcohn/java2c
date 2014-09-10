@@ -1,4 +1,4 @@
-core_uses_in core trap
+core_usesIn core trap
 
 core_temporaryFiles_filesToRemoveOnExit=''
 

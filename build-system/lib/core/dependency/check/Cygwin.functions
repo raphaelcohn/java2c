@@ -10,5 +10,5 @@ core_dependency_check_register core_dependency_check_Cygwin_checkFunction
 
 core_dependency_check_Cygwin_packageManager()
 {
-	global_exitError "Please run the Cygwin setup-x86.exe to install the packages $@"
+	init_exitError "Please run the Cygwin setup-x86.exe to install the packages $@"
 }

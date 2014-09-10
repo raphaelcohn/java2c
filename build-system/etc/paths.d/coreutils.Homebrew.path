@@ -1,4 +1,3 @@
-bash bash /usr/local/bin/bash
 coreutils base64 /usr/local/opt/coreutils/bin/gbase64
 coreutils basename /usr/local/opt/coreutils/bin/gbasename
 coreutils cat /usr/local/opt/coreutils/bin/gcat
@@ -100,11 +99,3 @@ coreutils wc /usr/local/opt/coreutils/bin/gwc
 coreutils who /usr/local/opt/coreutils/bin/gwho
 coreutils whoami /usr/local/opt/coreutils/bin/gwhoami
 coreutils yes /usr/local/opt/coreutils/bin/gyes
-gawk awk /usr/local/bin/gawk
-gawk gawk /usr/local/bin/gawk
-gnu-sed sed /usr/local/bin/gsed
-gnu-tar tar /usr/local/bin/gtar
-grep egrep /usr/local/bin/gegrep
-grep grep /usr/local/bin/ggrep
-cmake cmake /usr/local/bin/cmake
-make make /usr/local/opt/make/bin/make

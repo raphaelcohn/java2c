@@ -1,0 +1,107 @@
+# The purpose of core_compatibility_dirname and core_compatibility_basename is to provide internal implementations of logic we can't be 100% sure of exists in the environment or is implemented as we would like for critical pieces of code.
+core_compatibility_dirname()
+{
+	local converted="${1%/*}"
+	if [ "$converted" = "$1" ]; then
+		printf '%s' '.'
+	else
+		printf '%s' "$converted"
+	fi
+}
+
+# dash by default escapes backslashes, other echos behave differently. This way is defensive.
+core_compatibility_echo()
+{
+	printf '%s\n' "$1"
+}
+
+
+_core_compatibility_builtInDoesNotExist()
+{
+	local builtInName="$1"
+	local value="$(PATH='' global_compatibility_which "$builtInName")"
+	if [ "$builtInName" = "$value" ]; then
+		return 1
+	fi
+	return 0
+}
+
+core_compatibility_functions=''
+
+core_compatibility_functionRegister()
+{
+	core_compatibility_functions="$core_compatibility_functions $@"
+}
+
+core_compatibility_execute()
+{
+	local core_compatibility_function
+	for core_compatibility_function in $core_compatibility_functions
+	do
+		$core_compatibility_function "$@"
+	done
+}
+
+core_compatibility_setSaneShellOptions()
+{
+	:
+}
+core_compatibility_functionRegister core_compatibility_setSaneShellOptions
+
+core_compability_installPushdAndPopd()
+{
+	# bash, zsh are known to support this
+	if core_compatibility_builtInDoesNotExist pushd; then
+		
+		if ! core_compatibility_builtInDoesNotExist popd; then
+			init_exitError "Weird shell does not have pushd but does have popd (?feature detection bug?)!"
+		fi
+		
+		_init_compatibility_pushdCount=0
+
+		pushd()
+		{
+			local path="$1"
+			eval "init_pushdStack${_init_compatibility_pushdCount}='$(pwd)'"
+			_init_compatibility_pushdCount=$((_init_compatibility_pushdCount+1))
+			cd "$path" 1>/dev/null
+		}
+
+		popd()
+		{
+			_init_compatibility_pushdCount=$((_init_compatibility_pushdCount-1))
+			eval "local path=\"\$init_pushdStack${_init_compatibility_pushdCount}\""
+			eval "unset init_pushdStack${_init_compatibility_pushdCount}"
+			cd "$path" 1>/dev/null
+		}
+	
+	else
+		
+		pushd()
+		{
+			builtin pushd "$@" 1>/dev/null
+		}
+	
+		popd()
+		{
+			builtin popd "$@" 1>/dev/null
+		}
+		
+	fi
+}
+core_compatibility_functionRegister core_compability_installPushdAndPopd
+
+core_compability_installSource()
+{
+	# bash, zsh are known to support this
+	if core_compatibility_builtInDoesNotExist source; then
+		
+		source()
+		{
+			. "$@"
+		}
+		
+	fi
+}
+core_compatibility_functionRegister core_compability_installSource
+

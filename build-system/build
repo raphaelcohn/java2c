@@ -1,110 +1,116 @@
 #!/usr/bin/env dash
-set -e
-set -u
 
-# Early as possible to stop users running shell scripts as setuid / setgid
-# Not a perfect defence as exported functions can have replaced builtin, set, etc...
-if [ -u "$0" ]; then
-	builtin echo "We can not be run with setuid (set user id) set"
-	builtin exit 1
-fi
-if [ -g "$0" ]; then
-	builtin echo "We can not be run with setgid (set group id) set"
-	builtin exit 1
-fi
-
-# depends_on readlink, stat
-
-readonly global_libraryName=shellfire
-
-# dash by default escapes backslashes, other echos behave differently. This way is defensive.
-global_compatibility_echo()
+init_init()
 {
-	printf '%s\n' "$1"
-}
+	set -e
+	set -u
 
-# The purpose of global_compatibility_dirname and global_compatibility_basename is to provide internal implementations of logic we can't be 100% sure of exists in the environment or is implemented as we would like for critical pieces of code.
-global_compatibility_dirname()
-{
-	local converted="${1%/*}"
-	if [ "$converted" = "$1" ]; then
-		printf '%s' '.'
-	else
-		printf '%s' "$converted"
+	# Early as possible to stop users running shell scripts as setuid / setgid
+	# Not a perfect defence as exported functions can have replaced builtin, set, etc...
+	# And $0 might not be a path to this script
+	if [ -u "$0" ]; then
+		builtin echo "We can not be run with setuid (set user id) set"
+		builtin exit 1
 	fi
-}
+	if [ -g "$0" ]; then
+		builtin echo "We can not be run with setgid (set group id) set"
+		builtin exit 1
+	fi
 
-global_compatibility_basename()
+	readonly init_libraryName=shellfire
+	# depends_on readlink, stat
+}
+init_init
+
+core_compatibility_basename()
 {
 	printf '%s' "${1##*/}"
 }
 
-global_compatibility_indirectVariableValue()
+core_compatibility_indirectVariableValue()
 {
 	eval "printf '%s' \"\$$1\""
 }
 
-global_compatibility_testVariableIsUnset()
+core_compatibility_testVariableIsUnset()
 {
 	local variableName="$1"
 	local evaluate="[ \"\${$variableName+unset}\" != 'unset' ]"
 	eval "$evaluate"
 }
 
-global_compatibility_testVariableIsSet()
+core_compatibility_testVariableIsSet()
 {
-	! global_compatibility_testVariableIsUnset "$1"
+	! core_compatibility_testVariableIsUnset "$1"
 }
 
-global_compatibility_setVariableIfUnset()
+core_compatibility_setVariableIfUnset()
 {
 	local variableName="$1"
 	local variableDefaultValue="$2"
 	
 	# This is not whitespace-safe: eval "$variableName=\"\${$variableName-$variableDefaultValue}\""
-	if global_compatibility_testVariableIsUnset "$variableName"; then
+	if core_compatibility_testVariableIsUnset "$variableName"; then
 		eval "$variableName='$variableDefaultValue'"
 	fi
 }
 
-global_message()
+global_compatibility_which()
+{
+	command -v "$1"
+}
+
+global_compatibility_whichNoOutput()
+{
+	global_compatibility_which "$1" 1>/dev/null 2>/dev/null
+}
+
+init_message()
 {
 	local messageKind="$1"
 	local message="$2"
-
+	
+	local shouldEcho
 	case "$messageKind" in
 	
-		WARN|FAIL|PASS)
-			global_compatibility_echo "$global_ourName: $messageKind: $message" 1>&2
+		FAIL)
+			shouldEcho=1
+		;;
+		
+		WARN)
+			shouldEcho=1
 		;;
 	
 		INFO)
-			if [ $global_verbosity -gt 0 ]; then
-				global_compatibility_echo "$global_ourName: $messageKind: $message" 1>&2
+			if [ $init_verbosity -gt 0 ]; then
+				shouldEcho=1
 			fi
 		;;
 	
 		DEBUG)
-			if [ $global_verbosity -gt 1 ]; then
-				global_compatibility_echo "$global_ourName: $messageKind: $message" 1>&2
+			if [ $init_verbosity -gt 1 ]; then
+				shouldEcho=1
 			fi
 		;;
 	
 		*)
-			global_compatibility_echo "$global_ourName: $messageKind: $message" 1>&2
-			exit 3
+			shouldEcho=1
 		;;
 
 	esac
+	
+	if [ $shouldEcho -eq 1 ]; then
+		printf '%s\n' "$global_ourName: $messageKind: $message" 1>&2
+	fi
 }
 
-global_exitError()
+init_exitError()
 {
-	global_message FAIL "$1"
+	init_message FAIL "$1"
 	exit 1
 }
 
-global_setSaneEnvironmentDefaults()
+init_setSaneEnvironmentDefaults()
 {
 	set +o allexport
 	set +o emacs
@@ -151,9 +157,9 @@ global_setSaneEnvironmentDefaults()
 # http://mywiki.wooledge.org/BashFAQ/028 on $0
 # http://mywiki.wooledge.org/Bashism?action=show&redirect=bashism
 # realpath vs readlink, and supported OS (comments): https://unix.stackexchange.com/questions/136494/whats-the-difference-between-realpath-and-readlink-f
-global_findOurNameAndPath()
+init_findOurNameAndPath()
 {
-	readonly global_ourSymlinkName="$(global_compatibility_basename "$0")"
+	readonly global_ourSymlinkName="$(core_compatibility_basename "$0")"
 	
 	# Temporary assignment
 	global_ourName="$global_ourSymlinkName"
@@ -161,7 +167,7 @@ global_findOurNameAndPath()
 	# can be empty if 'bash file' used or 'bash </path/to/file' or ksh with PATH containing '.'
 	local potential_global_ourSymlinkPath="${0%/*}"
 	if [ -z "$potential_global_ourSymlinkPath" ]; then
-		global_exitError "Do not invoke this program either by specifying a shell interpreter on a file in the current working directory (eg bash '$0') or redirecting from a pipe into a shell interpreter (eg bash [-c] <'$0') or by using ksh with a PATH containing '.'"
+		init_exitError "Do not invoke this program either by specifying a shell interpreter on a file in the current working directory (eg bash '$0') or redirecting from a pipe into a shell interpreter (eg bash [-c] <'$0') or by using ksh with a PATH containing '.'"
 	fi
 	
 	# At this point, we resolve $0 vs the current working directory
@@ -177,21 +183,21 @@ global_findOurNameAndPath()
 	# We can only follow symlinks with readlink (which doesn't work if $0 ends in \n)
 	# readlink is not on AIX, some Solaris
 	# realpath is quite rare, unfortunately, as it is perfectly suited (but it is in coreutils, so will become more common)
-	if command -v readlink 1>/dev/null; then
+	if global_compatibility_whichNoOutput readlink; then
 		local potentialSymlink="$0"
 		while readlink "$potentialSymlink"
 		do
 			potentialSymlink="$(readlink "$potentialSymlink")"
 		done
-		readonly global_ourName="$(global_compatibility_basename "$potentialSymlink")"
-	elif command -v realpath 1>/dev/null; then
-		readonly global_ourName="$(global_compatibility_basename "$(realpath "$0")")"
+		readonly global_ourName="$(core_compatibility_basename "$potentialSymlink")"
+	elif global_compatibility_whichNoOutput realpath; then
+		readonly global_ourName="$(core_compatibility_basename "$(realpath "$0")")"
 	else
 		readonly global_ourName="$global_ourSymlinkName"
 	fi
 }
 
-global_setTracing()
+init_setTracing()
 {
 	case "$-" in
 		
@@ -200,8 +206,8 @@ global_setTracing()
 		;;
 		
 		*)
-			if global_compatibility_testVariableIsSet ${global_ourName}_bash_tracing; then
-				case "$(global_compatibility_indirectVariableValue "${global_ourName}_bash_tracing")" in
+			if core_compatibility_testVariableIsSet ${global_ourName}_bash_tracing; then
+				case "$(core_compatibility_indirectVariableValue "${global_ourName}_bash_tracing")" in
 				
 					yes)
 						set -x
@@ -218,7 +224,7 @@ global_setTracing()
 	esac
 }
 
-global_determinePreferredShell()
+init_determinePreferredShell()
 {
 	local shebang_path
 	local shebang_shell
@@ -228,288 +234,66 @@ global_determinePreferredShell()
 	
 	IFS=' ' read -r commented_shebang_path shebang_shell remainder <"$global_ourSymlinkPath"/"$global_ourSymlinkName"
 	if [ -n "$remainder" ]; then
-		global_exitError "Passing options to a shell ('#!$shebang_path $shebang_shell $remainder') is not supported"
+		init_exitError "Passing options to a shell ('#!$shebang_path $shebang_shell $remainder') is not supported"
 	fi
 	IFS='!' read -r comment shebang_path <<-EOF
 		$commented_shebang_path
 	EOF
 	
 	if [ -z "$shebang_shell" ]; then
-		global_preferredShell="$(global_compatibility_basename "$shebang_path")"
+		init_preferredShell="$(core_compatibility_basename "$shebang_path")"
 	else
 		if [ "$shebang_path" != '/usr/bin/env' ]; then
-			global_exitError "All shell scripts should use '/usr/bin/env' with a shell, not #!$shebang_path $shebang_shell"
+			init_exitError "All shell scripts should use '/usr/bin/env' with a shell, not #!$shebang_path $shebang_shell"
 		fi
-		global_preferredShell="$shebang_shell"
+		init_preferredShell="$shebang_shell"
 	fi
 }
 
 # Ensures we run under a shell interpreter that we were designed for - no matter what is specified in the shebang
 # This works around packaging tools that want '#!/bin/bash', but point to an old version. Needs to be coupled into loading new shell versions.
-global_rexecUnderCorrectShell()
+init_rexecUnderCorrectShell()
 {
-	if global_compatibility_testVariableIsSet global_shell_rexecing; then
-		if [ "$global_shell_rexecing" = "$$" ]; then
+	if core_compatibility_testVariableIsSet init_shell_rexecing; then
+		if [ "$init_shell_rexecing" = "$$" ]; then
 			# we've been successfully re-exec'd
-			unset global_shell_rexecing
+			unset init_shell_rexecing
 			return 0
 		fi
 	fi
 	
-	if ! command -v "$global_preferredShell" 1>/dev/null 2>/dev/null; then
-		global_exitError "Preferred shell '$global_preferredShell' does not exist on the PATH"
+	if ! global_compatibility_whichNoOutput "$init_preferredShell"; then
+		init_exitError "Preferred shell '$init_preferredShell' does not exist on the PATH"
 	fi
-	local shellPath="$(command -v "$global_preferredShell")"
+	local shellPath="$(global_compatibility_which "$init_preferredShell")"
 	
 	# exec -a doesn't work in dash
-	global_shell_rexecing=$$ exec "$shellPath" "$global_preferredShell" "$global_ourSymlinkPath"/"$global_ourSymlinkName" "$@"
+	init_shell_rexecing=$$ exec "$shellPath" "$global_ourSymlinkPath"/"$global_ourSymlinkName" "$@"
 }
 
-global_addMissingBuiltins()
+# goal is to create three forms of executable
+# * one that is completely standalone, including paths files [but can still make use of overrides]
+# * one that is completely standalone, excluding paths files and with functions in /lib
+#   * possible variant that shares functions? ?why? creates unnecesary version tensions, requires ABI compat, etc - a bit like shared libraries today
+#   * if not the above, then init_functionsPath
+# * one that can run from checkout of git & git submodules
+
+# paths files are composable
+# * work simply by combining those defined in shellfire with local choices
+# * allow local, git friendly, replacements OR additions
+
+# first two forms are going to require a kind of build process
+init_main()
 {
-	_global_builtInDoesNotExist()
-	{
-		local builtInName="$1"
-		local value="$(PATH='' command -v "$builtInName")"
-		if [ "$builtInName" = "$value" ]; then
-			return 1
-		fi
-		return 0
-	}
+	init_setSaneEnvironmentDefaults
+	init_findOurNameAndPath
+	init_setTracing
+	init_determinePreferredShell
+	init_rexecUnderCorrectShell "$@"
+	# the only reason this is called before sourcing core is because we need to ensure init_functionsPath is valid
+	core_configuration_load
 	
-	# bash, zsh are known to support this
-	if _global_builtInDoesNotExist pushd; then
-		
-		if ! _global_builtInDoesNotExist popd; then
-			global_exitError "Weird shell does not have pushd but does have popd (?feature detection bug?)!"
-		fi
-		
-		_global_compatibility_pushdCount=0
-
-		pushd()
-		{
-			local path="$1"
-			eval "global_pushdStack${_global_compatibility_pushdCount}='$(pwd)'"
-			_global_compatibility_pushdCount=$((_global_compatibility_pushdCount+1))
-			cd "$path" 1>/dev/null
-		}
-
-		popd()
-		{
-			_global_compatibility_pushdCount=$((_global_compatibility_pushdCount-1))
-			eval "local path=\"\$global_pushdStack${_global_compatibility_pushdCount}\""
-			eval "unset global_pushdStack${_global_compatibility_pushdCount}"
-			cd "$path" 1>/dev/null
-		}
-	
-	else
-		
-		pushd()
-		{
-			builtin pushd "$@" 1>/dev/null
-		}
-	
-		popd()
-		{
-			builtin popd "$@" 1>/dev/null
-		}
-		
-	fi
-	
-	# bash, zsh are known to support this
-	if _global_builtInDoesNotExist source; then
-		
-		source()
-		{
-			. "$@"
-		}
-		
-	fi
+	. "$init_functionsPath"/core/core.functions
+	core_execute "$@"
 }
-
-global_installPreferredShellCompatibilityFunctions()
-{
-	case "$global_preferredShell" in
-		
-		bash)
-			
-			set -o braceexpand
-			set +o errtrace
-			set +o functrace
-			set +o hashall
-			set +o histexpand
-			set +o history
-			set -o interactive-comments
-			set +o keyword
-			set +o onecmd
-			set +o physical
-			set +o pipefail
-			set +o posix
-			
-			global_compatibility_indirectVariableValue()
-			{
-				local variable="$1"
-				echo "${!1}"
-			}
-		;;
-		
-	esac
-}
-
-global_defaultsBlacklistedEnvironmentVariables=''
-global_loadAnyDefaults()
-{
-	global_callbackIfPathIsExtant()
-	{
-		local callback="$1"
-		if [ $# -eq 2 ]; then
-			local path="$2"
-		else
-			local environmentVariable="$2"
-			local relativePath="$3"
-			
-			local blacklistedEnvironmentVariable
-			for blacklistedEnvironmentVariable in $global_defaultsBlacklistedEnvironmentVariables
-			do
-				if [ "$blacklistedEnvironmentVariable" = "$environmentVariablePrefixingPath" ]; then
-					return 0
-				fi
-			done
-		
-			if global_compatibility_testVariableIsUnset "$environmentVariable"; then
-				return 0
-			fi
-			local parentPath="$(global_compatibility_indirectVariableValue "$environmentVariable")"
-			if [ -z "$parentPath" ]; then
-				return 0
-			fi
-			local path="${parentPath}${relativePath}"
-		fi
-	
-		if [ -e "$path" ]; then
-			if [ -r "$path" ]; then
-				$callback "$path"
-			fi
-		fi
-	}
-
-	global_loadAnyDefaultsFile_callback()
-	{
-		local filePath="$1"
-		if [ -f "$filePath" ]; then
-			if [ -x "$filePath" ]; then
-				global_message WARN "File '$filePath' is executable and should not be; ignoring"
-				return 0
-			fi
-			source "$filePath" || global_exitError "Could not load '$filePath'"
-		fi
-	}
-	
-	global_loadAnyDefaultsFolder_callback()
-	{
-		local folderPath="$1"
-		if [ -d "$folderPath" ]; then
-			if [ -x "$folderPath" ]; then
-				local filePath
-				for filePath in "$folderPath"/*
-				do
-					global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback "$filePath"
-				done
-			fi
-		fi
-	}
-		
-	Before parsing, rush checks the ownership and permissions of the configuration file for possible security breaches. The configuration file is
-	considered unsafe if any of the following conditions are met:
-
-	#    It is not owned by root.
-	#    It is group writable.
-	#    It is world writable.
-	#    It resides in a group writable directory.
-	#    It resides in a world writable directory.
-	#    It is a symbolic link to a file residing in a group or world writable directory. 
-	
-	
-	# Security Protection: So, if a more global script unsets an environment variable or makes it readonly but empty, then the environment variable directed file will be ignored unless we're hacked using gdb https://stackoverflow.com/questions/17397069/unset-readonly-variable-in-bash.
-	# This can be defended against only by adding to the blacklist in one of the '/etc' files.
-	# NOTE: HOME is required under dash, ksh and zsh for '~' unless we use '~$LOGNAME' or '~$USER'
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback /etc/"${global_libraryName}"rc
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback /etc/"${global_libraryName}"rc.d
-	
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback /etc/"${global_ourName}"rc
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback /etc/"${global_ourName}"rc.d
-	
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback HOME /."${global_libraryName}"rc
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback HOME /."${global_libraryName}"rc.d
-	
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback ${global_libraryName}_RC ''
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback ${global_libraryName}_RC_D ''
-	
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback HOME /."${global_ourName}"rc
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback HOME /."${global_ourName}"rc.d
-	
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFile_callback ${global_ourName}_RC ''
-	global_callbackIfPathIsExtant global_loadAnyDefaultsFolder_callback ${global_ourName}_RC_D ''
-	
-	# /opt/<package-name>, /bin, /usr/bin, /usr/local/bin, $HOME/bin installation locations? /sbin et al, too?
-	
-	# A more sophisticated scheme would use locale -a and hunt for an UTF-8 locale, but language needs to be stable over multiple invocations if data is persistent
-	# Can also be 'en_GB.UTF-8' or 'C' (but that's not unicode aware)
-	global_compatibility_setVariableIfUnset global_language 'en_US.UTF-8'
-	global_compatibility_setVariableIfUnset global_verbosity 0
-	global_compatibility_setVariableIfUnset global_configPath "$global_ourPath"/etc
-	global_compatibility_setVariableIfUnset global_functionsPath "$global_ourPath"/lib
-}
-
-global_usesAlreadySourced=''
-global_uses()
-{
-	local namespacedFunctions
-	local alreadySourcedNamespacedFunctions
-	local moduleName
-	local relativeFunctionsFileName
-	local functionsFilePath
-	local sourced
-	for namespacedFunction in "$@"
-	do
-		# skip if already sourced
-		# Does not handle spaces in filenames, unfortunately
-		for alreadySourcedNamespacedFunction in $global_usesAlreadySourced
-		do
-			if [ "$namespacedFunction" = "$alreadySourcedNamespacedFunction" ]; then
-				continue 2
-			fi
-		done
-		
-		global_usesAlreadySourced="$global_usesAlreadySourced $namespacedFunction"
-		moduleName="$(global_compatibility_basename "$namespacedFunction")"
-		sourced=0
-		for relativeFunctionsFilePath in "$namespacedFunction"."$global_preferredShell" "$namespacedFunction" "$namespacedFunction"/"$moduleName"."$global_preferredShell" "$namespacedFunction"/"$moduleName"
-		do
-			functionsFilePath="$global_functionsPath"/"$relativeFunctionsFilePath".functions
-			if [ -f "$functionsFilePath" ]; then
-				source "$functionsFilePath" || global_exitError "Can not load functions '$functionsFilePath'"
-				sourced=1
-			fi
-		done
-		if [ $sourced -eq 0 ]; then
-			global_exitError "Can not load functions for namespace '$namespacedFunction'"
-		fi
-	done
-}
-
-global_main()
-{
-	global_setSaneEnvironmentDefaults
-	global_findOurNameAndPath
-	global_setTracing
-	global_determinePreferredShell
-	global_rexecUnderCorrectShell "$@"
-	global_addMissingBuiltins
-	global_installPreferredShellCompatibilityFunctions
-	global_loadAnyDefaults
-	
-	global_uses core
-	core_program_execute "$@"
-}
-global_main "$@"
+init_main "$@"
