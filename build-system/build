@@ -338,8 +338,12 @@ core_init_main()
 	core_init_determinePreferredShell
 	core_init_rexecUnderCorrectShell "$@"
 	
-	# this is a bit messy and needs to be fixed
-	xxxx
+	# this is a bit messy and needs to be fixed - we need a way to alter it, default it or something else
+	# also, build.shellfire isn't really an option
+	# where should the program's functions go?
+	
+	# replace using a sed expression
+	#readonly core_init_rootPath="@ROOT_PATH@"
 	readonly core_init_rootPath="$global_ourPath"
 	
 	
