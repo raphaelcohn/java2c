@@ -1,4 +1,4 @@
-package com.java2c.model.allocation;
+package com.java2c.model;
 
 public enum Allocator
 {
