@@ -1,6 +1,6 @@
 package com.stormmq.java2c.samples;
 
-import com.stormmq.java2c.model.functions.pure;
+import com.java2c.model.attributes.functions.pure;
 import org.jetbrains.annotations.Nullable;
 
 public interface Equality

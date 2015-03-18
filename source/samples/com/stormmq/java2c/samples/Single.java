@@ -2,15 +2,15 @@ package com.stormmq.java2c.samples;
 
 import com.apple.jobjc.Pointer;
 import com.stormmq.java2c.model.Struct;
-import com.stormmq.java2c.model.functions.*;
+import com.java2c.model.attributes.functions.*;
 import com.stormmq.java2c.model.primitives.char_;
 import com.stormmq.java2c.model.primitives.signed_int;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.stormmq.java2c.model.functions.FormatArgArchetype.printf;
-import static com.stormmq.java2c.model.functions.Inlining.Force;
-import static com.stormmq.java2c.model.functions.Purity.Constant;
+import static com.java2c.model.attributes.functions.FormatArgArchetype.printf;
+import static com.java2c.model.attributes.functions.Inlining.Force;
+import static com.java2c.model.attributes.functions.Purity.Constant;
 import static com.stormmq.java2c.model.primitives.signed_int.signed_int;
 
 // Make use of org.eclipse.jdt.core, eg import org.eclipse.jdt.core.dom.CompilationUnit, from http://www.eclipse.org/jdt/core/index.php

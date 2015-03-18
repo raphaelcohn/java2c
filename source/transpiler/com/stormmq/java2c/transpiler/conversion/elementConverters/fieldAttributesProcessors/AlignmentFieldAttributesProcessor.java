@@ -1,6 +1,6 @@
 package com.stormmq.java2c.transpiler.conversion.elementConverters.fieldAttributesProcessors;
 
-import com.stormmq.java2c.model.variables.aligned;
+import com.java2c.model.attributes.variables.aligned;
 import com.stormmq.java2c.transpiler.conversion.c.gccAttributes.GccAttribute;
 import com.stormmq.java2c.transpiler.conversion.c.gccAttributes.GccAttributeParameter;
 import com.stormmq.java2c.transpiler.conversion.c.gccAttributes.variable.GccVariableAttributeName;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.lang.model.element.VariableElement;
 import java.util.Collection;
 
-import static com.stormmq.java2c.model.variables.aligned.BiggestAlignment;
+import static com.java2c.model.attributes.variables.aligned.BiggestAlignment;
 
 public final class AlignmentFieldAttributesProcessor extends AbstractFieldAttributesProcessor
 {

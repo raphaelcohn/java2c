@@ -1,6 +1,6 @@
 package com.stormmq.java2c.transpiler.conversion.elementConverters.fieldAttributesProcessors;
 
-import com.stormmq.java2c.model.variables.packed;
+import com.java2c.model.attributes.variables.packed;
 import com.stormmq.java2c.transpiler.conversion.c.gccAttributes.GccAttribute;
 import com.stormmq.java2c.transpiler.conversion.c.gccAttributes.variable.GccVariableAttributeName;
 import com.stormmq.java2c.transpiler.conversion.elementConverters.ConversionException;

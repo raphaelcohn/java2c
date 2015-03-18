@@ -52,7 +52,7 @@
         <inspection_tool class="AmbiguousMethodCall" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="AnnotationNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_regex" value="[A-Z][A-Za-z\d]*" />
-          <option name="m_minLength" value="8" />
+          <option name="m_minLength" value="1" />
           <option name="m_maxLength" value="64" />
         </inspection_tool>
         <inspection_tool class="AnonymousClassComplexity" enabled="true" level="WARNING" enabled_by_default="true">
@@ -301,12 +301,12 @@
         </inspection_tool>
         <inspection_tool class="EnumeratedClassNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_regex" value="[A-Z][A-Za-z\d]*" />
-          <option name="m_minLength" value="8" />
+          <option name="m_minLength" value="1" />
           <option name="m_maxLength" value="64" />
         </inspection_tool>
-        <inspection_tool class="EnumeratedConstantNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
+        <inspection_tool class="EnumeratedConstantNamingConvention" enabled="false" level="WARNING" enabled_by_default="false">
           <option name="m_regex" value="[A-Z][A-Z_\d]*" />
-          <option name="m_minLength" value="5" />
+          <option name="m_minLength" value="1" />
           <option name="m_maxLength" value="32" />
         </inspection_tool>
         <inspection_tool class="EnumerationCanBeIteration" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -364,8 +364,8 @@
           <option name="ignoreForClassReferences" value="true" />
           <option name="ignoreForPropertyKeyReferences" value="true" />
           <option name="ignoreForNonAlpha" value="true" />
-          <option name="ignoreAssignedToConstants" value="false" />
-          <option name="ignoreToString" value="false" />
+          <option name="ignoreAssignedToConstants" value="true" />
+          <option name="ignoreToString" value="true" />
           <option name="nonNlsCommentPattern" value="NON-NLS" />
         </inspection_tool>
         <inspection_tool class="HardcodedFileSeparators" enabled="true" level="WARNING" enabled_by_default="true">
@@ -703,8 +703,8 @@
         <inspection_tool class="OverriddenMethodCallDuringObjectConstruction" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="PackageInMultipleModules" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="PackageNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="m_regex" value="[a-z]*" />
-          <option name="m_minLength" value="3" />
+          <option name="m_regex" value="[a-z][a-z0-9]*" />
+          <option name="m_minLength" value="1" />
           <option name="m_maxLength" value="16" />
         </inspection_tool>
         <inspection_tool class="PackageVisibleField" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1082,9 +1082,20 @@
         <w>transpiler</w>
       </words>
     </dictionary>
+    <dictionary name="raph">
+      <words>
+        <w>inlining</w>
+        <w>malloc</w>
+        <w>wchar</w>
+        <w>wint</w>
+      </words>
+    </dictionary>
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/libraries-builtin/libraries-builtin.iml" filepath="$PROJECT_DIR$/libraries-builtin/libraries-builtin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries-c/libraries-c.iml" filepath="$PROJECT_DIR$/libraries-c/libraries-c.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraryHelpers-c/libraryHelpers-c.iml" filepath="$PROJECT_DIR$/libraryHelpers-c/libraryHelpers-c.iml" />
       <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
       <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />
       <module fileurl="file://$PROJECT_DIR$/samples2/samples2.iml" filepath="$PROJECT_DIR$/samples2/samples2.iml" />
