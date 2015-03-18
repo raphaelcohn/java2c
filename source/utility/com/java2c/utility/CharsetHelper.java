@@ -1,4 +1,4 @@
-package com.java2c.transpiler;
+package com.java2c.utility;
 
 import org.jetbrains.annotations.NotNull;
 

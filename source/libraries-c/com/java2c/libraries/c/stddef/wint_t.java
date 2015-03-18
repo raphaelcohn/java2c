@@ -40,13 +40,13 @@ public final class wint_t extends AbstractScalar<wint_t> implements Equality<win
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final wint_t right)
+	public boolean equal(@NotNull final wint_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final wint_t right)
+	public boolean notEqual(@NotNull final wint_t right)
 	{
 		return super.notEquals(right);
 	}

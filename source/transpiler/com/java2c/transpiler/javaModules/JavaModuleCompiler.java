@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import static com.java2c.transpiler.CharsetHelper.Utf8;
+import static com.java2c.utility.CharsetHelper.Utf8;
 import static com.java2c.transpiler.conversion.elementConverters.ElementConverter.PackageElementIgnoredElementConverterInstance;
 import static com.java2c.transpiler.conversion.elementConverters.ElementConverter.TypeElementIgnoredElementConverterInstance;
 import static java.lang.String.format;

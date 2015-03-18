@@ -30,13 +30,13 @@ public final class off_t extends AbstractScalar<off_t> implements Equality<off_t
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final off_t right)
+	public boolean equal(@NotNull final off_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final off_t right)
+	public boolean notEqual(@NotNull final off_t right)
 	{
 		return super.notEquals(right);
 	}

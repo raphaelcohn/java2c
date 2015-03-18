@@ -62,8 +62,7 @@
           <option name="m_limit" value="1" />
         </inspection_tool>
         <inspection_tool class="AnonymousClassVariableHidesContainingMethodVariable" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="AnonymousInnerClass" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="AnonymousInnerClassMayBeStatic" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="AnonymousInnerClassMayBeStatic" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
         <inspection_tool class="ArchaicSystemPropertyAccess" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ArrayEquality" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ArrayLengthInLoopCondition" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -177,7 +176,7 @@
           <option name="m_maxLength" value="99" />
         </inspection_tool>
         <inspection_tool class="ClassNestingDepth" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="m_limit" value="1" />
+          <option name="m_limit" value="2" />
         </inspection_tool>
         <inspection_tool class="ClassNewInstance" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ClassOnlyUsedInOneModule" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -198,9 +197,8 @@
         </inspection_tool>
         <inspection_tool class="CloneCallsConstructors" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="CloneInNonCloneableClass" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="CloneableClassInSecureContext" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="CloneableImplementsClone" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="m_ignoreCloneableDueToInheritance" value="false" />
+          <option name="m_ignoreCloneableDueToInheritance" value="true" />
         </inspection_tool>
         <inspection_tool class="CollectionAddedToSelf" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="CollectionContainsUrl" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -258,7 +256,6 @@
           <option name="ignorePrivateMethodsAndFields" value="false" />
         </inspection_tool>
         <inspection_tool class="DefaultNotLastCaseInSwitch" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="DeserializableClassInSecureContext" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="DesignForExtension" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="DisjointPackage" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="DivideByZero" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -320,7 +317,7 @@
           <option name="ignoreCantWrap" value="false" />
         </inspection_tool>
         <inspection_tool class="ExceptionNameDoesntEndWithException" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="ExtendsConcreteCollection" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="ExtendsConcreteCollection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
         <inspection_tool class="ExtendsThread" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ExtendsUtilityClass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ExternalizableWithSerializationMethods" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -541,6 +538,10 @@
           <option name="m_minLength" value="1" />
           <option name="m_maxLength" value="99" />
         </inspection_tool>
+        <inspection_tool class="LoggerInitializedWithForeignClass" enabled="false" level="WARNING" enabled_by_default="false">
+          <option name="loggerClassName" value="org.apache.log4j.Logger,org.slf4j.LoggerFactory,org.apache.commons.logging.LogFactory,java.util.logging.Logger" />
+          <option name="loggerFactoryMethodName" value="getLogger,getLogger,getLog,getLogger" />
+        </inspection_tool>
         <inspection_tool class="LongLiteralsEndingWithLowercaseL" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="LoopConditionNotUpdatedInsideLoop" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreIterators" value="false" />
@@ -551,10 +552,12 @@
           <option name="ignoreInTestCode" value="true" />
           <option name="ignoreInitialCapacity" value="true" />
         </inspection_tool>
-        <inspection_tool class="MalformedFormatString" enabled="true" level="ERROR" enabled_by_default="true" />
+        <inspection_tool class="MalformedFormatString" enabled="true" level="ERROR" enabled_by_default="true">
+          <option name="additionalClasses" value="com.java2c.utility.EnglishFormatter" />
+          <option name="additionalMethods" value="com.java2c.utility.EnglishFormatter.format" />
+        </inspection_tool>
         <inspection_tool class="MapReplaceableByEnumMap" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MarkerInterface" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="MethodCallInLoopCondition" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MethodCanBeVariableArityMethod" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MethodCount" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_limit" value="20" />
@@ -670,7 +673,7 @@
         <inspection_tool class="NotifyWithoutCorrespondingWait" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="NullThrown" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="NumericToString" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="ObjectAllocationInLoop" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="ObjectAllocationInLoop" enabled="true" level="INFO" enabled_by_default="true" />
         <inspection_tool class="ObjectEquality" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_ignoreEnums" value="true" />
           <option name="m_ignoreClassObjects" value="false" />
@@ -734,7 +737,9 @@
           <option name="m_minLength" value="1" />
           <option name="m_maxLength" value="99" />
         </inspection_tool>
-        <inspection_tool class="ParametersPerConstructor" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="ParametersPerConstructor" enabled="true" level="WARNING" enabled_by_default="true">
+          <option name="m_limit" value="8" />
+        </inspection_tool>
         <inspection_tool class="ParametersPerMethod" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_limit" value="5" />
         </inspection_tool>
@@ -808,14 +813,10 @@
         <inspection_tool class="SamePackageImport" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="SerialPersistentFieldsWithWrongSignature" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="SerialVersionUIDNotStaticFinal" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="SerializableClassInSecureContext" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="SerializableHasSerialVersionUIDField" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="ignoreAnonymousInnerClasses" value="false" />
-          <option name="superClassString" value="" />
-        </inspection_tool>
         <inspection_tool class="SerializableHasSerializationMethods" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="ignoreAnonymousInnerClasses" value="false" />
+          <option name="ignoreAnonymousInnerClasses" value="true" />
           <option name="superClassString" value="" />
+          <option name="ignoreClassWithoutFields" value="true" />
         </inspection_tool>
         <inspection_tool class="SerializableInnerClassHasSerialVersionUIDField" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreAnonymousInnerClasses" value="false" />
@@ -850,7 +851,7 @@
         <inspection_tool class="StaticMethodNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_regex" value="[a-z][A-Za-z\d]*" />
           <option name="m_minLength" value="4" />
-          <option name="m_maxLength" value="32" />
+          <option name="m_maxLength" value="64" />
         </inspection_tool>
         <inspection_tool class="StaticMethodOnlyUsedInOneClass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="StaticNonFinalField" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1120,6 +1121,8 @@
       <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
       <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />
       <module fileurl="file://$PROJECT_DIR$/transpiler/transpiler.iml" filepath="$PROJECT_DIR$/transpiler/transpiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transpiler-application/transpiler-application.iml" filepath="$PROJECT_DIR$/transpiler-application/transpiler-application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/utility/utility.iml" filepath="$PROJECT_DIR$/utility/utility.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">

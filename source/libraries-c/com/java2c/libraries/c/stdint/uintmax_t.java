@@ -42,13 +42,13 @@ public final class uintmax_t extends AbstractScalar<uintmax_t> implements Equali
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final uintmax_t right)
+	public boolean equal(@NotNull final uintmax_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final uintmax_t right)
+	public boolean notEqual(@NotNull final uintmax_t right)
 	{
 		return super.notEquals(right);
 	}

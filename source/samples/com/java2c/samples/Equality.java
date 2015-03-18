@@ -10,7 +10,7 @@ public interface Equality
 	int argument = Hello;
 
 	// Uses Object, which is DeprecatedStaticField bit of DeprecatedStaticField problem
-	// Pure because equals should be side-effect free
+	// Pure because equal should be side-effect free
 	// Not constant as containers (eg hash maps) can have objects added or removed
 	// However, could be treated as Constant in some sub-classes because the memory it uses is immutable
 	@pure

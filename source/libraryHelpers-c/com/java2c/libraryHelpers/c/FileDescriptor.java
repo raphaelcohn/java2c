@@ -15,7 +15,7 @@ import static com.java2c.libraries.c.stdint.stdint.stdint;
 	All calls are transformed
 	eg ssize_t read(VoidPointer buf, size_t len) => ssize_t read(int value, void * buf, size_t len)
 
-	All standard object methods (equals, hashCode, toString) are automatically implemented
+	All standard object methods (equal, hashCode, toString) are automatically implemented
 
 	clone, notify, wait(), etc are NOT supported
 
@@ -59,14 +59,14 @@ public class FileDescriptor extends SynthenticScalarObject implements Equality<F
 
 	@Override
 	@SuppressWarnings({"OverloadedMethodsWithSameNumberOfParameters", "CovariantEquals"})
-	public boolean equals(@NotNull final FileDescriptor right)
+	public boolean equal(@NotNull final FileDescriptor right)
 	{
 		return value.equals(right.value);
 	}
 
 	@Override
 	@SuppressWarnings("BooleanMethodNameMustStartWithQuestion")
-	public boolean notEquals(@NotNull final FileDescriptor right)
+	public boolean notEqual(@NotNull final FileDescriptor right)
 	{
 		return value.notEquals(right.value);
 	}

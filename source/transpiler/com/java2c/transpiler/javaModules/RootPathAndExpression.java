@@ -5,9 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static java.lang.String.format;
+import static com.java2c.utility.EnglishFormatter.format;
 import static java.nio.file.Files.*;
-import static java.util.Locale.ENGLISH;
 
 public final class RootPathAndExpression
 {
@@ -27,37 +26,37 @@ public final class RootPathAndExpression
 		final Path nearlyAbsolutePath = rootPath.resolve(relativePath);
 
 		@NotNull final Path absolutePath;
-		if (!exists(nearlyAbsolutePath))
+		if (exists(nearlyAbsolutePath))
 		{
 			try
 			{
-				absolutePath = createDirectories(nearlyAbsolutePath).toRealPath();
+				absolutePath = nearlyAbsolutePath.toRealPath();
 			}
-			catch (IOException e)
+			catch (final IOException e)
 			{
-				throw new FatalCompilationException(format(ENGLISH, "Ignoring entire contents of module %1$s because resolved source path %2$s does not exist and could not be created/used due to '%3$s'", moduleName, nearlyAbsolutePath, e.getMessage()), e);
+				throw new FatalCompilationException(format("Ignoring entire %4$s contents of module %1$s because could not resolve paths '%2$s', '%3$s' due to '%4$s'", moduleName, rootPath, relativePath, e.getMessage()), e);
 			}
 		}
 		else
 		{
 			try
 			{
-				absolutePath = nearlyAbsolutePath.toRealPath();
+				absolutePath = createDirectories(nearlyAbsolutePath).toRealPath();
 			}
-			catch (IOException e)
+			catch (final IOException e)
 			{
-				throw new FatalCompilationException(format(ENGLISH, "Ignoring entire contents of module %1$s because could not resolve paths '%2$s', '%3$s' due to '%4$s'", moduleName, rootPath, relativePath, e.getMessage()), e);
+				throw new FatalCompilationException(format("Ignoring entire contents of module %1$s because resolved source path %2$s does not exist and could not be created or used due to '%3$s'", moduleName, nearlyAbsolutePath, e.getMessage()), e);
 			}
 		}
 
 		if (!isDirectory(absolutePath))
 		{
-			throw new FatalCompilationException(format(ENGLISH, "Ignoring entire contents of module %1$s because resolved source path %2$s is not a directory", moduleName, nearlyAbsolutePath));
+			throw new FatalCompilationException(format("Ignoring entire contents of module %1$s because resolved source path %2$s is not a directory", moduleName, nearlyAbsolutePath));
 		}
 
 		if (!isReadable(absolutePath))
 		{
-			throw new FatalCompilationException(format(ENGLISH, "Ignoring entire contents of module %1$s because resolved source path %2$s is not readable", moduleName, nearlyAbsolutePath));
+			throw new FatalCompilationException(format("Ignoring entire contents of module %1$s because resolved source path %2$s is not readable", moduleName, nearlyAbsolutePath));
 		}
 
 		return absolutePath;

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import static com.java2c.transpiler.CharsetHelper.Utf8;
+import static com.java2c.utility.CharsetHelper.Utf8;
 import static java.lang.String.format;
 import static java.util.Locale.ENGLISH;
 import static java.util.regex.Pattern.compile;

@@ -41,13 +41,13 @@ public final class uint32_t extends AbstractScalar<uint32_t> implements Equality
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final uint32_t right)
+	public boolean equal(@NotNull final uint32_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final uint32_t right)
+	public boolean notEqual(@NotNull final uint32_t right)
 	{
 		return super.notEquals(right);
 	}

@@ -31,13 +31,13 @@ public final class c_signed_short extends AbstractScalar<c_signed_short> impleme
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final c_signed_short right)
+	public boolean equal(@NotNull final c_signed_short right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final c_signed_short right)
+	public boolean notEqual(@NotNull final c_signed_short right)
 	{
 		return super.notEquals(right);
 	}

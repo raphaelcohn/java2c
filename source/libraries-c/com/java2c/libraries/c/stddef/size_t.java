@@ -37,13 +37,13 @@ public final class size_t extends AbstractScalar<size_t> implements Equality<siz
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final size_t right)
+	public boolean equal(@NotNull final size_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final size_t right)
+	public boolean notEqual(@NotNull final size_t right)
 	{
 		return super.notEquals(right);
 	}

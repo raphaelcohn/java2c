@@ -42,13 +42,13 @@ public final class ptrdiff_t extends AbstractScalar<ptrdiff_t> implements Equali
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final ptrdiff_t right)
+	public boolean equal(@NotNull final ptrdiff_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final ptrdiff_t right)
+	public boolean notEqual(@NotNull final ptrdiff_t right)
 	{
 		return super.notEquals(right);
 	}

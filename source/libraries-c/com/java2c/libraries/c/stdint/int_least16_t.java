@@ -37,13 +37,13 @@ public final class int_least16_t extends AbstractScalar<int_least16_t> implement
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final int_least16_t right)
+	public boolean equal(@NotNull final int_least16_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final int_least16_t right)
+	public boolean notEqual(@NotNull final int_least16_t right)
 	{
 		return super.notEquals(right);
 	}

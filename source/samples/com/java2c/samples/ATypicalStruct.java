@@ -59,7 +59,7 @@ public class ATypicalStruct extends Struct
 	private final c_signed_char index;
 
 //	@Override
-//	public boolean equals(@Nullable final Object obj)
+//	public boolean equal(@Nullable final Object obj)
 //	{
 //		if (this == obj)
 //		{

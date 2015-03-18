@@ -1,25 +1,20 @@
 package com.java2c.transpiler.warnings;
 
 import com.java2c.transpiler.javaModules.FatalCompilationException;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
-import static java.lang.String.format;
+import static com.java2c.utility.EnglishFormatter.FormatterLocale;
+import static com.java2c.utility.EnglishFormatter.format;
 import static java.lang.System.err;
-import static java.util.Locale.ENGLISH;
 
 public final class StandardErrorWarnings implements Warnings
 {
-	@NotNull public static final Warnings StandardErrorWarningsInstance = new StandardErrorWarnings();
-
-	private StandardErrorWarnings()
-	{
-	}
-
 	@Override
-	public void fatal(@NotNull final FatalCompilationException cause)
+	public void fatal(@NotNull final Exception cause)
 	{
 		message("FATAL", cause.getMessage());
 	}
@@ -41,7 +36,7 @@ public final class StandardErrorWarnings implements Warnings
 	{
 		final String path = diagnostic.getSource().toUri().getPath();
 
-		final String message = format(ENGLISH, "'%1$s' in file %2$s at line %3$s column %4$s", diagnostic.getMessage(ENGLISH), path, diagnostic.getLineNumber(), diagnostic.getColumnNumber());
+		final String message = format("'%1$s' in file %2$s at line %3$s column %4$s", diagnostic.getMessage(FormatterLocale), path, diagnostic.getLineNumber(), diagnostic.getColumnNumber());
 
 		switch (diagnostic.getKind())
 		{
@@ -67,11 +62,12 @@ public final class StandardErrorWarnings implements Warnings
 		}
 	}
 
-	private void message(final String fatality, final String warning)
+	@SuppressWarnings({"UseOfSystemOutOrSystemErr", "SynchronizationOnStaticField"})
+	private static void message(@NonNls @NotNull final String fatality, @NotNull final String warning)
 	{
 		synchronized (err)
 		{
-			err.printf(ENGLISH, "%1$s: %2$s\n", fatality, warning);
+			err.println(format("%1$s: %2$s", fatality, warning));
 		}
 	}
 }

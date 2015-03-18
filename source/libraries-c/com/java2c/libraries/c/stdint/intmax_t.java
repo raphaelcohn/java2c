@@ -46,13 +46,13 @@ public final class intmax_t extends AbstractScalar<intmax_t> implements Equality
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final intmax_t right)
+	public boolean equal(@NotNull final intmax_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final intmax_t right)
+	public boolean notEqual(@NotNull final intmax_t right)
 	{
 		return super.notEquals(right);
 	}

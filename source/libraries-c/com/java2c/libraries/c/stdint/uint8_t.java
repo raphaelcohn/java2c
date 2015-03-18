@@ -41,13 +41,13 @@ public final class uint8_t extends AbstractScalar<uint8_t> implements Equality<u
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final uint8_t right)
+	public boolean equal(@NotNull final uint8_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final uint8_t right)
+	public boolean notEqual(@NotNull final uint8_t right)
 	{
 		return super.notEquals(right);
 	}

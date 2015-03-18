@@ -44,13 +44,13 @@ public final class int64_t extends AbstractScalar<int64_t> implements Equality<i
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final int64_t right)
+	public boolean equal(@NotNull final int64_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final int64_t right)
+	public boolean notEqual(@NotNull final int64_t right)
 	{
 		return super.notEquals(right);
 	}

@@ -36,13 +36,13 @@ public final class uintptr_t extends AbstractScalar<uintptr_t> implements Equali
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final uintptr_t right)
+	public boolean equal(@NotNull final uintptr_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final uintptr_t right)
+	public boolean notEqual(@NotNull final uintptr_t right)
 	{
 		return super.notEquals(right);
 	}

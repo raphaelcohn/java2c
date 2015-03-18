@@ -31,13 +31,13 @@ public final class c_unsigned_long_long extends AbstractScalar<c_unsigned_long_l
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final c_unsigned_long_long right)
+	public boolean equal(@NotNull final c_unsigned_long_long right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final c_unsigned_long_long right)
+	public boolean notEqual(@NotNull final c_unsigned_long_long right)
 	{
 		return super.notEquals(right);
 	}

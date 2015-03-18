@@ -1,0 +1,10 @@
+<root>
+    <item name='joptsimple.ArgumentAcceptingOptionSpec joptsimple.ArgumentAcceptingOptionSpec&lt;V&gt; defaultsTo(V, V...) 0'>
+        <annotation name='org.jetbrains.annotations.NonNls'/>
+    </item>
+    <item name='joptsimple.ArgumentAcceptingOptionSpec joptsimple.ArgumentAcceptingOptionSpec&lt;V&gt; defaultsTo(V, V...) 1'>
+        <annotation name='org.jetbrains.annotations.NonNls'/>
+    </item><item name='joptsimple.ArgumentAcceptingOptionSpec joptsimple.ArgumentAcceptingOptionSpec&lt;V&gt; describedAs(java.lang.String) 0'>
+  <annotation name='org.jetbrains.annotations.NonNls'/>
+</item>
+</root>

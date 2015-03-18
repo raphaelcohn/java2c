@@ -5,11 +5,11 @@ import org.jetbrains.annotations.NotNull;
 
 public interface Equality<T>
 {
-	@SuppressWarnings("MethodOverloadsMethodOfSuperclass")
+	@SuppressWarnings({"MethodOverloadsMethodOfSuperclass", "BooleanMethodNameMustStartWithQuestion", "MisspelledEquals"})
 	@CCodeTemplate("(@this@ == @right@)")
-	boolean equals(@NotNull T right);
+	boolean equal(@NotNull T right);
 
 	@SuppressWarnings("BooleanMethodNameMustStartWithQuestion")
 	@CCodeTemplate("(@this@ != @right@)")
-	boolean notEquals(@NotNull T right);
+	boolean notEqual(@NotNull T right);
 }

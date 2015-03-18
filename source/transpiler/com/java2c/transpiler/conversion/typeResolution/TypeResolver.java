@@ -1,8 +1,8 @@
 package com.java2c.transpiler.conversion.typeResolution;
 
-import com.stormmq.java2c.model.Primitive;
-import com.stormmq.java2c.model.primitives.PrimitiveConversion;
-import com.stormmq.java2c.model.primitives.pointer;
+import com.java2c.model.Primitive;
+import com.java2c.model.pointer;
+import com.java2c.model.primitives.PrimitiveConversion;
 import com.java2c.transpiler.conversion.elementConverters.CType;
 import com.java2c.transpiler.conversion.elementConverters.ConversionException;
 import org.jetbrains.annotations.NotNull;
@@ -125,7 +125,7 @@ public final class TypeResolver
 		}
 
 		final TypeMirror fieldTypeWithoutParameters = fieldTypeElement.asType();
-		// TypeSymbol  && typeParameters.size() == 1 && typeParameters.get(0).equals(TypeSymbol("P"))
+		// TypeSymbol  && typeParameters.size() == 1 && typeParameters.get(0).equal(TypeSymbol("P"))
 		if (typeHelper.isSubtype(fieldTypeWithoutParameters, pointerTypeElementType))
 		{
 			// WildcardType ?, ? extends SSS, ? super ZZZ

@@ -41,13 +41,13 @@ public final class wchar_t extends AbstractScalar<wchar_t> implements Equality<w
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final wchar_t right)
+	public boolean equal(@NotNull final wchar_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final wchar_t right)
+	public boolean notEqual(@NotNull final wchar_t right)
 	{
 		return super.notEquals(right);
 	}

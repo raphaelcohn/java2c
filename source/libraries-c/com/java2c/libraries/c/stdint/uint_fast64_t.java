@@ -34,13 +34,13 @@ public final class uint_fast64_t extends AbstractScalar<uint_fast64_t> implement
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final uint_fast64_t right)
+	public boolean equal(@NotNull final uint_fast64_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final uint_fast64_t right)
+	public boolean notEqual(@NotNull final uint_fast64_t right)
 	{
 		return super.notEquals(right);
 	}

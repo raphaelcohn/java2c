@@ -31,13 +31,13 @@ public final class c_unsigned_int extends AbstractScalar<c_unsigned_int> impleme
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final c_unsigned_int right)
+	public boolean equal(@NotNull final c_unsigned_int right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final c_unsigned_int right)
+	public boolean notEqual(@NotNull final c_unsigned_int right)
 	{
 		return super.notEquals(right);
 	}

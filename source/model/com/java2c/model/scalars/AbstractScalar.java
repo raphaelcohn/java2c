@@ -25,7 +25,7 @@ public abstract class AbstractScalar<T extends AbstractScalar<T>> implements CTy
 	@Override
 	public final boolean equals(@Nullable final Object obj)
 	{
-		throw new UnsupportedOperationException("equals is not supported for AbstractScalar");
+		throw new UnsupportedOperationException("equal is not supported for AbstractScalar");
 	}
 
 	@Override

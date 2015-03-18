@@ -1,5 +1,6 @@
 package com.java2c.transpiler.javaModules;
 
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.InvalidPathException;
@@ -16,11 +17,15 @@ import static java.util.regex.Pattern.compile;
 
 public final class RelativePathExpression
 {
-	@NotNull private static final Pattern Regex = compile("%.?");
-	@NotNull private static final Map<String, VargsDelegate<String, String>> Replacements = new HashMap<String, VargsDelegate<String, String>>(2)
+	@NotNull
+	private static final Pattern Regex = compile("%.?");
+
+	@NotNull
+	private static final Map<String, VargsDelegate<String, String>> Replacements = new HashMap<String, VargsDelegate<String, String>>(2)
 	{{
 		put("%%", new VargsDelegate<String, String>()
 		{
+			@SuppressWarnings("OverloadedVarargsMethod")
 			@NotNull
 			@Override
 			public String execute(@NotNull final String... arguments)
@@ -31,6 +36,7 @@ public final class RelativePathExpression
 
 		put("%m", new VargsDelegate<String, String>()
 		{
+			@SuppressWarnings("OverloadedVarargsMethod")
 			@NotNull
 			@Override
 			public String execute(@NotNull final String... arguments)
@@ -43,7 +49,7 @@ public final class RelativePathExpression
 	@NotNull private final String relativePathExpression;
 
 	// Replace %m with moduleName
-	public RelativePathExpression(@NotNull final String relativePathExpression) throws IllegalRelativePathExpressionException
+	public RelativePathExpression(@NonNls @NotNull final String relativePathExpression) throws IllegalRelativePathExpressionException
 	{
 		this.relativePathExpression = relativePathExpression;
 		final Matcher matcher = match();
@@ -54,13 +60,13 @@ public final class RelativePathExpression
 			final String matched = relativePathExpression.substring(start, end);
 			if (!Replacements.containsKey(matched))
 			{
-				throw new IllegalRelativePathExpressionException(format(ENGLISH, "The token '%1$s' between indices %2$s and %3$s (%4$s) is invalid", matched, start, end, matched));
+				throw new IllegalRelativePathExpressionException(format(ENGLISH, "The token '%1$s' between indices %2$s and %3$s (%4$s) is invalid", matched, start, end, matched)); //NON-NLS
 			}
 		}
 	}
 
 	@NotNull
-	public final Path evaluateToPath(@NotNull final ModuleName moduleName) throws IllegalRelativePathException
+	public Path evaluateToPath(@NotNull final ModuleName moduleName) throws IllegalRelativePathException
 	{
 		final StringBuffer buffer = new StringBuffer(4096);
 		final Matcher matcher = match();
@@ -77,7 +83,7 @@ public final class RelativePathExpression
 		{
 			relativePath = get(stringPath);
 		}
-		catch (InvalidPathException e)
+		catch (final InvalidPathException e)
 		{
 			throw new IllegalRelativePathException(stringPath, moduleName, relativePathExpression, e);
 		}

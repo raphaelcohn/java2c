@@ -41,13 +41,13 @@ public final class intptr_t extends AbstractScalar<intptr_t> implements Equality
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equals(@NotNull final intptr_t right)
+	public boolean equal(@NotNull final intptr_t right)
 	{
 		return super.equals(right);
 	}
 
 	@Override
-	public boolean notEquals(@NotNull final intptr_t right)
+	public boolean notEqual(@NotNull final intptr_t right)
 	{
 		return super.notEquals(right);
 	}
