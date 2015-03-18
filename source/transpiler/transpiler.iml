@@ -10,6 +10,7 @@
     <orderEntry type="library" name="annotations" level="project" />
     <orderEntry type="module" module-name="model" />
     <orderEntry type="module" module-name="utility" />
+    <orderEntry type="module" module-name="codeTreeUsers" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">

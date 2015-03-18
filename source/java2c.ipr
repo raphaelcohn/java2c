@@ -149,7 +149,6 @@
           <option name="m_limit" value="64" />
         </inspection_tool>
         <inspection_tool class="CheckValidXmlInScriptTagBody" enabled="false" level="ERROR" enabled_by_default="false" />
-        <inspection_tool class="CheckedExceptionClass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ClassComplexity" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_limit" value="80" />
         </inspection_tool>
@@ -224,7 +223,7 @@
         <inspection_tool class="ConstantAssertCondition" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ConstantDeclaredInAbstractClass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ConstantMathCall" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="ConstantNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
+        <inspection_tool class="ConstantNamingConvention" enabled="false" level="WARNING" enabled_by_default="false">
           <option name="onlyCheckImmutables" value="false" />
           <option name="m_regex" value="[A-Z][A-Za-z0-9_\d]*" />
           <option name="m_minLength" value="2" />
@@ -237,7 +236,6 @@
           <option name="ignoreDeprecatedConstructors" value="false" />
           <option name="m_limit" value="5" />
         </inspection_tool>
-        <inspection_tool class="ContinueStatement" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ContinueStatementWithLabel" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ControlFlowStatementWithoutBraces" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="Convert to string" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
@@ -256,7 +254,6 @@
           <option name="ignorePrivateMethodsAndFields" value="false" />
         </inspection_tool>
         <inspection_tool class="DefaultNotLastCaseInSwitch" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="DesignForExtension" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="DisjointPackage" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="DivideByZero" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="DollarSignInName" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -409,7 +406,7 @@
         </inspection_tool>
         <inspection_tool class="ImplicitNumericConversion" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreWideningConversions" value="false" />
-          <option name="ignoreCharConversions" value="false" />
+          <option name="ignoreCharConversions" value="true" />
           <option name="ignoreConstantConversions" value="false" />
         </inspection_tool>
         <inspection_tool class="InconsistentLanguageLevel" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -511,9 +508,6 @@
         <inspection_tool class="JavadocReference" enabled="false" level="ERROR" enabled_by_default="false" />
         <inspection_tool class="KeySetIterationMayUseEntrySet" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="LabeledStatement" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="LawOfDemeter" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="ignoreLibraryCalls" value="true" />
-        </inspection_tool>
         <inspection_tool class="LengthOneStringInIndexOf" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="LengthOneStringsInConcatenation" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="LimitedScopeInnerClass" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -630,7 +624,6 @@
         <inspection_tool class="NestingDepth" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_limit" value="5" />
         </inspection_tool>
-        <inspection_tool class="NewExceptionWithoutArguments" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="NonAtomicOperationOnVolatileField" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="NonBooleanMethodNameMayNotStartWithQuestion" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="questionString" value="is,can,has,should,could,will,shall,check,contains,equals,startsWith,endsWith" />
@@ -705,8 +698,8 @@
         <inspection_tool class="OverridableMethodCallDuringObjectConstruction" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="OverriddenMethodCallDuringObjectConstruction" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="PackageInMultipleModules" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="PackageNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="m_regex" value="[a-z][a-z0-9]*" />
+        <inspection_tool class="PackageNamingConvention" enabled="false" level="WARNING" enabled_by_default="false">
+          <option name="m_regex" value="[a-z][A-Za-z0-9]*" />
           <option name="m_minLength" value="1" />
           <option name="m_maxLength" value="16" />
         </inspection_tool>
@@ -805,7 +798,6 @@
           <option name="ignorePrivateMethods" value="true" />
         </inspection_tool>
         <inspection_tool class="ReturnOfDateField" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="ReturnThis" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ReuseOfLocalVariable" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="RuntimeExec" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="RuntimeExecWithNonConstantString" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -817,10 +809,6 @@
           <option name="ignoreAnonymousInnerClasses" value="true" />
           <option name="superClassString" value="" />
           <option name="ignoreClassWithoutFields" value="true" />
-        </inspection_tool>
-        <inspection_tool class="SerializableInnerClassHasSerialVersionUIDField" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="ignoreAnonymousInnerClasses" value="false" />
-          <option name="superClassString" value="" />
         </inspection_tool>
         <inspection_tool class="SerializableInnerClassWithNonSerializableOuterClass" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreAnonymousInnerClasses" value="false" />
@@ -938,7 +926,7 @@
         <inspection_tool class="ThreadYield" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ThreeNegationsPerMethod" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_ignoreInEquals" value="true" />
-          <option name="ignoreInAssert" value="false" />
+          <option name="ignoreInAssert" value="true" />
         </inspection_tool>
         <inspection_tool class="ThrowCaughtLocally" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreRethrownExceptions" value="false" />
@@ -972,7 +960,6 @@
           <option name="m_maxLength" value="1" />
         </inspection_tool>
         <inspection_tool class="UnaryPlus" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="UncheckedExceptionClass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="UnconditionalWait" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="UnknownGuard" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="UnnecessarilyQualifiedInnerClassAccess" enabled="true" level="WARNING" enabled_by_default="true">
@@ -1011,7 +998,7 @@
           <option name="ignoreReferences" value="true" />
           <option name="ignoreComplexLiterals" value="false" />
         </inspection_tool>
-        <inspection_tool class="UnqualifiedInnerClassAccess" enabled="true" level="WARNING" enabled_by_default="true">
+        <inspection_tool class="UnqualifiedInnerClassAccess" enabled="false" level="WARNING" enabled_by_default="false">
           <option name="ignoreReferencesToLocalInnerClasses" value="true" />
         </inspection_tool>
         <inspection_tool class="UnqualifiedStaticUsage" enabled="true" level="WARNING" enabled_by_default="true">
@@ -1115,14 +1102,17 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/libraries-builtin/libraries-builtin.iml" filepath="$PROJECT_DIR$/libraries-builtin/libraries-builtin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraries-c/libraries-c.iml" filepath="$PROJECT_DIR$/libraries-c/libraries-c.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraryHelpers-c/libraryHelpers-c.iml" filepath="$PROJECT_DIR$/libraryHelpers-c/libraryHelpers-c.iml" />
+      <module fileurl="file://$PROJECT_DIR$/codeTreeUsers/codeTreeUsers.iml" filepath="$PROJECT_DIR$/codeTreeUsers/codeTreeUsers.iml" group="miscellany" />
+      <module fileurl="file://$PROJECT_DIR$/javaCompiler/javaCompiler.iml" filepath="$PROJECT_DIR$/javaCompiler/javaCompiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries-builtin/libraries-builtin.iml" filepath="$PROJECT_DIR$/libraries-builtin/libraries-builtin.iml" group="libraries" />
+      <module fileurl="file://$PROJECT_DIR$/libraries-c/libraries-c.iml" filepath="$PROJECT_DIR$/libraries-c/libraries-c.iml" group="libraries" />
+      <module fileurl="file://$PROJECT_DIR$/libraryHelpers-c/libraryHelpers-c.iml" filepath="$PROJECT_DIR$/libraryHelpers-c/libraryHelpers-c.iml" group="libraries" />
       <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
       <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />
       <module fileurl="file://$PROJECT_DIR$/transpiler/transpiler.iml" filepath="$PROJECT_DIR$/transpiler/transpiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/transpiler-application/transpiler-application.iml" filepath="$PROJECT_DIR$/transpiler-application/transpiler-application.iml" />
-      <module fileurl="file://$PROJECT_DIR$/utility/utility.iml" filepath="$PROJECT_DIR$/utility/utility.iml" />
+      <module fileurl="file://$PROJECT_DIR$/utility/utility.iml" filepath="$PROJECT_DIR$/utility/utility.iml" group="miscellany" />
+      <module fileurl="file://$PROJECT_DIR$/warnings/warnings.iml" filepath="$PROJECT_DIR$/warnings/warnings.iml" group="miscellany" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">

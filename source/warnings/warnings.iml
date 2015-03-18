@@ -8,10 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="annotations" level="project" />
-    <orderEntry type="library" name="jopt-simple" level="project" />
-    <orderEntry type="module" module-name="transpiler" />
     <orderEntry type="module" module-name="utility" />
-    <orderEntry type="module" module-name="javaCompiler" />
-    <orderEntry type="module" module-name="warnings" />
   </component>
 </module>

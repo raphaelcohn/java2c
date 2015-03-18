@@ -19,7 +19,7 @@ public final class rsize_t extends AbstractScalar<rsize_t> implements Equality<r
 	// Yes, the preprocessor constant is in a different header!
 	// Only on 64-bit is this valid
 	@CCodeTemplate(value = "RSIZE_MAX", includes = stdint)
-	public static final rsize_t RSIZE_MAX = new rsize_t(size_t.SIZE_MAX.value << 1);
+	public static final rsize_t RSIZE_MAX = new rsize_t(size_t.SIZE_MAX.value >> 1);
 
 	@CCodeTemplate(Scalar)
 	public rsize_t(final long value)

@@ -14,7 +14,7 @@ import static java.util.Locale.ENGLISH;
 @SuppressWarnings("ClassWithTooManyMethods")
 public abstract class AbstractScalar<T extends AbstractScalar<T>> implements CType
 {
-	protected final long value;
+	public final long value;
 
 	protected AbstractScalar(final long value)
 	{
