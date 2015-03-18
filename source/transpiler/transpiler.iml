@@ -8,7 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="annotations" level="project" />
-    <orderEntry type="module" module-name="model" />
     <orderEntry type="library" name="jopt-simple" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
@@ -204,4 +203,3 @@
     </option>
   </component>
 </module>
-

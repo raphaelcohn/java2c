@@ -1,4 +1,4 @@
-package com.stormmq.java2c.samples2;
+package com.stormmq.java2c.samples;
 
 import com.stormmq.java2c.model.primitives.*;
 import org.jetbrains.annotations.NotNull;
