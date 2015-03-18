@@ -1,14 +1,14 @@
 package com.stormmq.java2c.model.primitives;
 
 import com.stormmq.java2c.model.Primitive;
-import com.stormmq.java2c.model.variables.unsigned;
 
-@PrimitiveConversion("unsigned char")
+@SuppressWarnings("ClassNamingConvention")
+@PrimitiveConversion(value = "unsigned char", isUnsigned = true)
 public class unsigned_char extends Primitive
 {
-	@unsigned private final byte value;
+	protected final byte value;
 
-	public unsigned_char(@unsigned final byte value)
+	public unsigned_char(final byte value)
 	{
 		this.value = value;
 	}

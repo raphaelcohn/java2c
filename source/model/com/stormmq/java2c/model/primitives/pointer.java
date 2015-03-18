@@ -1,9 +1,9 @@
 package com.stormmq.java2c.model.primitives;
 
-import com.stormmq.java2c.model.Primitive;
 import org.jetbrains.annotations.NotNull;
 
-public final class pointer<P extends Primitive>
+@SuppressWarnings("ClassNamingConvention")
+public final class pointer<P>
 {
 	@NotNull private final P pointsTo;
 

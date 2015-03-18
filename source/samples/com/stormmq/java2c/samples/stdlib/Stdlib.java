@@ -1,8 +1,8 @@
 package com.stormmq.java2c.samples.stdlib;
 
 import com.stormmq.java2c.model.C;
-import com.stormmq.java2c.model.primitives.Pointer;
 import com.stormmq.java2c.model.primitives.char_;
+import com.stormmq.java2c.model.primitives.pointer;
 import org.jetbrains.annotations.NotNull;
 
 /*
@@ -38,5 +38,6 @@ public final class Stdlib extends C
 			...
 		}
 	 */
-	public static native void printf(@NotNull final Pointer<char_> format, @NotNull final Object... varargs);
+	// zero-terminated - worth pointing out?
+	public static native void printf(@NotNull final pointer<char_> format, @NotNull final Object... varargs);
 }

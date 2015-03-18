@@ -2,6 +2,8 @@ package com.stormmq.java2c.transpiler.annotationProcessors;
 
 import com.stormmq.java2c.transpiler.conversion.elementConverters.ConversionException;
 import com.stormmq.java2c.transpiler.conversion.elementConverters.ElementConverter;
+import com.stormmq.java2c.transpiler.conversion.typeResolution.TypeHelper;
+import com.stormmq.java2c.transpiler.conversion.typeResolution.TypeResolver;
 import com.stormmq.java2c.transpiler.javaModules.FatalCompilationException;
 import com.stormmq.java2c.transpiler.warnings.Warnings;
 import com.sun.source.tree.Tree;
@@ -54,7 +56,11 @@ public final class CodeTreeAnalyzerProcessor extends AbstractTreeAnalyzerProcess
 	@Override
 	public boolean process(@NotNull final Set<? extends TypeElement> annotations, @NotNull final RoundEnvironment roundEnv)
 	{
+		assert typeUtilities != null;
+		assert elementUtilities != null;
 		assert trees != null;
+
+		final TypeResolver typeResolver = new TypeResolver(new TypeHelper(typeUtilities, elementUtilities));
 
 		for (final Element rootElement : roundEnv.getRootElements())
 		{
@@ -62,7 +68,7 @@ public final class CodeTreeAnalyzerProcessor extends AbstractTreeAnalyzerProcess
 			@NotNull final ElementConverter<Element> actualElementConverter = elementConverter == null ? UnknownElementConverterInstance : elementConverter;
 			try
 			{
-				actualElementConverter.convert(warnings, rootElement);
+				actualElementConverter.convert(warnings, typeResolver, rootElement);
 			}
 			catch (ConversionException e)
 			{

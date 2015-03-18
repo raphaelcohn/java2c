@@ -1,14 +1,13 @@
 package com.stormmq.java2c.samples;
 
 import com.stormmq.java2c.model.functions.pure;
-import com.stormmq.java2c.model.variables.unsigned;
 import org.jetbrains.annotations.Nullable;
 
 public interface Equality
 {
 	int Hello = 7;
 
-	@unsigned int argument = Hello;
+	int argument = Hello;
 
 	// Uses Object, which is a bit of a problem
 	// Pure because equals should be side-effect free

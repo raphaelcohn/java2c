@@ -11,11 +11,12 @@ import static com.stormmq.java2c.transpiler.warnings.StandardErrorWarnings.Stand
 
 public final class JavaModules
 {
-
 	@NotNull private final List<JavaModule> javaModules;
+	@NotNull private final Path[] classPaths;
 
-	public JavaModules(@NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final RootPathAndExpression sourceOutput, @NotNull final RootPathAndExpression classOutput) throws IllegalRelativePathException
+	public JavaModules(@NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final Path[] classPaths, @NotNull final RootPathAndExpression sourceOutput, @NotNull final RootPathAndExpression classOutput) throws IllegalRelativePathException
 	{
+		this.classPaths = classPaths;
 		javaModules = new ArrayList<>(moduleNames.size());
 		for (final ModuleName moduleName : moduleNames)
 		{
@@ -32,7 +33,6 @@ public final class JavaModules
 			final Path classOutputPath = javaModule.classOutputPath();
 			final Path sourcePath = javaModule.sourcePath();
 
-			final Path[] classPaths = new Path[0];
 			final JavaModuleCompiler javaModuleCompiler = new JavaModuleCompiler(StandardErrorWarningsInstance, sourceOutputPath, classOutputPath, sourcePath, classPaths);
 			javaModuleCompiler.compile();
 		}

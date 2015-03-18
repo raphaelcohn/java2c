@@ -3,7 +3,7 @@ package com.stormmq.java2c.transpiler.javaModules;
 import com.stormmq.java2c.transpiler.annotationProcessors.CodeTreeAnalyzerProcessor;
 import com.stormmq.java2c.transpiler.conversion.CFileCreator;
 import com.stormmq.java2c.transpiler.conversion.CMaker;
-import com.stormmq.java2c.transpiler.conversion.elementConverters.TopLevelClassElementConverter;
+import com.stormmq.java2c.transpiler.conversion.elementConverters.TopLevelInterfaceElementConverter;
 import com.stormmq.java2c.transpiler.warnings.Warnings;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -82,9 +82,9 @@ public final class JavaModuleCompiler
 				warnings,
 				PackageElementIgnoredElementConverterInstance,
 				TypeElementIgnoredElementConverterInstance,
-				new TopLevelClassElementConverter(cMaker),
 				TypeElementIgnoredElementConverterInstance,
-				TypeElementIgnoredElementConverterInstance
+				TypeElementIgnoredElementConverterInstance,
+				new TopLevelInterfaceElementConverter(cMaker)
 			).register(this);
 		}});
 
@@ -184,10 +184,10 @@ public final class JavaModuleCompiler
 					{
 						if (!isRegularFile(absoluteResolvedPath))
 						{
-							throw new FatalCompilationException(format(ENGLISH, "Path '%1$s' is not a directory, zip or jar file", path));
+							throw new FatalCompilationException(format(ENGLISH, "Path '%1$s' is not a directory or regular file", path));
 						}
 						final String fileName = absoluteResolvedPath.getFileName().toString();
-						if (!fileName.endsWith(".zip") || !fileName.endsWith(".jar"))
+						if (!(fileName.endsWith(".zip") || fileName.endsWith(".jar")))
 						{
 							throw new FatalCompilationException(format(ENGLISH, "Path '%1$s' is not a directory, zip or jar file", path));
 						}

@@ -2,10 +2,11 @@ package com.stormmq.java2c.model.primitives;
 
 import com.stormmq.java2c.model.Primitive;
 
+@SuppressWarnings("ClassNamingConvention")
 @PrimitiveConversion("char")
 public class char_ extends Primitive
 {
-	private final byte value;
+	protected final byte value;
 
 	// In practice, this is a a signed char on Linux for x86, and unsigned for PowerPC and ARM
 	// Determined by ABI. The options -funsigned-char and -fsigned-char change the default.

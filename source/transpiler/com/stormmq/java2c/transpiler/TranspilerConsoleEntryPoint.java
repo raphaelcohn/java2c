@@ -11,10 +11,9 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.List;
 
+import static java.io.File.pathSeparatorChar;
 import static java.lang.String.format;
-import static java.lang.System.err;
-import static java.lang.System.exit;
-import static java.lang.System.out;
+import static java.lang.System.*;
 import static java.nio.file.Paths.get;
 import static java.util.Locale.ENGLISH;
 
@@ -23,6 +22,7 @@ public final class TranspilerConsoleEntryPoint
 	private static final String help = "help";
 	private static final String modules_root = "modules-root";
 	private static final String modules_relative_path_expression = "modules-relative-path-expression";
+	private static final String classpath = "classpath";
 	private static final String source_output_root = "source-output-root";
 	private static final String source_output_relative_path_expression = "source-output-relative-path-expression";
 	private static final OptionParser CommandLineArgumentsParser = new OptionParser();
@@ -32,8 +32,10 @@ public final class TranspilerConsoleEntryPoint
 		CommandLineArgumentsParser.accepts(help, "show help").forHelp();
 		CommandLineArgumentsParser.accepts(modules_root, "modules modules path").withRequiredArg().describedAs("/Users/raphcohn/Documents/java2c").ofType(String.class);
 		CommandLineArgumentsParser.accepts(modules_relative_path_expression, "modules relative path expression").withRequiredArg().describedAs("source/%m").ofType(String.class).defaultsTo("%m", "description");
+		CommandLineArgumentsParser.accepts(modules_relative_path_expression, "modules relative path expression").withRequiredArg().describedAs("source/%m").ofType(String.class).defaultsTo("%m", "description");
+		CommandLineArgumentsParser.accepts(classpath, "classpath").withRequiredArg().describedAs("").ofType(String.class).withValuesSeparatedBy(pathSeparatorChar);
 		CommandLineArgumentsParser.accepts(source_output_root, "c output root path").withRequiredArg().describedAs("/Users/raphcohn/Documents/java2c/output").ofType(String.class);
-		CommandLineArgumentsParser.accepts(source_output_relative_path_expression, "c output relative path expression").withRequiredArg().describedAs("source/%m").ofType(String.class).defaultsTo("%m", "description");
+		CommandLineArgumentsParser.accepts(source_output_relative_path_expression, "c output relative path expression").withRequiredArg().describedAs("output/%m").ofType(String.class).defaultsTo("%m", "description");
 		CommandLineArgumentsParser.nonOptions("module names").ofType(ModuleName.class);
 	}
 
@@ -103,6 +105,24 @@ public final class TranspilerConsoleEntryPoint
 			return;
 		}
 
+		final Path[] classPaths;
+		try
+		{
+			final List<?> classpathStrings = arguments.valuesOf(classpath);
+			classPaths = new Path[classpathStrings.size()];
+			for (int index = 0; index < classpathStrings.size(); index++)
+			{
+				final String classpathString = (String) classpathStrings.get(index);
+				classPaths[index] = get(classpathString).toAbsolutePath();
+			}
+		}
+		catch (InvalidPathException e)
+		{
+			err.printf(format(ENGLISH, "Argument --%1$s is an invalid path (%2$s)\n", classpath, e.getMessage()));
+			printHelp(1);
+			return;
+		}
+
 		final RelativePathExpression sourceOutputRelativePathExpression;
 		try
 		{
@@ -128,7 +148,7 @@ public final class TranspilerConsoleEntryPoint
 			return;
 		}
 
-		final Application application = new Application(moduleNames, new RootPathAndExpression(modulesRootPath, modulesRelativePathExpression), new RootPathAndExpression(sourceOutputRootPath, sourceOutputRelativePathExpression));
+		final Application application = new Application(moduleNames, new RootPathAndExpression(modulesRootPath, modulesRelativePathExpression), classPaths, new RootPathAndExpression(sourceOutputRootPath, sourceOutputRelativePathExpression));
 
 		try
 		{

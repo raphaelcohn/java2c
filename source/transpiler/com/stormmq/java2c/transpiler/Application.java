@@ -17,12 +17,14 @@ public final class Application
 {
 	@NotNull private final List<ModuleName> moduleNames;
 	@NotNull private final RootPathAndExpression moduleRoot;
+	@NotNull private final Path[] classPaths;
 	@NotNull private final RootPathAndExpression sourceOutput;
 
-	public Application(@NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final RootPathAndExpression sourceOutput)
+	public Application(@NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final Path[] classPaths, @NotNull final RootPathAndExpression sourceOutput)
 	{
 		this.moduleNames = moduleNames;
 		this.moduleRoot = moduleRoot;
+		this.classPaths = classPaths;
 		this.sourceOutput = sourceOutput;
 	}
 
@@ -40,7 +42,7 @@ public final class Application
 		try
 		{
 			final RootPathAndExpression classOutput = new RootPathAndExpression(classOutputRootPath, new RelativePathExpression("%m"));
-			new JavaModules(moduleNames, moduleRoot, sourceOutput, classOutput).execute();
+			new JavaModules(moduleNames, moduleRoot, classPaths, sourceOutput, classOutput).execute();
 		}
 		catch (FatalCompilationException e)
 		{

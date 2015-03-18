@@ -1,5 +1,6 @@
 package com.stormmq.java2c.transpiler.conversion.elementConverters;
 
+import com.stormmq.java2c.transpiler.conversion.typeResolution.TypeResolver;
 import com.stormmq.java2c.transpiler.conversion.c.gccAttributes.GccAttribute;
 import com.stormmq.java2c.transpiler.conversion.c.gccAttributes.variable.GccVariableAttributeName;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,7 @@ import static javax.lang.model.element.Modifier.*;
 
 public final class CategorisedClassMembers
 {
+	@NotNull private final TypeResolver typeResolver;
 	@NotNull private final TypeElement clazz;
 	@NotNull private final Name className;
 	@NotNull private final String classNameEscaped;
@@ -28,11 +30,12 @@ public final class CategorisedClassMembers
 	@NotNull private final List<ExecutableElement> staticMethods;
 	@NotNull private final List<ExecutableElement> instanceMethods;
 
-	public CategorisedClassMembers(@NotNull final TypeElement clazz, @NotNull final Name className) throws ConversionException
+	public CategorisedClassMembers(@NotNull final TypeResolver typeResolver, @NotNull final TypeElement clazz, @NotNull final Name className) throws ConversionException
 	{
+		this.typeResolver = typeResolver;
 		this.clazz = clazz;
 		this.className = className;
-		classNameEscaped = className.toString().replace('.', '_');
+		classNameEscaped = escapeJavaTypeName(className);
 		staticFields = new ArrayList<>(16);
 		staticInitializers = new ArrayList<>(16);
 		instanceFields = new ArrayList<>(16);
@@ -132,13 +135,29 @@ public final class CategorisedClassMembers
 		}
 	}
 
+	@NotNull
+	public static String escapeJavaTypeName(@NotNull final Name className)
+	{
+		return escapeJavaTypeName(className.toString());
+	}
+
+	@NotNull
+	public static String escapeJavaTypeName(@NotNull final String className)
+	{
+		return className.replace('.', '_');
+	}
+
+	@NotNull
+	public static String escapeFieldName(@NotNull final String classNameEscaped, @NotNull final VariableElement staticField)
+	{
+		return classNameEscaped + '_' + staticField.getSimpleName().toString();
+	}
+
 	private void processStaticField(@NotNull final VariableElement staticField) throws ConversionException
 	{
-		final TypeResolver typeResolver = new TypeResolver();
+		final CType cType = typeResolver.resolveType(staticField.asType());
 
-		final String cType = typeResolver.resolveType(staticField);
-
-		final String fieldName = classNameEscaped + '_' + staticField.getSimpleName().toString();
+		final String fieldName = escapeFieldName(classNameEscaped, staticField);
 
 		final List<GccAttribute<GccVariableAttributeName>> gccAttributes = StaticFieldAttributesProcessors.processFieldAttributes(staticField);
 
