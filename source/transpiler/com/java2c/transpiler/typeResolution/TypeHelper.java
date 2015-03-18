@@ -25,7 +25,9 @@ public final class TypeHelper
 	@NotNull
 	public TypeElement typeElementFor(@NotNull final Class<?> clazz)
 	{
-		return elementUtilities.getTypeElement(clazz.getCanonicalName());
+		final TypeElement typeElement = elementUtilities.getTypeElement(clazz.getCanonicalName());
+		assert typeElement != null;
+		return typeElement;
 	}
 
 	@NotNull

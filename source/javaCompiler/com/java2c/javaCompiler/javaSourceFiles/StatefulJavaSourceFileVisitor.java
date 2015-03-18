@@ -92,6 +92,11 @@ public final class StatefulJavaSourceFileVisitor implements FileVisitor<Path>
 
 		if (!fileName.endsWith(".java"))
 		{
+			// Special case: IntelliJ module files
+			if (fileName.endsWith(".iml"))
+			{
+				return CONTINUE;
+			}
 			return ignoreFile(file, fileName, "because it is not a java file");
 		}
 

@@ -57,11 +57,11 @@ public final class ConsoleEntryPoint
 	{
 		CommandLineArgumentsParser.posixlyCorrect(true);
 		CommandLineArgumentsParser.accepts(help, "show help").forHelp();
-		CommandLineArgumentsParser.accepts(modules_root, "modules modules path").withRequiredArg().describedAs("/Users/raphcohn/Documents/java2c").ofType(String.class);
-		CommandLineArgumentsParser.accepts(modules_relative_path_expression, "modules relative path expression").withRequiredArg().describedAs("source/%m").ofType(String.class).defaultsTo("%m", "description");
+		CommandLineArgumentsParser.accepts(modules_root, "modules root path").withRequiredArg().describedAs("/Users/raph/Documents/GitHub/raphaelcohn/java2c").ofType(String.class);
+		CommandLineArgumentsParser.accepts(modules_relative_path_expression, "modules relative path expression").withRequiredArg().describedAs("source/%m").ofType(String.class).defaultsTo("source/%m", "description");
 		CommandLineArgumentsParser.accepts(classpath, "Class Path").withRequiredArg().describedAs("").ofType(String.class).withValuesSeparatedBy(pathSeparatorChar);
-		CommandLineArgumentsParser.accepts(source_output_root, "c output root path").withRequiredArg().describedAs("/Users/raphcohn/Documents/java2c/output").ofType(String.class);
-		CommandLineArgumentsParser.accepts(source_output_relative_path_expression, "c output relative path expression").withRequiredArg().describedAs("output/%m").ofType(String.class).defaultsTo("%m", "description");
+		CommandLineArgumentsParser.accepts(source_output_root, "c output root path").withRequiredArg().describedAs("/Users/raph/Documents/GitHub/raphaelcohn/java2c").ofType(String.class);
+		CommandLineArgumentsParser.accepts(source_output_relative_path_expression, "c output relative path expression").withRequiredArg().describedAs("output/%m").ofType(String.class).defaultsTo("output/%m", "description");
 		CommandLineArgumentsParser.nonOptions("module names").ofType(ModuleName.class);
 	}
 
