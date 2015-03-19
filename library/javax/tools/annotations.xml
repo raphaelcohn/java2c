@@ -1,0 +1,35 @@
+<root>
+    <item name='javax.tools.Diagnostic S getSource()'>
+        <annotation name='org.jetbrains.annotations.Nullable'/>
+    </item>
+    <item name='javax.tools.Diagnostic javax.tools.Diagnostic.Kind getKind()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.JavaCompiler javax.tools.JavaCompiler.CompilationTask getTask(java.io.Writer, javax.tools.JavaFileManager, javax.tools.DiagnosticListener&lt;? super javax.tools.JavaFileObject&gt;, java.lang.Iterable&lt;java.lang.String&gt;, java.lang.Iterable&lt;java.lang.String&gt;, java.lang.Iterable&lt;? extends javax.tools.JavaFileObject&gt;)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.JavaCompiler javax.tools.StandardJavaFileManager getStandardFileManager(javax.tools.DiagnosticListener&lt;? super javax.tools.JavaFileObject&gt;, java.util.Locale, java.nio.charset.Charset)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.StandardJavaFileManager java.lang.Iterable&lt;? extends javax.tools.JavaFileObject&gt; getJavaFileObjectsFromFiles(java.lang.Iterable&lt;? extends java.io.File&gt;)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.StandardLocation ANNOTATION_PROCESSOR_PATH'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.StandardLocation CLASS_OUTPUT'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.StandardLocation CLASS_PATH'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.StandardLocation PLATFORM_CLASS_PATH'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.StandardLocation SOURCE_OUTPUT'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.tools.StandardLocation SOURCE_PATH'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

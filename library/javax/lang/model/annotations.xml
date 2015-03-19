@@ -1,0 +1,5 @@
+<root>
+    <item name='javax.lang.model.SourceVersion RELEASE_7'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

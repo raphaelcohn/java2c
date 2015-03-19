@@ -1,0 +1,11 @@
+<root>
+    <item name='javax.lang.model.util.Elements javax.lang.model.element.PackageElement getPackageElement(java.lang.CharSequence)'>
+        <annotation name='org.jetbrains.annotations.Nullable'/>
+    </item>
+    <item name='javax.lang.model.util.Elements javax.lang.model.element.TypeElement getTypeElement(java.lang.CharSequence)'>
+        <annotation name='org.jetbrains.annotations.Nullable'/>
+    </item>
+    <item name='javax.lang.model.util.Types javax.lang.model.type.WildcardType getWildcardType(javax.lang.model.type.TypeMirror, javax.lang.model.type.TypeMirror)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

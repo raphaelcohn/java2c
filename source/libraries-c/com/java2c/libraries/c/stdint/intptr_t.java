@@ -20,10 +20,12 @@ public final class intptr_t extends AbstractScalar<intptr_t> implements Equality
 {
 	// Only on 64-bit is this valid
 	@CCodeTemplate(value = "INTPTR_MIN", includes = stdint)
+	@NotNull
 	public static final intptr_t INTPTR_MIN = INT64_MIN.cast(intptr_t.class);
 
 	// Only on 64-bit is this valid
 	@CCodeTemplate(value = "INTPTR_MAX", includes = stdint)
+	@NotNull
 	public static final intptr_t INTPTR_MAX = INT64_MAX.cast(intptr_t.class);
 
 	@CCodeTemplate(Scalar)

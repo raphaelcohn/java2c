@@ -1,0 +1,20 @@
+<root>
+    <item name='joptsimple.OptionParser joptsimple.NonOptionArgumentSpec&lt;java.lang.String&gt; nonOptions(java.lang.String)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='joptsimple.OptionParser joptsimple.OptionSet parse(java.lang.String...)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='joptsimple.OptionParser joptsimple.OptionSpecBuilder accepts(java.lang.String, java.lang.String)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='joptsimple.OptionSet java.lang.Object valueOf(java.lang.String)'>
+        <annotation name='org.jetbrains.annotations.Nullable'/>
+    </item>
+    <item name='joptsimple.OptionSet java.util.List&lt;?&gt; nonOptionArguments()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='joptsimple.OptionSpecBuilder joptsimple.ArgumentAcceptingOptionSpec&lt;java.lang.String&gt; withRequiredArg()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

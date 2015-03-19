@@ -1,0 +1,5 @@
+<root>
+    <item name='com.sun.source.tree.Tree com.sun.source.tree.Tree.Kind getKind()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

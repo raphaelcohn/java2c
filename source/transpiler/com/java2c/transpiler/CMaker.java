@@ -106,19 +106,19 @@ public class CMaker
 		}
 	}
 
-	private static String headerDefinedMacro(final File headerFile)
+	private static String headerDefinedMacro(@NotNull final File headerFile)
 	{
 		return '_' + replacePeriodWithUnderscore(fileNameToUpperCase(headerFile)) + "_H_";
 	}
 
 	@NotNull
-	private static String fileNameToUpperCase(@NotNull final File headerFile)
+	private static CharSequence fileNameToUpperCase(@NotNull final File headerFile)
 	{
 		return headerFile.getName().toUpperCase(ENGLISH);
 	}
 
 	@NotNull
-	private static String replacePeriodWithUnderscore(@NotNull final String original)
+	private static String replacePeriodWithUnderscore(@NotNull final CharSequence original)
 	{
 		return DotMatch.matcher(original).replaceAll("_");
 	}

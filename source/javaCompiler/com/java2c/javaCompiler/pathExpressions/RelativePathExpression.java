@@ -22,27 +22,27 @@ public final class RelativePathExpression
 	private static final Pattern Regex = compile("%.?");
 
 	@NotNull
-	private static final Map<String, StringVargsDelegate> Replacements = new HashMap<String, StringVargsDelegate>(2)
+	private static final Map<String, StringVariableArgumentsDelegate> Replacements = new HashMap<String, StringVariableArgumentsDelegate>(2)
 	{{
-		put("%%", new StringVargsDelegate()
+		put("%%", new StringVariableArgumentsDelegate()
 		{
 			@SuppressWarnings("OverloadedVarargsMethod")
 			@NotNull
 			@Override
-			public String execute(@NotNull final String... arguments)
+			public String execute(@NotNull final ModuleName argument)
 			{
 				return "%";
 			}
 		});
 
-		put("%m", new StringVargsDelegate()
+		put("%m", new StringVariableArgumentsDelegate()
 		{
 			@SuppressWarnings("OverloadedVarargsMethod")
 			@NotNull
 			@Override
-			public String execute(@NotNull final String... arguments)
+			public String execute(@NotNull final ModuleName argument)
 			{
-				return arguments[0];
+				return argument.asString();
 			}
 		});
 	}};
@@ -74,7 +74,9 @@ public final class RelativePathExpression
 		while(matcher.find())
 		{
 			final String matched = relativePathExpression.substring(matcher.start(), matcher.end());
-			final String replacement = Replacements.get(matched).execute(moduleName.asString());
+			final StringVariableArgumentsDelegate stringVariableArgumentsDelegate = Replacements.get(matched);
+			assert stringVariableArgumentsDelegate != null;
+			final String replacement = stringVariableArgumentsDelegate.execute(moduleName);
 			matcher.appendReplacement(buffer, replacement);
 		}
 		matcher.appendTail(buffer);

@@ -19,6 +19,7 @@ public final class uintptr_t extends AbstractScalar<uintptr_t> implements Equali
 {
 	// Only on 64-bit is this valid
 	@CCodeTemplate(value = "UINTPTR_MAX", includes = stdint)
+	@NotNull
 	public static final uintptr_t UINTPTR_MAX = UINT64_MAX.cast(uintptr_t.class);
 
 	@CCodeTemplate(Scalar)

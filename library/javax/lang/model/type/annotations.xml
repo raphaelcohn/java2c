@@ -1,0 +1,5 @@
+<root>
+    <item name='javax.lang.model.type.TypeMirror javax.lang.model.type.TypeKind getKind()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

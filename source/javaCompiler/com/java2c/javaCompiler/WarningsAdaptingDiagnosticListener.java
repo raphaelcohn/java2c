@@ -1,17 +1,19 @@
 package com.java2c.javaCompiler;
 
 import com.java2c.transpiler.warnings.Warnings;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
 import javax.tools.JavaFileObject;
 
+import java.net.URI;
 import java.util.Locale;
 
 import static com.java2c.utility.EnglishFormatter.format;
 
-@SuppressWarnings("ClassNamePrefixedWithPackageName")
 public final class WarningsAdaptingDiagnosticListener implements DiagnosticListener<JavaFileObject>
 {
 	@NotNull
@@ -31,7 +33,17 @@ public final class WarningsAdaptingDiagnosticListener implements DiagnosticListe
 	@Override
 	public void report(@NotNull final Diagnostic<? extends JavaFileObject> diagnostic)
 	{
-		final String path = diagnostic.getSource().toUri().getPath();
+		@Nullable final JavaFileObject source = diagnostic.getSource();
+		@NonNls final String path;
+		if (source == null)
+		{
+			path = "(none)";
+		}
+		else
+		{
+			final URI uri = source.toUri();
+			path = uri.getPath();
+		}
 
 		final String message = format("'%1$s' in file %2$s at line %3$s column %4$s", diagnostic.getMessage(warnings.locale()), path, diagnostic.getLineNumber(), diagnostic.getColumnNumber());
 

@@ -18,9 +18,11 @@ import static com.java2c.libraries.c.stdint.stdint.stdint;
 public final class uint64_t extends AbstractScalar<uint64_t> implements Equality<uint64_t>, Comparison<uint64_t>, Mathematics<uint64_t>, BooleanAlgebra<uint64_t>
 {
 	@CCodeTemplate(value = "UINT64_MAX", includes = stdint)
+	@NotNull
 	public static final uint64_t UINT64_MAX = new uint64_t(0xFFFFFFFFFFFFFFFFL);
 
 	@CCodeTemplate(value = "UINT64_C(value)", includes = stdint)
+	@NotNull
 	public static uint64_t literal(@literal final long value)
 	{
 		return new uint64_t(value);

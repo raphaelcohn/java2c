@@ -19,49 +19,40 @@ public final class SourcePathsHelper
 	}
 
 	@NotNull
-	public static Iterable<? extends File> sourcePathsToIterableFiles(final boolean needsToBeWritable, @NotNull final Path... sourcePaths) throws FatalCompilationException
+	public static Iterable<? extends File> sourcePathsToIterableFiles(final boolean needsToBeWritable, @NotNull final Path... realPaths) throws FatalCompilationException
 	{
-		final int length = sourcePaths.length;
+		final int length = realPaths.length;
 		final Collection<File> files = new ArrayList<>(length);
-		for (final Path path : sourcePaths)
+		for (final Path realPath : realPaths)
 		{
-			if (exists(path))
+			if (exists(realPath))
 			{
-				final Path absoluteResolvedPath;
-				try
+				if (!isReadable(realPath))
 				{
-					absoluteResolvedPath = path.toRealPath();
-				}
-				catch (final IOException e)
-				{
-					throw new FatalCompilationException(format("Could not resolved path '%1$s' because of '%2$s'", path, e.getMessage()), e);
-				}
-				if (!isReadable(absoluteResolvedPath))
-				{
-					throw new FatalCompilationException(format("Path '%1$s' is not readable", path));
+					throw new FatalCompilationException(format("Path '%1$s' is not readable", realPath));
 				}
 				if (needsToBeWritable)
 				{
-					if (!isWritable(absoluteResolvedPath))
+					if (!isWritable(realPath))
 					{
-						throw new FatalCompilationException(format("Path '%1$s' is not writable", path));
+						throw new FatalCompilationException(format("Path '%1$s' is not writable", realPath));
 					}
-					if (!isDirectory(absoluteResolvedPath))
+					if (!isDirectory(realPath))
 					{
-						throw new FatalCompilationException(format("Path '%1$s' is not a directory", path));
+						throw new FatalCompilationException(format("Path '%1$s' is not a directory", realPath));
 					}
 				}
 				else
 				{
-					if (!isDirectory(absoluteResolvedPath))
+					if (!isDirectory(realPath))
 					{
-						if (!isRegularFile(absoluteResolvedPath))
+						if (!isRegularFile(realPath))
 						{
-							throw new FatalCompilationException(format("Path '%1$s' is not a directory or regular file", path));
+							throw new FatalCompilationException(format("Path '%1$s' is not a directory or regular file", realPath));
 						}
-						if (!isPathAZipOrJarFile(absoluteResolvedPath))
+						if (!isPathAZipOrJarFile(realPath))
 						{
-							throw new FatalCompilationException(format("Path '%1$s' is not a directory, zip or jar file", path));
+							throw new FatalCompilationException(format("Path '%1$s' is not a directory, zip or jar file", realPath));
 						}
 					}
 				}
@@ -70,22 +61,22 @@ public final class SourcePathsHelper
 			{
 				if (needsToBeWritable)
 				{
-					if (isPathAZipOrJarFile(path))
+					if (isPathAZipOrJarFile(realPath))
 					{
-						throw new FatalCompilationException(format("Path '%1$s' should not be a zip or jar file", path));
+						throw new FatalCompilationException(format("Path '%1$s' should not be a zip or jar file", realPath));
 					}
 					try
 					{
-						createDirectories(path);
+						createDirectories(realPath);
 					}
 					catch (final IOException e)
 					{
-						throw new FatalCompilationException(format("Path '%1$s' could not be created because of '%2$s'", path, e.getMessage()), e);
+						throw new FatalCompilationException(format("Path '%1$s' could not be created because of '%2$s'", realPath, e.getMessage()), e);
 					}
 				}
 			}
 
-			files.add(path.toFile());
+			files.add(realPath.toFile());
 		}
 		return files;
 	}
@@ -95,6 +86,7 @@ public final class SourcePathsHelper
 		return isFileNameAZipOrJar(getFileName(path));
 	}
 
+	@NotNull
 	private static String getFileName(@NotNull final Path path)
 	{
 		return path.getFileName().toString();

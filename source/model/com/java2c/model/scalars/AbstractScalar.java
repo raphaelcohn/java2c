@@ -47,6 +47,7 @@ public abstract class AbstractScalar<T extends AbstractScalar<T>> implements CTy
 	{
 	}
 
+	@NotNull
 	@SuppressWarnings("CloneInNonCloneableClass")
 	@Override
 	protected final Object clone() throws CloneNotSupportedException

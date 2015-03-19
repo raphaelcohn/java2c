@@ -1,0 +1,17 @@
+<root>
+    <item name='java.lang.Enum java.lang.String name()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='java.lang.Object java.lang.Object clone()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='java.lang.System err'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='java.lang.System out'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='java.lang.Throwable java.lang.String getMessage()'>
+        <annotation name='org.jetbrains.annotations.Nullable'/>
+    </item>
+</root>

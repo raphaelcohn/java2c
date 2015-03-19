@@ -28,11 +28,7 @@ public final class SectionFieldAttributesProcessor extends AbstractFieldAttribut
 			return;
 		}
 
-		@Nullable final String sectionName = section.value();
-		if (sectionName == null)
-		{
-			throw new ConversionException("@section must specify a section name (value)");
-		}
+		final String sectionName = section.value();
 		gccAttributes.add(new GccAttribute<>(GccVariableAttributeName.section, new GccAttributeParameter(sectionName)));
 	}
 }

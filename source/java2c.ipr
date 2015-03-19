@@ -209,7 +209,7 @@
         <inspection_tool class="ComparisonOfShortAndChar" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ComparisonToNaN" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ConditionSignal" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="ConditionalExpression" enabled="true" level="WARNING" enabled_by_default="true">
+        <inspection_tool class="ConditionalExpression" enabled="false" level="WARNING" enabled_by_default="false">
           <option name="ignoreSimpleAssignmentsAndReturns" value="true" />
         </inspection_tool>
         <inspection_tool class="ConditionalExpressionWithIdenticalBranches" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -221,6 +221,11 @@
         <inspection_tool class="ConfusingOctalEscape" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ConnectionResource" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ConstantAssertCondition" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="ConstantConditions" enabled="true" level="ERROR" enabled_by_default="true">
+          <option name="SUGGEST_NULLABLE_ANNOTATIONS" value="true" />
+          <option name="DONT_REPORT_TRUE_ASSERT_STATEMENTS" value="false" />
+          <option name="TREAT_UNKNOWN_MEMBERS_AS_NULLABLE" value="true" />
+        </inspection_tool>
         <inspection_tool class="ConstantDeclaredInAbstractClass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ConstantMathCall" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ConstantNamingConvention" enabled="false" level="WARNING" enabled_by_default="false">
@@ -928,8 +933,8 @@
           <option name="m_ignoreInEquals" value="true" />
           <option name="ignoreInAssert" value="true" />
         </inspection_tool>
-        <inspection_tool class="ThrowCaughtLocally" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="ignoreRethrownExceptions" value="false" />
+        <inspection_tool class="ThrowCaughtLocally" enabled="false" level="WARNING" enabled_by_default="false">
+          <option name="ignoreRethrownExceptions" value="true" />
         </inspection_tool>
         <inspection_tool class="ThrowablePrintStackTrace" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ThrownExceptionsPerMethod" enabled="true" level="WARNING" enabled_by_default="true">
@@ -1051,6 +1056,9 @@
     <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
   </component>
+  <component name="JavacSettings">
+    <option name="GENERATE_NO_WARNINGS" value="true" />
+  </component>
   <component name="ProjectCodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS">
       <value>
@@ -1093,6 +1101,8 @@
     <dictionary name="raph">
       <words>
         <w>inlining</w>
+        <w>intelli</w>
+        <w>iterable</w>
         <w>malloc</w>
         <w>struct</w>
         <w>wchar</w>
@@ -1119,12 +1129,12 @@
     <output url="file://$PROJECT_DIR$/../intellij" />
   </component>
   <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="Transpile Samples" type="Application" factoryName="Application">
+    <configuration default="false" name="Transpiler Samples" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="com.java2c.transpiler.application.ConsoleEntryPoint" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="--classpath $PROJECT_DIR$/../intellij/production/model --modules-root $PROJECT_DIR$/.. --source-output-root $PROJECT_DIR$/.. -- samples" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="PROGRAM_PARAMETERS" value="--modules-root $PROJECT_DIR$/.. --modules-relative-path-expression source/%m --source-output-root $PROJECT_DIR$/../output --source-output-relative-path-expression %m -- samples" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$/../../" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -1158,6 +1168,9 @@
       </SOURCES>
     </library>
     <library name="jopt-simple">
+      <ANNOTATIONS>
+        <root url="file://$PROJECT_DIR$/../library/jopt-simple/4.5/joptsimple" />
+      </ANNOTATIONS>
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/../library/jopt-simple/4.5/jopt-simple-4.5.jar!/" />
       </CLASSES>

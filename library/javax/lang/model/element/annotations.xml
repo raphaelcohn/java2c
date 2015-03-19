@@ -1,0 +1,41 @@
+<root>
+    <item name='javax.lang.model.element.Element java.util.List&lt;? extends javax.lang.model.element.Element&gt; getEnclosedElements()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.Element java.util.Set&lt;javax.lang.model.element.Modifier&gt; getModifiers()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.Element javax.lang.model.element.Element getEnclosingElement()'>
+        <annotation name='org.jetbrains.annotations.Nullable'/>
+    </item>
+    <item name='javax.lang.model.element.Element javax.lang.model.element.ElementKind getKind()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.Element javax.lang.model.element.Name getSimpleName()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.Element javax.lang.model.type.TypeMirror asType()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.Modifier PRIVATE'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.Modifier STATIC'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.Modifier STRICTFP'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.QualifiedNameable javax.lang.model.element.Name getQualifiedName()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.TypeElement java.util.List&lt;? extends javax.lang.model.element.Element&gt; getEnclosedElements()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.TypeElement java.util.List&lt;? extends javax.lang.model.element.TypeParameterElement&gt; getTypeParameters()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.element.TypeElement javax.lang.model.element.Name getQualifiedName()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

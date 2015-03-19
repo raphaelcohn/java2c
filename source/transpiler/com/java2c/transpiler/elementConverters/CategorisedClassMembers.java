@@ -44,10 +44,10 @@ public final class CategorisedClassMembers
 		staticMethods = new ArrayList<>(16);
 		instanceMethods = new ArrayList<>(16);
 
-		final List<? extends Element> enclosedElements = clazz.getEnclosedElements();
-		for (Element enclosedElement : enclosedElements)
+		@NotNull final List<? extends Element> enclosedElements = clazz.getEnclosedElements();
+		for (final Element enclosedElement : enclosedElements)
 		{
-			final ElementKind kind = enclosedElement.getKind();
+			@NotNull final ElementKind kind = enclosedElement.getKind();
 			final Set<Modifier> modifiers = enclosedElement.getModifiers();
 			switch(kind)
 			{
@@ -59,6 +59,18 @@ public final class CategorisedClassMembers
 					instanceInitializers.add((ExecutableElement) enclosedElement);
 					break;
 
+				case PACKAGE:
+					break;
+				case ENUM:
+					break;
+				case CLASS:
+					break;
+				case ANNOTATION_TYPE:
+					break;
+				case INTERFACE:
+					break;
+				case ENUM_CONSTANT:
+					break;
 				case FIELD:
 					final List<VariableElement> fields = modifiers.contains(STATIC) ? staticFields : instanceFields;
 					fields.add((VariableElement) enclosedElement);
@@ -68,11 +80,23 @@ public final class CategorisedClassMembers
 					constructors.add((ExecutableElement) enclosedElement);
 					break;
 
+				case PARAMETER:
+					break;
+				case LOCAL_VARIABLE:
+					break;
+				case EXCEPTION_PARAMETER:
+					break;
 				case METHOD:
 					final List<ExecutableElement> methods = modifiers.contains(STATIC) ? staticMethods : instanceMethods;
 					methods.add((ExecutableElement) enclosedElement);
 					break;
 
+				case TYPE_PARAMETER:
+					break;
+				case OTHER:
+					break;
+				case RESOURCE_VARIABLE:
+					break;
 				default:
 					throw new ConversionException(format(ENGLISH, "Unexpected class member kind %1$s", kind));
 			}

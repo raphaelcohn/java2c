@@ -48,8 +48,17 @@ public final class MyCodeTreeUser implements CodeTreeUser
 	@Override
 	public void process(@NotNull final Messager messager, @NotNull final Types typeUtilities, @NotNull final Elements elementUtilities, @NotNull final Trees trees, @NotNull final Set<? extends Element> rootElements)
 	{
+
+
+
+
+
+
 		final TypeResolver typeResolver = new TypeResolver(new TypeHelper(typeUtilities, elementUtilities));
 
+		/*
+			Root elements may be classes and packages; package may be sorted last...
+		 */
 		for (final Element rootElement : rootElements)
 		{
 			@SuppressWarnings("unchecked") @Nullable final ElementConverter<Element> elementConverter = (ElementConverter<Element>) topLevelConverters.get(rootElement.getKind());
@@ -70,8 +79,8 @@ public final class MyCodeTreeUser implements CodeTreeUser
 			{
 				for (final Tree tree : treePath)
 				{
-					final Kind treeKind = tree.getKind();
-					out.println("treeKind = " + treeKind);
+					@NotNull final Kind treeKind = tree.getKind();
+					out.println(treeKind);
 				}
 			}
 		}

@@ -18,12 +18,15 @@ import static com.java2c.libraries.c.stdint.stdint.stdint;
 public final class int64_t extends AbstractScalar<int64_t> implements Equality<int64_t>, Comparison<int64_t>, Mathematics<int64_t>, BooleanAlgebra<int64_t>
 {
 	@CCodeTemplate(value = "INT64_MAX", includes = stdint)
+	@NotNull
 	public static final int64_t INT64_MAX = new int64_t(9223372036854775807L);
 
 	@CCodeTemplate(value = "INT64_MIN", includes = stdint)
+	@NotNull
 	public static final int64_t INT64_MIN = new int64_t(-INT64_MAX.value - 1L);
 
 	@CCodeTemplate(value = "INT64_C(value)", includes = stdint)
+	@NotNull
 	public static int64_t literal(@literal final long value)
 	{
 		return new int64_t(value);

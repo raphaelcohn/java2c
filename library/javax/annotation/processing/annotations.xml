@@ -1,0 +1,5 @@
+<root>
+    <item name='javax.annotation.processing.RoundEnvironment java.util.Set&lt;? extends javax.lang.model.element.Element&gt; getRootElements()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

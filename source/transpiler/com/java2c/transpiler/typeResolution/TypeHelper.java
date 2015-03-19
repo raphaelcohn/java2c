@@ -1,13 +1,19 @@
 package com.java2c.transpiler.typeResolution;
 
+import com.java2c.utility.EnglishFormatter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.lang.model.element.Element;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.WildcardType;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+import java.io.OutputStreamWriter;
+import java.lang.management.BufferPoolMXBean;
+import java.util.List;
 
 public final class TypeHelper
 {
@@ -25,8 +31,12 @@ public final class TypeHelper
 	@NotNull
 	public TypeElement typeElementFor(@NotNull final Class<?> clazz)
 	{
-		final TypeElement typeElement = elementUtilities.getTypeElement(clazz.getCanonicalName());
-		assert typeElement != null;
+		final String canonicalName = clazz.getCanonicalName();
+		@Nullable final TypeElement typeElement = elementUtilities.getTypeElement(canonicalName);
+		if (typeElement == null)
+		{
+			throw new IllegalArgumentException(EnglishFormatter.format("No known TypeElement for clazz '%1$s'; is the CLASS_PATH set correctly?", canonicalName));
+		}
 		return typeElement;
 	}
 

@@ -26,10 +26,40 @@ public final class TypeResolver
 		pointerTypeElementType = typeHelper.typeFor(pointer.class);
 	}
 
+	/*
+
+		TypeMirror
+			|- PrimitiveType
+				|- eg boolean
+			|- ReferenceType (anything)
+				|- ArrayType
+				|- NullType
+				|- NoType
+					|- eg package
+					|- eg void
+					|- eg Object's superclass
+				|- DeclaredType (eg class, interface) (invocation of a TypeElement, say)
+					|- ErrorType (bad class or interface)
+			|- WildcardType
+			|- UnionType (multicatch of Exceptions)
+			|- TypeVariable (the bit in <A> generics); horrid
+			|- ExecutableType (method, constructor or initialiser)
+
+		Element
+			|- PackageElement
+			|- TypeElement (class, interface)
+			|- TypeParameterElement
+			|- VariableElement (local, field, constant, method parameter)
+			|- ExecutableElement (method, constructor, initialiser)
+
+		AnnotationMirror
+	 */
+
+
 	@NotNull
 	public CType resolveType(@NotNull final TypeMirror fieldType) throws ConversionException
 	{
-		final TypeKind typeKind = fieldType.getKind();
+		@NotNull final TypeKind typeKind = fieldType.getKind();
 		guardType(typeKind);
 		if (typeKind.isPrimitive())
 		{
@@ -84,7 +114,7 @@ public final class TypeResolver
 	}
 
 	@SuppressWarnings("OverlyComplexMethod")
-	private static void guardType(final TypeKind typeKind) throws ConversionException
+	private static void guardType(@NotNull final TypeKind typeKind) throws ConversionException
 	{
 		switch (typeKind)
 		{

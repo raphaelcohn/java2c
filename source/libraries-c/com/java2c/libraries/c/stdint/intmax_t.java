@@ -20,12 +20,15 @@ import static com.java2c.libraries.c.stdint.int64_t.INT64_MIN;
 public final class intmax_t extends AbstractScalar<intmax_t> implements Equality<intmax_t>, Comparison<intmax_t>, Mathematics<intmax_t>, BooleanAlgebra<intmax_t>
 {
 	@CCodeTemplate(value = "INTMAX_MIN", includes = stdint)
+	@NotNull
 	public static final intmax_t INTMAX_MIN = INT64_MIN.cast(intmax_t.class);
 
 	@CCodeTemplate(value = "INTMAX_MAX", includes = stdint)
+	@NotNull
 	public static final intmax_t INTMAX_MAX = INT64_MAX.cast(intmax_t.class);
 
 	@CCodeTemplate(value = "INTMAX_C(value)", includes = stdint)
+	@NotNull
 	public static intmax_t literal(@literal final long value)
 	{
 		return new intmax_t(value);

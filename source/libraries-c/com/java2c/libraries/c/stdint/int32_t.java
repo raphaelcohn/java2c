@@ -18,12 +18,15 @@ import static com.java2c.libraries.c.stdint.stdint.stdint;
 public final class int32_t extends AbstractScalar<int32_t> implements Equality<int32_t>, Comparison<int32_t>, Mathematics<int32_t>, BooleanAlgebra<int32_t>
 {
 	@CCodeTemplate(value = "INT32_MAX", includes = stdint)
+	@NotNull
 	public static final int32_t INT32_MAX = new int32_t(2147483647L);
 
 	@CCodeTemplate(value = "INT32_MIN", includes = stdint)
+	@NotNull
 	public static final int32_t INT32_MIN = new int32_t(-INT32_MAX.value - 1L);
 
 	@CCodeTemplate(value = "INT32_C(value)", includes = stdint)
+	@NotNull
 	public static int32_t literal(@literal final long value)
 	{
 		return new int32_t(value);

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.tools.JavaFileManager.Location;
 import javax.tools.StandardJavaFileManager;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import static com.java2c.javaCompiler.SourcePathsHelper.sourcePathsToIterableFil
 import static com.java2c.utility.EnglishFormatter.format;
 import static javax.tools.StandardLocation.*;
 
-public class StandardJavaFileManagerConfigurator
+public final class StandardJavaFileManagerConfigurator
 {
 	@NotNull
 	private final StandardJavaFileManager fileManager;
@@ -24,39 +25,39 @@ public class StandardJavaFileManagerConfigurator
 	}
 
 	@NotNull
-	public final StandardJavaFileManagerConfigurator setDefaultAnnotationProcessorPath()
+	public StandardJavaFileManagerConfigurator setDefaultAnnotationProcessorPath()
 	{
 		return setDefaultLocation(ANNOTATION_PROCESSOR_PATH);
 	}
 
 	@NotNull
-	public final StandardJavaFileManagerConfigurator setDefaultPlatformClassPath()
+	public StandardJavaFileManagerConfigurator setDefaultPlatformClassPath()
 	{
 		return setDefaultLocation(PLATFORM_CLASS_PATH);
 	}
 
 	@NotNull
-	public final StandardJavaFileManagerConfigurator setClassPaths(@NotNull final Path... classPaths) throws FatalCompilationException
+	public StandardJavaFileManagerConfigurator setDefaultClassPaths()
 	{
-		return setLocation(CLASS_PATH, classPaths);
+		return setDefaultLocation(CLASS_PATH);
 	}
 
 	@NotNull
-	public final StandardJavaFileManagerConfigurator setSourcePaths(@NotNull final Path... sourcePaths) throws FatalCompilationException
+	public StandardJavaFileManagerConfigurator setSourcePaths(@NotNull final Path... sourcePaths) throws FatalCompilationException
 	{
 		return setLocation(SOURCE_PATH, sourcePaths);
 	}
 
 	@NotNull
-	public final StandardJavaFileManagerConfigurator setSourceOutputPath(@NotNull final Path sourceOutputPath) throws FatalCompilationException
+	public StandardJavaFileManagerConfigurator setSourceOutputPath(@NotNull final Path sourceOutputPath) throws FatalCompilationException
 	{
-		return setLocation(SOURCE_PATH, sourceOutputPath);
+		return setLocation(SOURCE_OUTPUT, sourceOutputPath);
 	}
 
 	@NotNull
-	public final StandardJavaFileManagerConfigurator setClassOutputPath(@NotNull final Path classOutputPath) throws FatalCompilationException
+	public StandardJavaFileManagerConfigurator setClassOutputPath(@NotNull final Path classOutputPath) throws FatalCompilationException
 	{
-		return setLocation(CLASS_PATH, classOutputPath);
+		return setLocation(CLASS_OUTPUT, classOutputPath);
 	}
 
 	@NotNull
@@ -78,7 +79,8 @@ public class StandardJavaFileManagerConfigurator
 	{
 		try
 		{
-			fileManager.setLocation(location, sourcePathsToIterableFiles(location.isOutputLocation(), sourcePaths));
+			final Iterable<? extends File> paths = sourcePathsToIterableFiles(location.isOutputLocation(), sourcePaths);
+			fileManager.setLocation(location, paths);
 		}
 		catch (final IOException e)
 		{

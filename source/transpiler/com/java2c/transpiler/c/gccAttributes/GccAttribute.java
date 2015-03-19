@@ -10,12 +10,14 @@ public final class GccAttribute<N extends Enum<N> & AttributeName> implements Wr
 	@NotNull private final N name;
 	@NotNull private final GccAttributeParameter[] gccAttributeParameters;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	public GccAttribute(@NotNull final N name, @NotNull GccAttributeParameter... gccAttributeParameters)
 	{
 		this.name = name;
 		this.gccAttributeParameters = gccAttributeParameters;
 	}
 
+	@Override
 	public void write(@NotNull final Writer writer) throws IOException
 	{
 		writer.write(name.name());
@@ -23,7 +25,7 @@ public final class GccAttribute<N extends Enum<N> & AttributeName> implements Wr
 		{
 			writer.write(" (");
 			boolean afterFirst = false;
-			for (GccAttributeParameter gccAttributeParameter : gccAttributeParameters)
+			for (final GccAttributeParameter gccAttributeParameter : gccAttributeParameters)
 			{
 				if (afterFirst)
 				{

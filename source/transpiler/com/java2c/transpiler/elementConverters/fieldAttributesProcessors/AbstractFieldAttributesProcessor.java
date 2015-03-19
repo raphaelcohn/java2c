@@ -1,9 +1,12 @@
 package com.java2c.transpiler.elementConverters.fieldAttributesProcessors;
 
 import com.java2c.transpiler.elementConverters.ConversionException;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.QualifiedNameable;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import java.lang.annotation.Annotation;
@@ -23,14 +26,18 @@ public abstract class AbstractFieldAttributesProcessor implements FieldAttribute
 	}
 
 	@NotNull
-	protected final ConversionException newConversionException(@NotNull final VariableElement field, @NotNull final String message)
+	protected final ConversionException newConversionException(@NotNull final VariableElement field, @NonNls @NotNull final String message)
 	{
 		return new ConversionException(format(ENGLISH, "A field '%1$s' (in '%2$s') %3$s", field.getSimpleName(), inClass(field), message));
 	}
 
 	@NotNull
-	private String inClass(@NotNull final VariableElement field)
+	private static String inClass(@SuppressWarnings("TypeMayBeWeakened") @NotNull final VariableElement field)
 	{
-		return ((TypeElement) field.getEnclosingElement()).getQualifiedName().toString();
+		// Only null if field is a PackageElement, which it isn't
+		@Nullable final QualifiedNameable enclosingElement = (QualifiedNameable) field.getEnclosingElement();
+		assert enclosingElement != null;
+
+		return enclosingElement.getQualifiedName().toString();
 	}
 }

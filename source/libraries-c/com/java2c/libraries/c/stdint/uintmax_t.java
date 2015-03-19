@@ -19,9 +19,11 @@ import static com.java2c.libraries.c.stdint.uint64_t.UINT64_MAX;
 public final class uintmax_t extends AbstractScalar<uintmax_t> implements Equality<uintmax_t>, Comparison<uintmax_t>, Mathematics<uintmax_t>, BooleanAlgebra<uintmax_t>
 {
 	@CCodeTemplate(value = "UINTMAX_MAX", includes = stdint)
+	@NotNull
 	public static final uintmax_t UINTMAX_MAX = UINT64_MAX.cast(uintmax_t.class);
 
 	@CCodeTemplate(value = "UINTMAX_C(value)", includes = stdint)
+	@NotNull
 	public static uintmax_t literal(@literal final long value)
 	{
 		return new uintmax_t(value);

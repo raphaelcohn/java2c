@@ -42,9 +42,9 @@ public final class JavaModuleCompiler
 		this.javaSourceFilesFinder = javaSourceFilesFinder;
 	}
 
-	public void compile(@NotNull final Path[] classPaths, @NotNull final Path sourcePath, @NotNull final Path sourceOutputPath, @NotNull final Path classOutputPath, @NotNull final Processor processor) throws FatalCompilationException
+	public void compile(@NotNull final Path sourcePath, @NotNull final Path sourceOutputPath, @NotNull final Path classOutputPath, @NotNull final Processor processor) throws FatalCompilationException
 	{
-		final StandardJavaFileManager standardJavaFileManager = createStandardJavaFileManager(classPaths, sourcePath, sourceOutputPath, classOutputPath);
+		final StandardJavaFileManager standardJavaFileManager = createStandardJavaFileManager(sourcePath, sourceOutputPath, classOutputPath);
 		final Iterable<? extends JavaFileObject> compilationUnits = findCompilationUnits(standardJavaFileManager, sourcePath);
 		final StringWriter additionalCompilerOutput = new StringWriter(4096);
 
@@ -63,14 +63,14 @@ public final class JavaModuleCompiler
 	}
 
 	@NotNull
-	private StandardJavaFileManager createStandardJavaFileManager(@NotNull final Path[] classPaths, @NotNull final Path sourcePath, @NotNull final Path sourceOutputPath, @NotNull final Path classOutputPath) throws FatalCompilationException
+	private StandardJavaFileManager createStandardJavaFileManager(@NotNull final Path sourcePath, @NotNull final Path sourceOutputPath, @NotNull final Path classOutputPath) throws FatalCompilationException
 	{
-		final StandardJavaFileManager fileManager = javaCompiler.getStandardFileManager(diagnosticListener, diagnosticListener.locale(), Utf8);
+		@NotNull final StandardJavaFileManager fileManager = javaCompiler.getStandardFileManager(diagnosticListener, diagnosticListener.locale(), Utf8);
 
 		new StandardJavaFileManagerConfigurator(fileManager)
+			.setDefaultPlatformClassPath()
 			.setDefaultAnnotationProcessorPath()
-			.setDefaultAnnotationProcessorPath()
-			.setClassPaths(classPaths)
+			.setDefaultClassPaths()
 			.setSourcePaths(sourcePath)
 			.setSourceOutputPath(sourceOutputPath)
 			.setClassOutputPath(classOutputPath);
@@ -84,7 +84,7 @@ public final class JavaModuleCompiler
 	{
 		final Iterable<String> compilerOptions = null;
 		final Iterable<String> namesOfClassesToBeProcessedByAnnotationProcessing = null;
-		final CompilationTask task = javaCompiler.getTask(additionalCompilerOutput, standardJavaFileManager, diagnosticListener, compilerOptions, namesOfClassesToBeProcessedByAnnotationProcessing, compilationUnits);
+		@NotNull final CompilationTask task = javaCompiler.getTask(additionalCompilerOutput, standardJavaFileManager, diagnosticListener, compilerOptions, namesOfClassesToBeProcessedByAnnotationProcessing, compilationUnits);
 
 		task.setLocale(diagnosticListener.locale());
 
