@@ -1,4 +1,4 @@
-package com.java2c.transpiler.elementConverters.fieldAttributesProcessors;
+package com.java2c.transpiler.fieldAttributesProcessors;
 
 import com.java2c.transpiler.elementConverters.ConversionException;
 import org.jetbrains.annotations.NonNls;
@@ -7,7 +7,6 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.QualifiedNameable;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import java.lang.annotation.Annotation;
 

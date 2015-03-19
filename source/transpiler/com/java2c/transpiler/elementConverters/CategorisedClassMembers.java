@@ -1,6 +1,5 @@
 package com.java2c.transpiler.elementConverters;
 
-import com.java2c.transpiler.typeResolution.TypeResolver;
 import com.java2c.transpiler.c.gccAttributes.GccAttribute;
 import com.java2c.transpiler.c.gccAttributes.variable.GccVariableAttributeName;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +17,6 @@ import static javax.lang.model.element.Modifier.*;
 
 public final class CategorisedClassMembers
 {
-	@NotNull private final TypeResolver typeResolver;
 	@NotNull private final TypeElement clazz;
 	@NotNull private final Name className;
 	@NotNull private final String classNameEscaped;
@@ -30,9 +28,8 @@ public final class CategorisedClassMembers
 	@NotNull private final List<ExecutableElement> staticMethods;
 	@NotNull private final List<ExecutableElement> instanceMethods;
 
-	public CategorisedClassMembers(@NotNull final TypeResolver typeResolver, @NotNull final TypeElement clazz, @NotNull final Name className) throws ConversionException
+	public CategorisedClassMembers(@NotNull final TypeElement clazz, @NotNull final Name className) throws ConversionException
 	{
-		this.typeResolver = typeResolver;
 		this.clazz = clazz;
 		this.className = className;
 		classNameEscaped = escapeJavaTypeName(className);
@@ -179,7 +176,7 @@ public final class CategorisedClassMembers
 
 	private void processStaticField(@NotNull final VariableElement staticField) throws ConversionException
 	{
-		final CType cType = typeResolver.resolveType(staticField.asType());
+		//final CType cType = typeResolver.resolveType(staticField.asType());
 
 		final String fieldName = escapeFieldName(classNameEscaped, staticField);
 

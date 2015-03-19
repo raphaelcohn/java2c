@@ -1,17 +1,18 @@
 package com.java2c.transpiler.application;
 
 import com.java2c.javaCompiler.processors.CodeTreeUserAdaptingProcessor;
-import com.java2c.transpiler.CFileCreator;
-import com.java2c.transpiler.CMaker;
-import com.java2c.transpiler.MyCodeTreeUser;
-import com.java2c.transpiler.elementConverters.TopLevelInterfaceElementConverter;
+import com.java2c.transpiler.TranspilingCodeTreeUser;
 import com.java2c.javaCompiler.*;
 import com.java2c.javaCompiler.javaSourceFiles.JavaSourceFilesFinder;
 import com.java2c.javaCompiler.pathExpressions.IllegalRelativePathException;
 import com.java2c.javaCompiler.pathExpressions.IllegalRelativePathExpressionException;
 import com.java2c.javaCompiler.pathExpressions.RelativePathExpression;
 import com.java2c.javaCompiler.pathExpressions.RootPathAndExpression;
+import com.java2c.transpiler.elementHandlers.RootElementHandler;
+import com.java2c.transpiler.elementHandlers.PackageElementHandler;
+import com.java2c.transpiler.elementHandlers.TypeElementHandler;
 import com.java2c.transpiler.warnings.Warnings;
+import com.java2c.utility.ImpossibleStateException;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,8 +23,6 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 
-import static com.java2c.transpiler.elementConverters.ElementConverter.PackageElementIgnoredElementConverterInstance;
-import static com.java2c.transpiler.elementConverters.ElementConverter.TypeElementIgnoredElementConverterInstance;
 import static com.java2c.utility.EnglishFormatter.format;
 import static java.nio.file.Files.createTempDirectory;
 import static java.nio.file.Files.delete;
@@ -31,6 +30,22 @@ import static javax.tools.ToolProvider.getSystemJavaCompiler;
 
 public final class TranspilerApplication
 {
+	@SuppressWarnings("NullableProblems")
+	@NotNull
+	private static final RelativePathExpression ModuleNamePathExpression;
+
+	static
+	{
+		try
+		{
+			ModuleNamePathExpression = new RelativePathExpression("%m");
+		}
+		catch (final IllegalRelativePathExpressionException ignored)
+		{
+			throw new ImpossibleStateException();
+		}
+	}
+
 	@NotNull
 	@NonNls
 	private static final String TemporaryFolderPrefix = "java2c-";
@@ -53,6 +68,9 @@ public final class TranspilerApplication
 	@NotNull
 	private final JavaModuleCompiler javaModuleCompiler;
 
+	@NotNull
+	private final CodeTreeUserAdaptingProcessor processor;
+
 	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	public TranspilerApplication(@NotNull final Warnings warnings, @NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final RootPathAndExpression sourceOutput, @NotNull final Collection<Path> additionalClassPath)
 	{
@@ -63,6 +81,8 @@ public final class TranspilerApplication
 		this.additionalClassPath = additionalClassPath;
 
 		javaModuleCompiler = new JavaModuleCompiler(warnings, new WarningsAdaptingDiagnosticListener(warnings), getJavaCompiler(), new JavaSourceFilesFinder(warnings));
+
+		processor = new CodeTreeUserAdaptingProcessor(new TranspilingCodeTreeUser(new RootElementHandler(new PackageElementHandler(), new TypeElementHandler())));
 	}
 
 	public void execute()
@@ -72,7 +92,7 @@ public final class TranspilerApplication
 		{
 			useClassOutputRootPath(classOutputRootPath);
 		}
-		catch (final IllegalRelativePathExpressionException | IllegalRelativePathException | FatalCompilationException e)
+		catch (final IllegalRelativePathException | FatalCompilationException e)
 		{
 			warnings.fatal(e);
 		}
@@ -88,9 +108,9 @@ public final class TranspilerApplication
 		}
 	}
 
-	private void useClassOutputRootPath(@NotNull final Path classOutputRootPath) throws IllegalRelativePathExpressionException, IllegalRelativePathException, FatalCompilationException
+	private void useClassOutputRootPath(@NotNull final Path classOutputRootPath) throws IllegalRelativePathException, FatalCompilationException
 	{
-		final RootPathAndExpression classOutput = new RootPathAndExpression(classOutputRootPath, new RelativePathExpression("%m"));
+		final RootPathAndExpression classOutput = new RootPathAndExpression(classOutputRootPath, ModuleNamePathExpression);
 
 		for (final ModuleName moduleName : moduleNames)
 		{
@@ -98,13 +118,9 @@ public final class TranspilerApplication
 			final Path classOutputPath = classOutput.resolvePath(moduleName);
 			final Path sourcePath = moduleRoot.resolvePath(moduleName);
 
-			final MyCodeTreeUser codeTreeUser = new MyCodeTreeUser(
-					PackageElementIgnoredElementConverterInstance,
-					TypeElementIgnoredElementConverterInstance,
-					TypeElementIgnoredElementConverterInstance,
-					TypeElementIgnoredElementConverterInstance,
-					new TopLevelInterfaceElementConverter(new CMaker(new CFileCreator(sourceOutputPath))));
-			javaModuleCompiler.compile(additionalClassPath, sourcePath, sourceOutputPath, classOutputPath, new CodeTreeUserAdaptingProcessor(codeTreeUser));
+			// TODO: XXX add all modules to source, or how else to manage dependencies?;
+
+			javaModuleCompiler.compile(additionalClassPath, sourcePath, sourceOutputPath, classOutputPath, processor);
 		}
 	}
 

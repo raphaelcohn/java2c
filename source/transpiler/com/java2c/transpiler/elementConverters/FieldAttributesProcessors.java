@@ -2,7 +2,7 @@ package com.java2c.transpiler.elementConverters;
 
 import com.java2c.transpiler.c.gccAttributes.GccAttribute;
 import com.java2c.transpiler.c.gccAttributes.variable.GccVariableAttributeName;
-import com.java2c.transpiler.elementConverters.fieldAttributesProcessors.FieldAttributesProcessor;
+import com.java2c.transpiler.fieldAttributesProcessors.FieldAttributesProcessor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.lang.model.element.VariableElement;
@@ -11,13 +11,13 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.java2c.transpiler.elementConverters.fieldAttributesProcessors.AlignmentFieldAttributesProcessor.Alignment;
-import static com.java2c.transpiler.elementConverters.fieldAttributesProcessors.DeprecatedFieldAttributesProcessor.Deprecated;
-import static com.java2c.transpiler.elementConverters.fieldAttributesProcessors.NullCheckFieldAttributesProcessor.NullCheck;
-import static com.java2c.transpiler.elementConverters.fieldAttributesProcessors.PackedFieldAttributesProcessor.Packed;
-import static com.java2c.transpiler.elementConverters.fieldAttributesProcessors.SectionFieldAttributesProcessor.Section;
-import static com.java2c.transpiler.elementConverters.fieldAttributesProcessors.ThreadLocalModelFieldAttributesProcessor.ThreadLocalModel;
-import static com.java2c.transpiler.elementConverters.fieldAttributesProcessors.UnusedFieldAttributesProcessor.Unused;
+import static com.java2c.transpiler.fieldAttributesProcessors.AlignmentFieldAttributesProcessor.Alignment;
+import static com.java2c.transpiler.fieldAttributesProcessors.DeprecatedFieldAttributesProcessor.Deprecated;
+import static com.java2c.transpiler.fieldAttributesProcessors.NullCheckFieldAttributesProcessor.NullCheck;
+import static com.java2c.transpiler.fieldAttributesProcessors.PackedFieldAttributesProcessor.Packed;
+import static com.java2c.transpiler.fieldAttributesProcessors.SectionFieldAttributesProcessor.Section;
+import static com.java2c.transpiler.fieldAttributesProcessors.ThreadLocalModelFieldAttributesProcessor.ThreadLocalModel;
+import static com.java2c.transpiler.fieldAttributesProcessors.UnusedFieldAttributesProcessor.Unused;
 import static java.util.Arrays.asList;
 
 public final class FieldAttributesProcessors

@@ -1,4 +1,4 @@
-package com.java2c.transpiler.elementConverters.fieldAttributesProcessors;
+package com.java2c.transpiler.fieldAttributesProcessors;
 
 import com.java2c.model.attributes.variables.ThreadLocalModel;
 import com.java2c.model.attributes.variables.TlsModel;

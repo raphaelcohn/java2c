@@ -1,4 +1,4 @@
-package com.java2c.transpiler.elementConverters.fieldAttributesProcessors;
+package com.java2c.transpiler.fieldAttributesProcessors;
 
 import com.java2c.model.attributes.variables.packed;
 import com.java2c.transpiler.c.gccAttributes.GccAttribute;
