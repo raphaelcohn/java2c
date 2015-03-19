@@ -19,7 +19,7 @@ public final class SourcePathsHelper
 	}
 
 	@NotNull
-	public static Iterable<? extends File> sourcePathsToIterableFiles(final boolean needsToBeWritable, @NotNull final Path... realPaths) throws FatalCompilationException
+	public static Collection<File> sourcePathsToIterableFiles(final boolean needsToBeWritable, @NotNull final Path... realPaths) throws FatalCompilationException
 	{
 		final int length = realPaths.length;
 		final Collection<File> files = new ArrayList<>(length);

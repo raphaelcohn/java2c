@@ -42,9 +42,9 @@ public final class JavaModuleCompiler
 		this.javaSourceFilesFinder = javaSourceFilesFinder;
 	}
 
-	public void compile(@NotNull final Path sourcePath, @NotNull final Path sourceOutputPath, @NotNull final Path classOutputPath, @NotNull final Processor processor) throws FatalCompilationException
+	public void compile(@NotNull final Collection<Path> additionalClassPath, @NotNull final Path sourcePath, @NotNull final Path sourceOutputPath, @NotNull final Path classOutputPath, @NotNull final Processor processor) throws FatalCompilationException
 	{
-		final StandardJavaFileManager standardJavaFileManager = createStandardJavaFileManager(sourcePath, sourceOutputPath, classOutputPath);
+		final StandardJavaFileManager standardJavaFileManager = createStandardJavaFileManager(additionalClassPath, sourcePath, sourceOutputPath, classOutputPath);
 		final Iterable<? extends JavaFileObject> compilationUnits = findCompilationUnits(standardJavaFileManager, sourcePath);
 		final StringWriter additionalCompilerOutput = new StringWriter(4096);
 
@@ -63,14 +63,14 @@ public final class JavaModuleCompiler
 	}
 
 	@NotNull
-	private StandardJavaFileManager createStandardJavaFileManager(@NotNull final Path sourcePath, @NotNull final Path sourceOutputPath, @NotNull final Path classOutputPath) throws FatalCompilationException
+	private StandardJavaFileManager createStandardJavaFileManager(@NotNull final Collection<Path> additionalClassPath, @NotNull final Path sourcePath, @NotNull final Path sourceOutputPath, @NotNull final Path classOutputPath) throws FatalCompilationException
 	{
 		@NotNull final StandardJavaFileManager fileManager = javaCompiler.getStandardFileManager(diagnosticListener, diagnosticListener.locale(), Utf8);
 
 		new StandardJavaFileManagerConfigurator(fileManager)
 			.setDefaultPlatformClassPath()
 			.setDefaultAnnotationProcessorPath()
-			.setDefaultClassPaths()
+			.addAdditionalClassPaths(additionalClassPath)
 			.setSourcePaths(sourcePath)
 			.setSourceOutputPath(sourceOutputPath)
 			.setClassOutputPath(classOutputPath);

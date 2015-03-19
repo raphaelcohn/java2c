@@ -11,6 +11,9 @@
     <item name='javax.tools.JavaCompiler javax.tools.StandardJavaFileManager getStandardFileManager(javax.tools.DiagnosticListener&lt;? super javax.tools.JavaFileObject&gt;, java.util.Locale, java.nio.charset.Charset)'>
         <annotation name='org.jetbrains.annotations.NotNull'/>
     </item>
+    <item name='javax.tools.StandardJavaFileManager java.lang.Iterable&lt;? extends java.io.File&gt; getLocation(javax.tools.JavaFileManager.Location)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
     <item name='javax.tools.StandardJavaFileManager java.lang.Iterable&lt;? extends javax.tools.JavaFileObject&gt; getJavaFileObjectsFromFiles(java.lang.Iterable&lt;? extends java.io.File&gt;)'>
         <annotation name='org.jetbrains.annotations.NotNull'/>
     </item>

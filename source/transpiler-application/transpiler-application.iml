@@ -13,5 +13,8 @@
     <orderEntry type="module" module-name="utility" />
     <orderEntry type="module" module-name="javaCompiler" />
     <orderEntry type="module" module-name="warnings" />
+    <orderEntry type="module" module-name="model" />
+    <orderEntry type="module" module-name="libraries-builtin" />
+    <orderEntry type="module" module-name="libraries-c" />
   </component>
 </module>

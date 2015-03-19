@@ -1133,7 +1133,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="com.java2c.transpiler.application.ConsoleEntryPoint" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="--modules-root $PROJECT_DIR$/.. --modules-relative-path-expression source/%m --source-output-root $PROJECT_DIR$/../output --source-output-relative-path-expression %m -- samples" />
+      <option name="PROGRAM_PARAMETERS" value="--modules-root $PROJECT_DIR$ --modules-relative-path-expression %m --source-output-root $PROJECT_DIR$/../output --source-output-relative-path-expression %m -- samples" />
       <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$/../../" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />

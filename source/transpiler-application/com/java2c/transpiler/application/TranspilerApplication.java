@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.tools.JavaCompiler;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.List;
 
 import static com.java2c.transpiler.elementConverters.ElementConverter.PackageElementIgnoredElementConverterInstance;
@@ -47,15 +48,19 @@ public final class TranspilerApplication
 	private final RootPathAndExpression sourceOutput;
 
 	@NotNull
+	private final Collection<Path> additionalClassPath;
+
+	@NotNull
 	private final JavaModuleCompiler javaModuleCompiler;
 
 	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
-	public TranspilerApplication(@NotNull final Warnings warnings, @NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final RootPathAndExpression sourceOutput)
+	public TranspilerApplication(@NotNull final Warnings warnings, @NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final RootPathAndExpression sourceOutput, @NotNull final Collection<Path> additionalClassPath)
 	{
 		this.warnings = warnings;
 		this.moduleNames = moduleNames;
 		this.moduleRoot = moduleRoot;
 		this.sourceOutput = sourceOutput;
+		this.additionalClassPath = additionalClassPath;
 
 		javaModuleCompiler = new JavaModuleCompiler(warnings, new WarningsAdaptingDiagnosticListener(warnings), getJavaCompiler(), new JavaSourceFilesFinder(warnings));
 	}
@@ -99,7 +104,7 @@ public final class TranspilerApplication
 					TypeElementIgnoredElementConverterInstance,
 					TypeElementIgnoredElementConverterInstance,
 					new TopLevelInterfaceElementConverter(new CMaker(new CFileCreator(sourceOutputPath))));
-			javaModuleCompiler.compile(sourcePath, sourceOutputPath, classOutputPath, new CodeTreeUserAdaptingProcessor(codeTreeUser));
+			javaModuleCompiler.compile(additionalClassPath, sourcePath, sourceOutputPath, classOutputPath, new CodeTreeUserAdaptingProcessor(codeTreeUser));
 		}
 	}
 

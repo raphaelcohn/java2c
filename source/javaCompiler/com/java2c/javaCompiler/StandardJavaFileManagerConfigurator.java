@@ -8,7 +8,7 @@ import javax.tools.StandardJavaFileManager;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
+import java.util.*;
 
 import static com.java2c.javaCompiler.SourcePathsHelper.sourcePathsToIterableFiles;
 import static com.java2c.utility.EnglishFormatter.format;
@@ -37,9 +37,27 @@ public final class StandardJavaFileManagerConfigurator
 	}
 
 	@NotNull
-	public StandardJavaFileManagerConfigurator setDefaultClassPaths()
+	public StandardJavaFileManagerConfigurator addAdditionalClassPaths(@NotNull final Collection<Path> additionalClassPath) throws FatalCompilationException
 	{
-		return setDefaultLocation(CLASS_PATH);
+		setDefaultLocation(CLASS_PATH);
+
+		final Set<File> allFilePaths = new LinkedHashSet<>(additionalClassPath.size());
+		for (final File initialFilePath : fileManager.getLocation(CLASS_PATH))
+		{
+			allFilePaths.add(initialFilePath);
+		}
+		allFilePaths.addAll(sourcePathsToIterableFiles(false, additionalClassPath.toArray(new Path[additionalClassPath.size()])));
+
+		try
+		{
+			fileManager.setLocation(CLASS_PATH, allFilePaths);
+		}
+		catch (final IOException e)
+		{
+			throw new FatalCompilationException(format("Class paths '%1$s' are not writable or does not exist", allFilePaths), e);
+		}
+
+		return this;
 	}
 
 	@NotNull
@@ -79,7 +97,7 @@ public final class StandardJavaFileManagerConfigurator
 	{
 		try
 		{
-			final Iterable<? extends File> paths = sourcePathsToIterableFiles(location.isOutputLocation(), sourcePaths);
+			final Collection<File> paths = sourcePathsToIterableFiles(location.isOutputLocation(), sourcePaths);
 			fileManager.setLocation(location, paths);
 		}
 		catch (final IOException e)

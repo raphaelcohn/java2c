@@ -17,6 +17,8 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static java.lang.System.*;
@@ -46,11 +48,19 @@ public final class ConsoleEntryPoint
 	@NotNull
 	private static final String source_output_relative_path_expression = "source-output-relative-path-expression";
 
+	@SuppressWarnings("ConstantNamingConvention")
+	@NotNull
+	private static final String additional_classpath = "additional-classpath";
+
 	@NonNls
 	@NotNull
 	private static final OptionParser CommandLineArgumentsParser = new OptionParser();
 
 	@SuppressWarnings("HardcodedFileSeparator") @NotNull @NonNls private static final String examplePath = "eg /Users/raph/Documents/GitHub/raphaelcohn/java2c";
+
+	public static final String PATH = "PATH";
+
+	public static final String PATH_EXPRESSION = "PATH_EXPRESSION";
 
 	static
 	{
@@ -58,15 +68,17 @@ public final class ConsoleEntryPoint
 
 		CommandLineArgumentsParser.accepts(help, "show help").forHelp();
 
-		CommandLineArgumentsParser.accepts(modules_root, "modules root path").withRequiredArg().describedAs(examplePath).ofType(String.class);
+		CommandLineArgumentsParser.accepts(modules_root, "modules root path").withRequiredArg().describedAs(PATH).ofType(String.class);
 
 		//noinspection HardcodedFileSeparator
-		CommandLineArgumentsParser.accepts(modules_relative_path_expression, "modules relative path expression").withRequiredArg().describedAs("eg source/%m").ofType(String.class).defaultsTo("source/%m"); //NON-NLS
+		CommandLineArgumentsParser.accepts(modules_relative_path_expression, "modules relative path expression, where %m means module name and %% means %").withRequiredArg().describedAs(PATH_EXPRESSION).ofType(String.class).defaultsTo("source/%m"); //NON-NLS
 
-		CommandLineArgumentsParser.accepts(source_output_root, "c output root path").withRequiredArg().describedAs(examplePath).ofType(String.class);
+		CommandLineArgumentsParser.accepts(source_output_root, "c output root path").withRequiredArg().describedAs(PATH).ofType(String.class);
 
 		//noinspection HardcodedFileSeparator
-		CommandLineArgumentsParser.accepts(source_output_relative_path_expression, "c output relative path expression").withRequiredArg().describedAs("eg output/%m").ofType(String.class).defaultsTo("output/%m"); //NON-NLS
+		CommandLineArgumentsParser.accepts(source_output_relative_path_expression, "c output relative path expression, where %m means module name and %% means %").withRequiredArg().describedAs(PATH_EXPRESSION).ofType(String.class).defaultsTo("output/%m"); //NON-NLS
+
+		CommandLineArgumentsParser.accepts(additional_classpath, "additional Class Path entries, colon delimited").withRequiredArg().withValuesSeparatedBy(':').describedAs(PATH + ':' + PATH).ofType(String.class); //NON-NLS
 
 		CommandLineArgumentsParser.nonOptions("module names").ofType(ModuleName.class);
 	}
@@ -106,11 +118,12 @@ public final class ConsoleEntryPoint
 		final RelativePathExpression modulesRelativePathExpression = getModulesRelativePathExpression(arguments);
 		final Path sourceOutputRootPath = getSourceOutputRootPath(arguments);
 		final RelativePathExpression sourceOutputRelativePathExpression = getSourceOutputRelativePathExpression(arguments);
+		final Collection<Path> additionalClassPath = getAdditionalClassPath(arguments);
 		final List<ModuleName> moduleNames = getModuleNames(arguments);
 
 		try
 		{
-			new TranspilerApplication(new StandardErrorWarnings(), moduleNames, new RootPathAndExpression(modulesRootPath, modulesRelativePathExpression), new RootPathAndExpression(sourceOutputRootPath, sourceOutputRelativePathExpression)).execute();
+			new TranspilerApplication(new StandardErrorWarnings(), moduleNames, new RootPathAndExpression(modulesRootPath, modulesRelativePathExpression), new RootPathAndExpression(sourceOutputRootPath, sourceOutputRelativePathExpression), additionalClassPath).execute();
 		}
 		catch (final Throwable e)
 		{
@@ -133,21 +146,7 @@ public final class ConsoleEntryPoint
 	@NotNull
 	private static Path getArgumentAsPath(@NotNull final OptionSet arguments, @NotNull final String argumentName)
 	{
-		try
-		{
-			final Path realPath = get(getArgumentValueAsStringOrFail(arguments, argumentName)).toRealPath();
-
-			if (!exists(realPath))
-			{
-				throw new InvalidPathException(realPath.toString(), "Does not exist");
-			}
-			return realPath;
-		}
-		catch (final InvalidPathException | IOException e)
-		{
-			printErrorMessageAndHelpThenExit("Argument --%1$s is an invalid path (%2$s)", argumentName, e.getMessage());
-		}
-		throw new ImpossibleStateException();
+		return getStringAsPath(argumentName, getArgumentValueAsStringOrFail(arguments, argumentName));
 	}
 
 	@NotNull
@@ -179,6 +178,18 @@ public final class ConsoleEntryPoint
 	}
 
 	@NotNull
+	private static Collection<Path> getAdditionalClassPath(@NotNull final OptionSet arguments)
+	{
+		@SuppressWarnings("unchecked") final Collection<String> stringPaths = (Collection<String>) arguments.valuesOf(additional_classpath);
+		final Collection<Path> classPath = new ArrayList<>(stringPaths.size());
+		for (final String stringPath : stringPaths)
+		{
+			classPath.add(getStringAsPath(additional_classpath, stringPath));
+		}
+		return classPath;
+	}
+
+	@NotNull
 	private static List<ModuleName> getModuleNames(@NotNull final OptionSet arguments)
 	{
 		try
@@ -203,6 +214,25 @@ public final class ConsoleEntryPoint
 			throw new ImpossibleStateException();
 		}
 		return value;
+	}
+
+	@NotNull
+	private static Path getStringAsPath(@NotNull final String argumentName, @NotNull final String rawPath)
+	{
+		try
+		{
+			final Path realPath = get(rawPath).toRealPath();
+			if (!exists(realPath))
+			{
+				throw new InvalidPathException(realPath.toString(), "Does not exist");
+			}
+			return realPath;
+		}
+		catch (final InvalidPathException | IOException e)
+		{
+			printErrorMessageAndHelpThenExit("Argument --%1$s is an invalid path (%2$s)", argumentName, e.getMessage());
+		}
+		throw new ImpossibleStateException();
 	}
 
 	@SuppressWarnings("UseOfSystemOutOrSystemErr")
