@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("EnumeratedConstantNamingConvention")
 public enum TlsModel
 {
+	Default,
 	global_dynamic,
 	local_dynamic,
 	initial_exec,

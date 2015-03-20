@@ -1,12 +1,7 @@
 package com.java2c.libraries.c.stdint;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.types.scalars.*;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
 import org.jetbrains.annotations.NotNull;
 
 import static com.java2c.model.other.CCodeTemplate.Scalar;
@@ -16,7 +11,7 @@ import static com.java2c.libraries.c.stdint.int64_t.INT64_MAX;
 
 @SuppressWarnings("ClassNamingConvention")
 @Scalar(value = "intptr_t", includes = stdint)
-public final class intptr_t extends AbstractScalar<intptr_t> implements Equality<intptr_t>, Comparison<intptr_t>, Mathematics<intptr_t>, BooleanAlgebra<intptr_t>
+public final class intptr_t extends AbstractScalar<intptr_t> implements Equality<intptr_t>, Comparison<intptr_t>, SignedMathematics<intptr_t>, BooleanAlgebra<intptr_t>
 {
 	// Only on 64-bit is this valid
 	@CCodeTemplate(value = "INTPTR_MIN", includes = stdint)
@@ -43,39 +38,39 @@ public final class intptr_t extends AbstractScalar<intptr_t> implements Equality
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final intptr_t right)
+	public boolean isEqual(@NotNull final intptr_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final intptr_t right)
+	public boolean isNotEqual(@NotNull final intptr_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final intptr_t right)
+	public boolean isGreaterThan(@NotNull final intptr_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final intptr_t right)
+	public boolean isLessThan(@NotNull final intptr_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final intptr_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final intptr_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final intptr_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final intptr_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull
@@ -111,6 +106,13 @@ public final class intptr_t extends AbstractScalar<intptr_t> implements Equality
 	public intptr_t modulus(@NotNull final intptr_t right)
 	{
 		return super.modulus(right);
+	}
+
+	@Override
+	@NotNull
+	public intptr_t negate()
+	{
+		return negateT();
 	}
 
 	@Override

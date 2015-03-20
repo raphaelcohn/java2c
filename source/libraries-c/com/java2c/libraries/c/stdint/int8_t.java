@@ -1,13 +1,8 @@
 package com.java2c.libraries.c.stdint;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.types.scalars.*;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
 import com.java2c.model.other.literal;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
 import org.jetbrains.annotations.NotNull;
 
 import static com.java2c.model.other.CCodeTemplate.Scalar;
@@ -15,7 +10,7 @@ import static com.java2c.libraries.c.stdint.stdint.stdint;
 
 @SuppressWarnings("ClassNamingConvention")
 @Scalar(value = "int8_t", includes = stdint)
-public final class int8_t extends AbstractScalar<int8_t> implements Equality<int8_t>, Comparison<int8_t>, Mathematics<int8_t>, BooleanAlgebra<int8_t>
+public final class int8_t extends AbstractScalar<int8_t> implements Equality<int8_t>, Comparison<int8_t>, SignedMathematics<int8_t>, BooleanAlgebra<int8_t>
 {
 	@CCodeTemplate(value = "INT8_MAX", includes = stdint)
 	public static final int8_t INT8_MAX = new int8_t(127L);
@@ -44,39 +39,39 @@ public final class int8_t extends AbstractScalar<int8_t> implements Equality<int
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final int8_t right)
+	public boolean isEqual(@NotNull final int8_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final int8_t right)
+	public boolean isNotEqual(@NotNull final int8_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final int8_t right)
+	public boolean isGreaterThan(@NotNull final int8_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final int8_t right)
+	public boolean isLessThan(@NotNull final int8_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final int8_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final int8_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final int8_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final int8_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull
@@ -112,6 +107,13 @@ public final class int8_t extends AbstractScalar<int8_t> implements Equality<int
 	public int8_t modulus(@NotNull final int8_t right)
 	{
 		return super.modulus(right);
+	}
+
+	@Override
+	@NotNull
+	public int8_t negate()
+	{
+		return negateT();
 	}
 
 	@Override

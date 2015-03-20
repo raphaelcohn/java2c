@@ -1,12 +1,12 @@
 package com.java2c.libraries.c.unistd;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.types.scalars.AbstractScalar;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
+import com.java2c.model.types.scalars.Scalar;
+import com.java2c.model.types.scalars.BooleanAlgebra;
+import com.java2c.model.types.scalars.Comparison;
+import com.java2c.model.types.scalars.Equality;
+import com.java2c.model.types.scalars.Mathematics;
 import org.jetbrains.annotations.NotNull;
 
 import static com.java2c.libraries.c.unistd.unistd.unistd;
@@ -30,39 +30,39 @@ public final class off_t extends AbstractScalar<off_t> implements Equality<off_t
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final off_t right)
+	public boolean isEqual(@NotNull final off_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final off_t right)
+	public boolean isNotEqual(@NotNull final off_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final off_t right)
+	public boolean isGreaterThan(@NotNull final off_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final off_t right)
+	public boolean isLessThan(@NotNull final off_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final off_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final off_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final off_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final off_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull

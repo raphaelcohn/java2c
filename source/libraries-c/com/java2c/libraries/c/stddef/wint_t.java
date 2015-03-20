@@ -1,12 +1,12 @@
 package com.java2c.libraries.c.stddef;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.types.scalars.AbstractScalar;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
+import com.java2c.model.types.scalars.Scalar;
+import com.java2c.model.types.scalars.BooleanAlgebra;
+import com.java2c.model.types.scalars.Comparison;
+import com.java2c.model.types.scalars.Equality;
+import com.java2c.model.types.scalars.Mathematics;
 import com.java2c.libraries.c.stdint.int32_t;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,39 +40,39 @@ public final class wint_t extends AbstractScalar<wint_t> implements Equality<win
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final wint_t right)
+	public boolean isEqual(@NotNull final wint_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final wint_t right)
+	public boolean isNotEqual(@NotNull final wint_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final wint_t right)
+	public boolean isGreaterThan(@NotNull final wint_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final wint_t right)
+	public boolean isLessThan(@NotNull final wint_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final wint_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final wint_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final wint_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final wint_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull

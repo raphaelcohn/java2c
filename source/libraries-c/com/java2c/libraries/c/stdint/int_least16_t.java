@@ -1,12 +1,7 @@
 package com.java2c.libraries.c.stdint;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.types.scalars.*;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
 import org.jetbrains.annotations.NotNull;
 
 import static com.java2c.model.other.CCodeTemplate.Scalar;
@@ -14,7 +9,7 @@ import static com.java2c.libraries.c.stdint.stdint.stdint;
 
 @SuppressWarnings("ClassNamingConvention")
 @Scalar(value = "int_least16_t", includes = stdint)
-public final class int_least16_t extends AbstractScalar<int_least16_t> implements Equality<int_least16_t>, Comparison<int_least16_t>, Mathematics<int_least16_t>, BooleanAlgebra<int_least16_t>
+public final class int_least16_t extends AbstractScalar<int_least16_t> implements Equality<int_least16_t>, Comparison<int_least16_t>, SignedMathematics<int_least16_t>, BooleanAlgebra<int_least16_t>
 {
 	@CCodeTemplate(value = "INT16_LEAST_MAX", includes = stdint)
 	public static final int_least16_t INT16_LEAST_MAX = int16_t.INT16_MAX.cast(int_least16_t.class);
@@ -37,39 +32,39 @@ public final class int_least16_t extends AbstractScalar<int_least16_t> implement
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final int_least16_t right)
+	public boolean isEqual(@NotNull final int_least16_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final int_least16_t right)
+	public boolean isNotEqual(@NotNull final int_least16_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final int_least16_t right)
+	public boolean isGreaterThan(@NotNull final int_least16_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final int_least16_t right)
+	public boolean isLessThan(@NotNull final int_least16_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final int_least16_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final int_least16_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final int_least16_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final int_least16_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull
@@ -105,6 +100,13 @@ public final class int_least16_t extends AbstractScalar<int_least16_t> implement
 	public int_least16_t modulus(@NotNull final int_least16_t right)
 	{
 		return super.modulus(right);
+	}
+
+	@Override
+	@NotNull
+	public int_least16_t negate()
+	{
+		return negateT();
 	}
 
 	@Override

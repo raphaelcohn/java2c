@@ -12,12 +12,12 @@ import static com.java2c.utility.EnglishFormatter.format;
 public final class RootElementHandler implements ElementHandler<Element>
 {
 	@NotNull
-	private final PackageElementHandler packageElementHandler;
+	private final ElementHandler<PackageElement> packageElementHandler;
 
 	@NotNull
-	private final TypeElementHandler typeElementHandler;
+	private final ElementHandler<TypeElement> typeElementHandler;
 
-	public RootElementHandler(@SuppressWarnings("TypeMayBeWeakened") @NotNull final PackageElementHandler packageElementHandler, @SuppressWarnings("TypeMayBeWeakened") @NotNull final TypeElementHandler typeElementHandler)
+	public RootElementHandler(@SuppressWarnings("TypeMayBeWeakened") @NotNull final ElementHandler<PackageElement> packageElementHandler, @SuppressWarnings("TypeMayBeWeakened") @NotNull final ElementHandler<TypeElement> typeElementHandler)
 	{
 		this.packageElementHandler = packageElementHandler;
 		this.typeElementHandler = typeElementHandler;

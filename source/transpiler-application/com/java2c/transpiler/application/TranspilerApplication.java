@@ -10,7 +10,11 @@ import com.java2c.javaCompiler.pathExpressions.RelativePathExpression;
 import com.java2c.javaCompiler.pathExpressions.RootPathAndExpression;
 import com.java2c.transpiler.elementHandlers.RootElementHandler;
 import com.java2c.transpiler.elementHandlers.PackageElementHandler;
-import com.java2c.transpiler.elementHandlers.TypeElementHandler;
+import com.java2c.transpiler.elementHandlers.DispatchingTypeElementHandler;
+import com.java2c.transpiler.elementHandlers.typeElementHandlers.AnnotationTypeElementHandler;
+import com.java2c.transpiler.elementHandlers.typeElementHandlers.ClassTypeElementHandler;
+import com.java2c.transpiler.elementHandlers.typeElementHandlers.EnumTypeElementHandler;
+import com.java2c.transpiler.elementHandlers.typeElementHandlers.InterfaceTypeElementHandler;
 import com.java2c.transpiler.warnings.Warnings;
 import com.java2c.utility.ImpossibleStateException;
 import org.jetbrains.annotations.NonNls;
@@ -82,7 +86,7 @@ public final class TranspilerApplication
 
 		javaModuleCompiler = new JavaModuleCompiler(warnings, new WarningsAdaptingDiagnosticListener(warnings), getJavaCompiler(), new JavaSourceFilesFinder(warnings));
 
-		processor = new CodeTreeUserAdaptingProcessor(new TranspilingCodeTreeUser(new RootElementHandler(new PackageElementHandler(), new TypeElementHandler())));
+		processor = new CodeTreeUserAdaptingProcessor(new TranspilingCodeTreeUser(new RootElementHandler(new PackageElementHandler(), new DispatchingTypeElementHandler(new AnnotationTypeElementHandler(), new InterfaceTypeElementHandler(), new EnumTypeElementHandler(), new ClassTypeElementHandler()))));
 	}
 
 	public void execute()

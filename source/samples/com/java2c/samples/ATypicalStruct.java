@@ -1,23 +1,19 @@
 package com.java2c.samples;
 
-import com.java2c.libraries.builtin.c_signed_char;
-import com.java2c.libraries.builtin.c_signed_int;
-import com.java2c.model.Struct;
-import com.java2c.model.attributes.functions.*;
+import com.java2c.libraries.builtin.signed_char;
+import com.java2c.libraries.builtin.signed_int;
+import com.java2c.model.other.CCodeTemplate;
+import com.java2c.model.types.AbstractStruct;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import static com.java2c.model.attributes.functions.Inlining.Force;
-import static com.java2c.model.attributes.functions.Purity.Constant;
-
-public class ATypicalStruct extends Struct
+public class ATypicalStruct extends AbstractStruct
 {
     /*
         - Normally, we should turn @NotNull into __attribute__((returns_nonnull))
         - However, we should ignore @NotNull because c_signed_char is @Scalar
      */
     @NotNull
-    public static final c_signed_char StaticField = new c_signed_char(10L);
+    public static final signed_char StaticField = new signed_char(10L);
 
     /*
         - Normally, we should turn @NotNull into __attribute__((returns_nonnull))
@@ -27,39 +23,39 @@ public class ATypicalStruct extends Struct
     @SuppressWarnings("UnusedDeclaration")
     @Deprecated
     @NotNull
-    private static final c_signed_int DeprecatedStaticField = new c_signed_int(100L);
+    private static final signed_int DeprecatedStaticField = new signed_int(100L);
 
     /*
         Note use of final keyword
      */
     @SuppressWarnings("PublicField")
     @NotNull
-	public static final c_signed_char AssignedInStaticConstructor;
+	public static final signed_char AssignedInStaticConstructor;
 
 	static
 	{
-        AssignedInStaticConstructor = new c_signed_char(10L);
+        AssignedInStaticConstructor = new signed_char(10L);
 	}
 
 	@SuppressWarnings({"FieldCanBeLocal", "UnusedDeclaration", "PublicField", "StaticVariableNamingConvention"})
     @NotNull
-    public static c_signed_char OverriddenInStaticConstructor = new c_signed_char(10L);
+    public static signed_char OverriddenInStaticConstructor = new signed_char(10L);
 	static
 	{
-		OverriddenInStaticConstructor = new c_signed_char(20L);
+		OverriddenInStaticConstructor = new signed_char(20L);
 	}
 
-    public ATypicalStruct(@NotNull final c_signed_char index)
+    public ATypicalStruct(@NotNull final signed_char index)
     {
         //super(allocator);
         this.index = index;
     }
 
     @NotNull
-	private final c_signed_char index;
+	private final signed_char index;
 
 //	@Override
-//	public boolean equal(@Nullable final Object obj)
+//	public boolean isEqual(@Nullable final Object obj)
 //	{
 //		if (this == obj)
 //		{

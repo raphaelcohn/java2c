@@ -1,13 +1,8 @@
 package com.java2c.libraries.c.stdint;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.types.scalars.*;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
 import com.java2c.model.other.literal;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
 import org.jetbrains.annotations.NotNull;
 
 import static com.java2c.model.other.CCodeTemplate.Scalar;
@@ -15,7 +10,7 @@ import static com.java2c.libraries.c.stdint.stdint.stdint;
 
 @SuppressWarnings("ClassNamingConvention")
 @Scalar(value = "int64_t", includes = stdint)
-public final class int64_t extends AbstractScalar<int64_t> implements Equality<int64_t>, Comparison<int64_t>, Mathematics<int64_t>, BooleanAlgebra<int64_t>
+public final class int64_t extends AbstractScalar<int64_t> implements Equality<int64_t>, Comparison<int64_t>, SignedMathematics<int64_t>, BooleanAlgebra<int64_t>
 {
 	@CCodeTemplate(value = "INT64_MAX", includes = stdint)
 	@NotNull
@@ -23,7 +18,7 @@ public final class int64_t extends AbstractScalar<int64_t> implements Equality<i
 
 	@CCodeTemplate(value = "INT64_MIN", includes = stdint)
 	@NotNull
-	public static final int64_t INT64_MIN = new int64_t(-INT64_MAX.value - 1L);
+	public static final int64_t INT64_MIN = new int64_t(INT64_MAX.negateT().value() - 1L);
 
 	@CCodeTemplate(value = "INT64_C(value)", includes = stdint)
 	@NotNull
@@ -47,39 +42,39 @@ public final class int64_t extends AbstractScalar<int64_t> implements Equality<i
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final int64_t right)
+	public boolean isEqual(@NotNull final int64_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final int64_t right)
+	public boolean isNotEqual(@NotNull final int64_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final int64_t right)
+	public boolean isGreaterThan(@NotNull final int64_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final int64_t right)
+	public boolean isLessThan(@NotNull final int64_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final int64_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final int64_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final int64_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final int64_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull
@@ -115,6 +110,13 @@ public final class int64_t extends AbstractScalar<int64_t> implements Equality<i
 	public int64_t modulus(@NotNull final int64_t right)
 	{
 		return super.modulus(right);
+	}
+
+	@Override
+	@NotNull
+	public int64_t negate()
+	{
+		return negateT();
 	}
 
 	@Override

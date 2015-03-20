@@ -1,4 +1,10 @@
 <root>
+    <item name='javax.lang.model.util.Elements java.util.List&lt;? extends javax.lang.model.element.AnnotationMirror&gt; getAllAnnotationMirrors(javax.lang.model.element.Element)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='javax.lang.model.util.Elements javax.lang.model.element.Name getBinaryName(javax.lang.model.element.TypeElement)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
     <item name='javax.lang.model.util.Elements javax.lang.model.element.PackageElement getPackageElement(java.lang.CharSequence)'>
         <annotation name='org.jetbrains.annotations.Nullable'/>
     </item>

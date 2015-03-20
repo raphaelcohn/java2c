@@ -1,13 +1,8 @@
 package com.java2c.libraries.c.stdint;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.types.scalars.*;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
 import com.java2c.model.other.literal;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
 import org.jetbrains.annotations.NotNull;
 
 import static com.java2c.model.other.CCodeTemplate.Scalar;
@@ -15,7 +10,7 @@ import static com.java2c.libraries.c.stdint.stdint.stdint;
 
 @SuppressWarnings("ClassNamingConvention")
 @Scalar(value = "int32_t", includes = stdint)
-public final class int32_t extends AbstractScalar<int32_t> implements Equality<int32_t>, Comparison<int32_t>, Mathematics<int32_t>, BooleanAlgebra<int32_t>
+public final class int32_t extends AbstractScalar<int32_t> implements Equality<int32_t>, Comparison<int32_t>, SignedMathematics<int32_t>, BooleanAlgebra<int32_t>
 {
 	@CCodeTemplate(value = "INT32_MAX", includes = stdint)
 	@NotNull
@@ -23,7 +18,7 @@ public final class int32_t extends AbstractScalar<int32_t> implements Equality<i
 
 	@CCodeTemplate(value = "INT32_MIN", includes = stdint)
 	@NotNull
-	public static final int32_t INT32_MIN = new int32_t(-INT32_MAX.value - 1L);
+	public static final int32_t INT32_MIN = new int32_t(INT32_MAX.negateT().value() - 1L);
 
 	@CCodeTemplate(value = "INT32_C(value)", includes = stdint)
 	@NotNull
@@ -47,39 +42,39 @@ public final class int32_t extends AbstractScalar<int32_t> implements Equality<i
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final int32_t right)
+	public boolean isEqual(@NotNull final int32_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final int32_t right)
+	public boolean isNotEqual(@NotNull final int32_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final int32_t right)
+	public boolean isGreaterThan(@NotNull final int32_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final int32_t right)
+	public boolean isLessThan(@NotNull final int32_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final int32_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final int32_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final int32_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final int32_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull
@@ -115,6 +110,13 @@ public final class int32_t extends AbstractScalar<int32_t> implements Equality<i
 	public int32_t modulus(@NotNull final int32_t right)
 	{
 		return super.modulus(right);
+	}
+
+	@Override
+	@NotNull
+	public int32_t negate()
+	{
+		return negateT();
 	}
 
 	@Override

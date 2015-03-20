@@ -1,21 +1,19 @@
 package com.java2c.libraries.c.stddef;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.other.literal;
+import com.java2c.model.types.Banished;
+import com.java2c.model.types.scalars.*;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
 import org.jetbrains.annotations.NotNull;
 
 import static com.java2c.libraries.c.stdint.int64_t.INT64_MAX;
 import static com.java2c.libraries.c.stdint.int64_t.INT64_MIN;
 import static com.java2c.libraries.c.stdint.stdint.stdint;
+import static com.java2c.model.other.CCodeTemplate.Scalar;
 
 @SuppressWarnings("ClassNamingConvention")
 @Scalar(value = "ptrdiff_t", includes = stddef.stddef)
-public final class ptrdiff_t extends AbstractScalar<ptrdiff_t> implements Equality<ptrdiff_t>, Comparison<ptrdiff_t>, Mathematics<ptrdiff_t>, BooleanAlgebra<ptrdiff_t>
+public final class ptrdiff_t extends AbstractScalar<ptrdiff_t> implements Equality<ptrdiff_t>, Comparison<ptrdiff_t>, SignedMathematics<ptrdiff_t>, BooleanAlgebra<ptrdiff_t>
 {
 	// Yes, the preprocessor constant is in a different header!
 	// Only on 64-bit is this valid
@@ -27,54 +25,54 @@ public final class ptrdiff_t extends AbstractScalar<ptrdiff_t> implements Equali
 	@CCodeTemplate(value = "PTRDIFF_MAX", includes = stdint)
 	public static final ptrdiff_t PTRDIFF_MAX = INT64_MAX.cast(ptrdiff_t.class);
 
-	@CCodeTemplate(CCodeTemplate.Scalar)
-	public ptrdiff_t(final long value)
+	@CCodeTemplate(Scalar)
+	public ptrdiff_t(@literal final long value)
 	{
 		super(value);
 	}
 
+	@Banished
 	@NotNull
 	@Override
-	protected ptrdiff_t constructT(@SuppressWarnings("ParameterHidesMemberVariable") final long value)
+	protected ptrdiff_t constructT(@SuppressWarnings("ParameterHidesMemberVariable") @literal final long value)
 	{
 		return new ptrdiff_t(value);
 	}
 
-	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final ptrdiff_t right)
+	public boolean isEqual(@NotNull final ptrdiff_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final ptrdiff_t right)
+	public boolean isNotEqual(@NotNull final ptrdiff_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final ptrdiff_t right)
+	public boolean isGreaterThan(@NotNull final ptrdiff_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final ptrdiff_t right)
+	public boolean isLessThan(@NotNull final ptrdiff_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final ptrdiff_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final ptrdiff_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final ptrdiff_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final ptrdiff_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull
@@ -110,6 +108,13 @@ public final class ptrdiff_t extends AbstractScalar<ptrdiff_t> implements Equali
 	public ptrdiff_t modulus(@NotNull final ptrdiff_t right)
 	{
 		return super.modulus(right);
+	}
+
+	@Override
+	@NotNull
+	public ptrdiff_t negate()
+	{
+		return negateT();
 	}
 
 	@Override

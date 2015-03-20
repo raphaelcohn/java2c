@@ -1,7 +1,7 @@
 package com.java2c.libraries.c.stdarg;
 
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.other.CType;
+import com.java2c.model.types.CType;
 import com.java2c.model.other.literal;
 import org.jetbrains.annotations.NotNull;
 

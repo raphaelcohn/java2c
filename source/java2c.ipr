@@ -457,7 +457,7 @@
         </inspection_tool>
         <inspection_tool class="InterfaceNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_regex" value="[A-Z][A-Za-z\d]*" />
-          <option name="m_minLength" value="8" />
+          <option name="m_minLength" value="1" />
           <option name="m_maxLength" value="64" />
         </inspection_tool>
         <inspection_tool class="InterfaceNeverImplemented" enabled="true" level="WARNING" enabled_by_default="true">
@@ -585,7 +585,6 @@
         <inspection_tool class="MethodOverridesPrivateMethod" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MethodOverridesStaticMethod" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MethodReturnAlwaysConstant" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="MethodWithMultipleLoops" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MissingDeprecatedAnnotation" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MissingOverrideAnnotation" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreObjectMethods" value="true" />
@@ -686,7 +685,6 @@
         <inspection_tool class="OverloadedMethodsWithSameNumberOfParameters" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreInconvertibleTypes" value="true" />
         </inspection_tool>
-        <inspection_tool class="OverloadedVarargsMethod" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="OverlyComplexArithmeticExpression" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_limit" value="6" />
         </inspection_tool>
@@ -743,7 +741,6 @@
         </inspection_tool>
         <inspection_tool class="PointlessIndexOfComparison" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="PointlessNullCheck" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="PrivateMemberAccessBetweenOuterAndInnerClass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ProtectedInnerClass" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreEnums" value="false" />
           <option name="ignoreInterfaces" value="false" />
@@ -1117,8 +1114,10 @@
         <w>intelli</w>
         <w>iterable</w>
         <w>malloc</w>
+        <w>ptrdiff</w>
         <w>struct</w>
         <w>transpiling</w>
+        <w>uncastable</w>
         <w>wchar</w>
         <w>wint</w>
       </words>

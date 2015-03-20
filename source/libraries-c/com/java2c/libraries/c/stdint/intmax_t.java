@@ -1,13 +1,8 @@
 package com.java2c.libraries.c.stdint;
 
-import com.java2c.model.scalars.AbstractScalar;
+import com.java2c.model.types.scalars.*;
 import com.java2c.model.other.CCodeTemplate;
-import com.java2c.model.scalars.Scalar;
 import com.java2c.model.other.literal;
-import com.java2c.model.scalars.BooleanAlgebra;
-import com.java2c.model.scalars.Comparison;
-import com.java2c.model.scalars.Equality;
-import com.java2c.model.scalars.Mathematics;
 import org.jetbrains.annotations.NotNull;
 
 import static com.java2c.model.other.CCodeTemplate.Scalar;
@@ -17,7 +12,7 @@ import static com.java2c.libraries.c.stdint.int64_t.INT64_MIN;
 
 @SuppressWarnings("ClassNamingConvention")
 @Scalar(value = "intmax_t", includes = stdint)
-public final class intmax_t extends AbstractScalar<intmax_t> implements Equality<intmax_t>, Comparison<intmax_t>, Mathematics<intmax_t>, BooleanAlgebra<intmax_t>
+public final class intmax_t extends AbstractScalar<intmax_t> implements Equality<intmax_t>, Comparison<intmax_t>, SignedMathematics<intmax_t>, BooleanAlgebra<intmax_t>
 {
 	@CCodeTemplate(value = "INTMAX_MIN", includes = stdint)
 	@NotNull
@@ -49,39 +44,39 @@ public final class intmax_t extends AbstractScalar<intmax_t> implements Equality
 
 	@SuppressWarnings("CovariantEquals")
 	@Override
-	public boolean equal(@NotNull final intmax_t right)
+	public boolean isEqual(@NotNull final intmax_t right)
 	{
-		return super.equals(right);
+		return super.isEqual(right);
 	}
 
 	@Override
-	public boolean notEqual(@NotNull final intmax_t right)
+	public boolean isNotEqual(@NotNull final intmax_t right)
 	{
-		return super.notEquals(right);
+		return super.isNotEqual(right);
 	}
 
 	@Override
-	public boolean greaterThan(@NotNull final intmax_t right)
+	public boolean isGreaterThan(@NotNull final intmax_t right)
 	{
-		return super.greaterThan(right);
+		return super.isGreaterThan(right);
 	}
 
 	@Override
-	public boolean lessThan(@NotNull final intmax_t right)
+	public boolean isLessThan(@NotNull final intmax_t right)
 	{
-		return super.lessThan(right);
+		return super.isLessThan(right);
 	}
 
 	@Override
-	public boolean greaterThanOrEqualTo(@NotNull final intmax_t right)
+	public boolean isGreaterThanOrEqualTo(@NotNull final intmax_t right)
 	{
-		return super.greaterThanOrEqualTo(right);
+		return super.isGreaterThanOrEqualTo(right);
 	}
 
 	@Override
-	public boolean lessThanOrEqualTo(@NotNull final intmax_t right)
+	public boolean isLessThanOrEqualTo(@NotNull final intmax_t right)
 	{
-		return super.lessThanOrEqualTo(right);
+		return super.isLessThanOrEqualTo(right);
 	}
 
 	@NotNull
@@ -117,6 +112,13 @@ public final class intmax_t extends AbstractScalar<intmax_t> implements Equality
 	public intmax_t modulus(@NotNull final intmax_t right)
 	{
 		return super.modulus(right);
+	}
+
+	@Override
+	@NotNull
+	public intmax_t negate()
+	{
+		return negateT();
 	}
 
 	@Override

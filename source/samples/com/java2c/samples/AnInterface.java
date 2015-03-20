@@ -1,6 +1,6 @@
 package com.java2c.samples;
 
-import com.java2c.libraries.builtin.c_signed_char;
+import com.java2c.libraries.builtin.signed_char;
 import com.java2c.model.pointer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,7 +18,7 @@ public interface AnInterface
 			const signed char com_java2c_samples_AnInterface_SignedChar = (100);
 	 */
 	@NotNull
-	c_signed_char SignedChar = new c_signed_char(100L);
+	signed_char SignedChar = new signed_char(100L);
 
 	/*
 		const is really evil: http://duramecho.com/ComputerInformation/WhyHowCppConst.html
@@ -33,7 +33,7 @@ public interface AnInterface
 	pointer<?> VoidPointer = null;
 
 	@Nullable
-	pointer<c_signed_char> SignedCharPointer = null;
+	pointer<signed_char> SignedCharPointer = null;
 
 	@Nullable
 	pointer<pointer<?>> VoidVoidPointer = null;

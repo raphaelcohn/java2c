@@ -1,13 +1,13 @@
 package com.java2c.libraryHelpers.c;
 
-import com.java2c.model.scalars.Scalar;
+import com.java2c.model.types.scalars.Scalar;
 
 
 /*
 	All calls are transformed
 	eg ssize_t read(VoidPointer buf, size_t len) => ssize_t read(int value, void * buf, size_t len)
 
-	All standard object methods (equal, hashCode, toString) are automatically implemented
+	All standard object methods (isEqual, hashCode, toString) are automatically implemented
 
 	clone, notify, wait(), etc are NOT supported
 
@@ -52,16 +52,16 @@ public class FileDescriptor
 //
 //	@Override
 //	@SuppressWarnings({"OverloadedMethodsWithSameNumberOfParameters", "CovariantEquals"})
-//	public boolean equal(@NotNull final FileDescriptor right)
+//	public boolean isEqual(@NotNull final FileDescriptor right)
 //	{
-//		return value.equals(right.value);
+//		return value.isEqual(right.value);
 //	}
 //
 //	@Override
 //	@SuppressWarnings("BooleanMethodNameMustStartWithQuestion")
-//	public boolean notEqual(@NotNull final FileDescriptor right)
+//	public boolean isNotEqual(@NotNull final FileDescriptor right)
 //	{
-//		return value.notEquals(right.value);
+//		return value.isNotEqual(right.value);
 //	}
 //
 //	ssize_t read(@NotNull final VoidPointer buf, @NotNull final size_t len);
