@@ -1,0 +1,5 @@
+<root>
+    <item name='com.intellij.openapi.application.ApplicationStarter java.lang.String getCommandName()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

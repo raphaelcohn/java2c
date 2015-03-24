@@ -14,7 +14,7 @@ public final class ImpossibleStateException extends IllegalStateException
 		super(ImpossibleState);
 	}
 
-	public ImpossibleStateException(@NotNull final Exception cause)
+	public ImpossibleStateException(@NotNull final Throwable cause)
 	{
 		super(ImpossibleState, cause);
 	}

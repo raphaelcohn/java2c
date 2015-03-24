@@ -1,0 +1,5 @@
+<root>
+    <item name='com.intellij.util.PlatformUtils java.lang.String getPlatformPrefix(java.lang.String)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

@@ -32,7 +32,7 @@ import static java.nio.file.Files.createTempDirectory;
 import static java.nio.file.Files.delete;
 import static javax.tools.ToolProvider.getSystemJavaCompiler;
 
-public final class TranspilerApplication
+public final class TranspilerApplicationOld
 {
 	@SuppressWarnings("NullableProblems")
 	@NotNull
@@ -76,7 +76,7 @@ public final class TranspilerApplication
 	private final CodeTreeUserAdaptingProcessor processor;
 
 	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
-	public TranspilerApplication(@NotNull final Warnings warnings, @NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final RootPathAndExpression sourceOutput, @NotNull final Collection<Path> additionalClassPath)
+	public TranspilerApplicationOld(@NotNull final Warnings warnings, @NotNull final List<ModuleName> moduleNames, @NotNull final RootPathAndExpression moduleRoot, @NotNull final RootPathAndExpression sourceOutput, @NotNull final Collection<Path> additionalClassPath)
 	{
 		this.warnings = warnings;
 		this.moduleNames = moduleNames;
