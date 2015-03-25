@@ -1,0 +1,3 @@
+[submodule "library/intellij-community/14.0.3/intellij-community"]
+	path = library/intellij-community/14.0.3/intellij-community
+	url = https://github.com/JetBrains/intellij-community.git

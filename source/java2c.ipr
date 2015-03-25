@@ -1165,254 +1165,44 @@
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
   </component>
   <component name="libraryTable">
-    <library name="annotations">
+    <library name="intellij-annotations">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/../library/annotations/14.0.3/annotations.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../library/intellij-annotations/current/annotations.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="IntelliJ">
-      <ANNOTATIONS>
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jdkAnnotations.jar!/" />
-        <root url="file://$PROJECT_DIR$/../library/intellij-community/14.0.3" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java" />
-      </ANNOTATIONS>
+    <library name="intelliJ-community">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/bootstrap.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/idea.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/idea_rt.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/openapi.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/util.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/asm-all.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/asm-commons.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/asm.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/asm4-all.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/automaton.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/boot.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/cglib-2.2.2.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/cli-parser-1.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/commons-codec-1.8.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/commons-httpclient-3.1-patched.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/commons-logging-1.1.3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/commons-net-3.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/ecj-4.4.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/extensions.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/fluent-hc-4.3.2.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/forms_rt.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/freemarker.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/groovy-all-2.2.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/gson-2.2.4.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/guava-17.0.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/hamcrest-core-1.3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/hamcrest-library-1.3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/httpclient-4.3.2.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/httpcore-4.3.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/httpmime-4.3.2.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/isorelax.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/javac2.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jaxen-1.1.3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jayatana-1.2.4.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jcip-annotations.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jdom.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jgoodies-common-1.2.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jgoodies-forms.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jgoodies-looks-2.4.2.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jh.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jing.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jna-utils.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jna.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jps-launcher.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jps-model.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jps-server.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsch-0.1.51.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsch.agentproxy.connector-factory.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsch.agentproxy.core.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsch.agentproxy.pageant.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsch.agentproxy.sshagent.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsch.agentproxy.usocket-jna.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsch.agentproxy.usocket-nc.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsr166e.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jsr173_1.0_api.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/junit-4.11.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/junit.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/jzlib-1.1.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/log4j.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/markdownj-core-0.4.2-SNAPSHOT.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/microba.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/miglayout-swing.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/nanoxml-2.2.3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/nekohtml-1.9.14.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/netty-all-4.1.0.Beta3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/optimizedFileManager.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/oromatcher.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/picocontainer.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/protobuf-2.5.0.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/proxy-vole_20120920.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/pty4j-0.3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/purejavacomm.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/resolver.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/rhino-js-1_7R4.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/rngom-20051226-patched.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/sanselan-0.98-snapshot.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/serviceMessages.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/snappy-in-java-0.3.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/swingx-core-1.6.2.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/trang-core.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/trove4j.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/velocity.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/winp-1.21-patched.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/xbean.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/xerces.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/xmlrpc-2.0.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/xpp3-1.1.4-min.jar!/" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/xstream-1.4.3.jar!/" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java" />
+        <root url="file://$PROJECT_DIR$/../library/intellij-community/current/lib" />
+        <root url="file://$PROJECT_DIR$/../library/intellij-community/current/lib/rt" />
+        <root url="file://$PROJECT_DIR$/../library/intellij-community/current/lib/ant/lib" />
+        <root url="file://$PROJECT_DIR$/../library/intellij-community/current/lib/ant/lib" />
       </CLASSES>
-      <JAVADOC />
-      <NATIVE>
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/winp-1.21-patched.jar!/" />
-      </NATIVE>
+      <JAVADOC>
+        <root url="jar://$PROJECT_DIR$/../library/intellij-community/current/lib/ant/docs.zip!/docs/manual/api" />
+      </JAVADOC>
       <SOURCES>
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/trove4j_src.jar!/core/src" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/trove4j_src.jar!/generated/src" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/trove4j_src.jar!/test/src" />
-        <root url="jar://$PROJECT_DIR$/../library/intellij-community/14.0.3/trove4j_src.jar!/util/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/analysis-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/analysis-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/annotations/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/boot/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/bootstrap/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/core-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/core-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/duplicates-analysis/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/dvcs-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/dvcs-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/editor-ui-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/editor-ui-ex/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/extensions/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/extensions/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/external-system-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/external-system-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/external-system-impl/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/forms_rt/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/funcTests/project1/module1/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/indexing-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/indexing-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/lang-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/lang-api/testSources" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/lang-impl/gen" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/lang-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/lang-impl/testSources" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/lvcs-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/lvcs-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/platform-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/platform-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/platform-main/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/platform-tests/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/projectModel-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/projectModel-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/remote-servers/agent-rt/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/remote-servers/api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/remote-servers/impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/script-debugger/backend/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/script-debugger/debugger-ui/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/script-debugger/debugger-ui/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/script-debugger/protocol/protocol-model-generator/generated" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/script-debugger/protocol/protocol-reader-runtime/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/smRunner/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/smRunner/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/structuralsearch/source" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/structuralsearch/testSource" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/structure-view-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/structure-view-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/testFramework/bootstrap/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/testFramework/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/testFramework/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/testRunner/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/usageView/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/util-rt/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/util/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/util/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-api/vcs-api-core/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-impl/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-log/api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-log/graph-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-log/graph/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-log/graph/test" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-log/impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/vcs-log/impl/test" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/xdebugger-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/xdebugger-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/xdebugger-impl/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/lib/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/script-debugger/protocol/protocol-model-generator/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/script-debugger/protocol/protocol-reader/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/platform/script-debugger/protocol/schema-reader-generator/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/compiler/forms-compiler/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/compiler/forms-compiler/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/compiler/impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/compiler/impl/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/compiler/instrumentation-util/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/compiler/javac2/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/compiler/openapi/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/debugger/impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/debugger/openapi/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/execution/impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/execution/openapi/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/idea-ui/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-analysis-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-analysis-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-impl/gen" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-indexing-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-indexing-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-psi-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-psi-impl/gen" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-psi-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-runtime/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-structure-view/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/java-tests/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/jsp-base-openapi/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/jsp-openapi/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/jsp-spi/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/manifest/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/manifest/test" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/openapi/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/remote-servers/api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/remote-servers/impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/structuralsearch-java/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/testFramework/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/typeMigration/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/java/typeMigration/test" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/antLayout/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/jps-builders/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/jps-builders/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/jps-launcher/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/model-api/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/model-impl/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/model-impl/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/model-serialization/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/model-serialization/testSrc" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/plugin-system/src" />
-        <root url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/jps/standalone-builder/src" />
+        <root url="file://$PROJECT_DIR$/../library/intellij-community/current/lib" />
       </SOURCES>
-      <jarDirectory url="file://$PROJECT_DIR$/../../../../Sources/intellij-community/lib/src" recursive="false" type="SOURCES" />
+      <jarDirectory url="file://$PROJECT_DIR$/../library/intellij-community/current/lib" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/../library/intellij-community/current/lib/ant/lib" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/../library/intellij-community/current/lib/ant/lib" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/../library/intellij-community/current/lib/rt" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/../library/intellij-community/current/lib" recursive="false" type="SOURCES" />
     </library>
     <library name="jopt-simple">
       <ANNOTATIONS>
-        <root url="file://$PROJECT_DIR$/../library/jopt-simple/4.5/joptsimple" />
+        <root url="file://$PROJECT_DIR$/../library/jopt-simple/annotations" />
       </ANNOTATIONS>
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/4.5/jopt-simple-4.5.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/current/jopt-simple-4.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/4.5/jopt-simple-4.5-javadoc.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/current/jopt-simple-4.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/4.5/jopt-simple-4.5-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../library/jopt-simple/current/jopt-simple-4.5-sources.jar!/" />
       </SOURCES>
     </library>
   </component>

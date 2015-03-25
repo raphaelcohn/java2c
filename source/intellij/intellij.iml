@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="jdk" jdkName="IDEA jdk" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="annotations" level="project" />
-    <orderEntry type="library" exported="" name="IntelliJ" level="project" />
+    <orderEntry type="library" exported="" name="intellij-annotations" level="project" />
+    <orderEntry type="library" exported="" name="intelliJ-community" level="project" />
   </component>
 </module>

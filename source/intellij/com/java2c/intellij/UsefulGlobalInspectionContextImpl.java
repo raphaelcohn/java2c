@@ -1,27 +1,20 @@
 package com.java2c.intellij;
 
 import com.intellij.analysis.AnalysisScope;
-import com.intellij.codeHighlighting.HighlightDisplayLevel;
 import com.intellij.codeInspection.InspectionProfile;
-import com.intellij.codeInspection.InspectionProfileEntry;
 import com.intellij.codeInspection.ex.GlobalInspectionContextImpl;
 import com.intellij.codeInspection.ex.InspectionToolWrapper;
 import com.intellij.codeInspection.ex.Tools;
 import com.intellij.codeInspection.ui.InspectionToolPresentation;
-import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.ui.content.ContentManager;
-import com.java2c.intellij.projectValidationMessagesRecorders.ProjectValidationMessagesRecorder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class UsefulGlobalInspectionContextImpl extends GlobalInspectionContextImpl
 {
@@ -80,13 +73,4 @@ public class UsefulGlobalInspectionContextImpl extends GlobalInspectionContextIm
 	{
 		performInspectionsWithProgress(scope, runGlobalToolsOnly);
 	}
-
-	@NotNull
-	private static <K> K nonNullKey(@NotNull final Entry<K, ?> entry)
-	{
-		final K key = entry.getKey();
-		assert key != null;
-		return key;
-	}
-
 }
