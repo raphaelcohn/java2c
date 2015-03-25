@@ -1120,7 +1120,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/codeTreeUsers/codeTreeUsers.iml" filepath="$PROJECT_DIR$/codeTreeUsers/codeTreeUsers.iml" group="miscellany" />
-      <module fileurl="file://$PROJECT_DIR$/intellij/intellij.iml" filepath="$PROJECT_DIR$/intellij/intellij.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaCompiler/javaCompiler.iml" filepath="$PROJECT_DIR$/javaCompiler/javaCompiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries-builtin/libraries-builtin.iml" filepath="$PROJECT_DIR$/libraries-builtin/libraries-builtin.iml" group="libraries" />
       <module fileurl="file://$PROJECT_DIR$/libraries-c/libraries-c.iml" filepath="$PROJECT_DIR$/libraries-c/libraries-c.iml" group="libraries" />
