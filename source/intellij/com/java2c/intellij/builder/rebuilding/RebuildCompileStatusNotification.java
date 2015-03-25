@@ -1,11 +1,11 @@
-package com.java2c.intellij;
+package com.java2c.intellij.builder.rebuilding;
 
 import com.intellij.openapi.compiler.CompileContext;
 import com.intellij.openapi.compiler.CompileStatusNotification;
 import com.intellij.openapi.compiler.CompilerMessage;
 import com.intellij.openapi.compiler.CompilerMessageCategory;
 import com.intellij.openapi.project.Project;
-import com.java2c.intellij.projectValidationMessagesRecorders.ProjectValidationMessagesRecorder;
+import com.java2c.intellij.builder.validation.projectValidationMessagesRecorders.ProjectValidationMessagesRecorder;
 import org.jetbrains.annotations.NotNull;
 
 import static com.intellij.openapi.compiler.CompilerMessageCategory.ERROR;
@@ -32,7 +32,7 @@ public class RebuildCompileStatusNotification implements CompileStatusNotificati
 	{
 		if (aborted)
 		{
-			throw new IllegalStateException("It should not be possible to abort a rebuild when headless");
+			throw new IllegalStateException("It should not be possible to abort a offlineRebuild when headless");
 		}
 
 		assert STATISTICS != null;

@@ -1,4 +1,4 @@
-package com.java2c.intellij;
+package com.java2c.intellij.inspection.inspectionToolPresentations;
 
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInspection.CommonProblemDescriptor;
@@ -13,6 +13,7 @@ import com.intellij.codeInspection.ui.InspectionNode;
 import com.intellij.codeInspection.ui.InspectionToolPresentation;
 import com.intellij.codeInspection.ui.InspectionTreeNode;
 import com.intellij.openapi.vcs.FileStatus;
+import com.java2c.intellij.inspection.UsefulGlobalInspectionContextImpl;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

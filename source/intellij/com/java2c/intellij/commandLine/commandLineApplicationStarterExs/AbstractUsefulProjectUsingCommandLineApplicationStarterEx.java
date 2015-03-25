@@ -1,7 +1,7 @@
 package com.java2c.intellij.commandLine.commandLineApplicationStarterExs;
 
 import com.intellij.openapi.project.Project;
-import com.java2c.intellij.UsefulProject;
+import com.java2c.intellij.useful.UsefulProject;
 import com.java2c.intellij.commandLine.usingExecutors.UsingExecutor;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,4 +1,4 @@
-package com.java2c.intellij;
+package com.java2c.intellij.inspection;
 
 import com.intellij.analysis.AnalysisScope;
 import com.intellij.codeInspection.InspectionProfile;
@@ -9,6 +9,9 @@ import com.intellij.codeInspection.ui.InspectionToolPresentation;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.ui.content.ContentManager;
+import com.java2c.intellij.inspection.inspectionToolPresentationFactories.InspectionToolPresentationFactory;
+import com.java2c.intellij.inspection.inspectionToolPresentations.AbstractInspectionToolPresentation;
+import com.java2c.intellij.inspection.inspectionToolPresentations.UsefulInspectionToolPresentation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,23 +19,23 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class UsefulGlobalInspectionContextImpl extends GlobalInspectionContextImpl
+public final class UsefulGlobalInspectionContextImpl extends GlobalInspectionContextImpl
 {
 	@NotNull
-	private final Map<InspectionToolWrapper<?, ?>, AbstractInspectionToolPresentation> presentations;
+	private final Map<InspectionToolWrapper<?, ?>, InspectionToolPresentation> presentations;
 
 	@NotNull
-	private final ProblemRefElementHandler problemRefElementHandler;
+	private final InspectionToolPresentationFactory inspectionToolPresentationFactory;
 
 	// Replicates logic of InspectionManagerEx.createNewGlobalContext
 	@SuppressWarnings("ThisEscapedInObjectConstruction")
-	public UsefulGlobalInspectionContextImpl(@NotNull final Project project, @NotNull final NotNullLazyValue<ContentManager> contentManager, @NotNull final Collection<GlobalInspectionContextImpl> runningContexts, @NotNull final InspectionProfile inspectionProfile, @NotNull final ProblemRefElementHandler problemRefElementHandler)
+	public UsefulGlobalInspectionContextImpl(@NotNull final Project project, @NotNull final NotNullLazyValue<ContentManager> contentManager, @NotNull final Collection<GlobalInspectionContextImpl> runningContexts, @NotNull final InspectionProfile inspectionProfile, @NotNull final InspectionToolPresentationFactory inspectionToolPresentationFactory)
 	{
 		super(project, contentManager);
-		this.problemRefElementHandler = problemRefElementHandler;
+		this.inspectionToolPresentationFactory = inspectionToolPresentationFactory;
 		runningContexts.add(this);
 		setExternalProfile(inspectionProfile);
-		presentations = new LinkedHashMap<InspectionToolWrapper<?, ?>, AbstractInspectionToolPresentation>(16);
+		presentations = new LinkedHashMap<InspectionToolWrapper<?, ?>, InspectionToolPresentation>(16);
 	}
 
 	@Override
@@ -64,12 +67,12 @@ public class UsefulGlobalInspectionContextImpl extends GlobalInspectionContextIm
 			return inspectionToolPresentation;
 		}
 
-		final UsefulInspectionToolPresentation usefulInspectionToolPresentation = new UsefulInspectionToolPresentation(this, toolWrapper, problemRefElementHandler);
+		final InspectionToolPresentation usefulInspectionToolPresentation = inspectionToolPresentationFactory.inspectionToolPresentation(this, toolWrapper);
 		presentations.put(toolWrapper, usefulInspectionToolPresentation);
 		return usefulInspectionToolPresentation;
 	}
 
-	public final void inspect(@NotNull final AnalysisScope scope, final boolean runGlobalToolsOnly)
+	public void inspect(@NotNull final AnalysisScope scope, final boolean runGlobalToolsOnly)
 	{
 		performInspectionsWithProgress(scope, runGlobalToolsOnly);
 	}

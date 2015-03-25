@@ -48,7 +48,6 @@ public final class MainImplReplacement
 					{
 						installExceptionHandler();
 
-
 						final IdeaApplication ideaApplication = new IdeaApplication(commandLineArguments)
 						{
 							@NotNull

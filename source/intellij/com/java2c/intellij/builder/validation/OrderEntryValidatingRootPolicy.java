@@ -1,11 +1,12 @@
-package com.java2c.intellij.rootPolicies;
+package com.java2c.intellij.builder.validation;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.OrderEntry;
 import com.intellij.openapi.roots.OrderRootType;
+import com.intellij.openapi.roots.RootPolicy;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.java2c.intellij.projectValidationMessagesRecorders.ProjectValidationMessagesRecorder;
+import com.java2c.intellij.builder.validation.projectValidationMessagesRecorders.ProjectValidationMessagesRecorder;
 import org.jetbrains.annotations.NotNull;
 
 import static com.intellij.openapi.compiler.CompilerMessageCategory.ERROR;
@@ -13,14 +14,22 @@ import static com.intellij.openapi.roots.OrderRootType.getAllTypes;
 import static java.lang.String.format;
 import static java.util.Locale.ENGLISH;
 
-public final class ValidatingOrderEntryVisitor<V extends OrderEntry> implements OrderEntryVisitor<ProjectValidationMessagesRecorder, V>
+public final class OrderEntryValidatingRootPolicy extends RootPolicy<ProjectValidationMessagesRecorder>
 {
 	@NotNull
-	@Override
-	public ProjectValidationMessagesRecorder visit(@NotNull final V orderEntry, @SuppressWarnings("NullableProblems") @NotNull final ProjectValidationMessagesRecorder initialValue)
+	public static final RootPolicy<ProjectValidationMessagesRecorder> OrderEntryValidatingRootPolicyInstance = new OrderEntryValidatingRootPolicy();
+
+	private OrderEntryValidatingRootPolicy()
 	{
-		validate(initialValue, orderEntry);
-		return initialValue;
+	}
+
+	@SuppressWarnings({"RefusedBequest", "Contract"})
+	@NotNull
+	@Override
+	public ProjectValidationMessagesRecorder visitOrderEntry(@NotNull final OrderEntry orderEntry, @NotNull final ProjectValidationMessagesRecorder value)
+	{
+		validate(value, orderEntry);
+		return value;
 	}
 
 	private static void validate(@NotNull final ProjectValidationMessagesRecorder projectValidationMessagesRecorder, @NotNull final OrderEntry orderEntry)
@@ -69,5 +78,4 @@ public final class ValidatingOrderEntryVisitor<V extends OrderEntry> implements 
 		assert format != null;
 		return format;
 	}
-
 }

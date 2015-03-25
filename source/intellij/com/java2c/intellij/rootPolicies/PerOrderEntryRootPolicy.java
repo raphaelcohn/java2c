@@ -5,9 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("AbstractClassExtendsConcreteClass")
-public abstract class AbstractRootPolicy<R> extends RootPolicy<R>
+public abstract class PerOrderEntryRootPolicy<R> extends RootPolicy<R>
 {
-	protected AbstractRootPolicy()
+	protected PerOrderEntryRootPolicy()
 	{
 	}
 

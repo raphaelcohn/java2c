@@ -1,4 +1,4 @@
-package com.java2c.intellij;
+package com.java2c.intellij.inspection;
 
 import com.intellij.codeInspection.reference.RefElement;
 import com.intellij.lang.annotation.HighlightSeverity;

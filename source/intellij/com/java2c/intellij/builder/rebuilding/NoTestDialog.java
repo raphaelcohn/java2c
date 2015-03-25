@@ -1,4 +1,4 @@
-package com.java2c.intellij;
+package com.java2c.intellij.builder.rebuilding;
 
 import com.intellij.openapi.ui.TestDialog;
 import org.jetbrains.annotations.NotNull;

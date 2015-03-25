@@ -23,6 +23,11 @@ public final class IntelliJCommandLineInvoker
 	@NonNls
 	private static final String MainImplReplacement = "com.intellij.idea.MainImplReplacement";
 
+	@SuppressWarnings("ConstantConditions")
+	@NotNull
+	@NonNls
+	private static final String BooleanTrueString = TRUE.toString();
+
 	@NotNull
 	private final String homePath;
 
@@ -47,7 +52,7 @@ public final class IntelliJCommandLineInvoker
 	@SuppressWarnings("AccessOfSystemProperties")
 	private static void forceIntelliJCommunityEditionToBeHeadlessAndInCommandLineMode()
 	{
-		setProperty(JavaAwtHeadless, TRUE.toString());
+		setProperty(JavaAwtHeadless, BooleanTrueString);
 		setFlags(Empty);
 	}
 
@@ -61,7 +66,7 @@ public final class IntelliJCommandLineInvoker
 
 		try
 		{
-			Bootstrap.main(intelliJCommandLineArguments, com.intellij.idea.MainImplReplacement.class.getCanonicalName(), "start");
+			Bootstrap.main(intelliJCommandLineArguments, MainImplReplacement, "start");
 		}
 		catch (final Exception e)
 		{

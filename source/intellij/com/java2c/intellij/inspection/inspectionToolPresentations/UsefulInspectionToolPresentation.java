@@ -1,4 +1,4 @@
-package com.java2c.intellij;
+package com.java2c.intellij.inspection.inspectionToolPresentations;
 
 import com.intellij.codeHighlighting.HighlightDisplayLevel;
 import com.intellij.codeInsight.daemon.HighlightDisplayKey;
@@ -13,6 +13,8 @@ import com.intellij.codeInspection.reference.RefEntity;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.SmartPsiElementPointer;
+import com.java2c.intellij.inspection.ProblemRefElementHandler;
+import com.java2c.intellij.inspection.UsefulGlobalInspectionContextImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

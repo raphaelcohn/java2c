@@ -1,18 +1,13 @@
-package com.java2c.intellij;
+package com.java2c.intellij.useful;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.roots.ModuleRootManager;
-import com.java2c.intellij.projectValidationMessagesRecorders.ProjectValidationMessagesRecorder;
-import com.java2c.intellij.rootPolicies.AbstractRootPolicy;
-import com.java2c.intellij.rootPolicies.OrderEntryValidatingRootPolicy;
+import com.intellij.openapi.roots.RootPolicy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class UsefulModule implements ProcessModuleOrder
 {
-	@NotNull
-	private static final OrderEntryValidatingRootPolicy OrderEntryValidator = new OrderEntryValidatingRootPolicy();
-
 	@SuppressWarnings("PublicField")
 	@NotNull
 	public final Module module;
@@ -29,15 +24,10 @@ public final class UsefulModule implements ProcessModuleOrder
 	}
 
 	@Override
-	public void validateModuleOrderEntriesInModuleDependencyOrder(@NotNull final ProjectValidationMessagesRecorder projectValidationMessagesRecorder)
+	public <R> void useModuleOrderEntriesInModuleDependencyOrder(@NotNull final RootPolicy<R> rootPolicy, @Nullable final R initialValue)
 	{
-		moduleRootManager.processOrder(OrderEntryValidator, projectValidationMessagesRecorder);
-	}
-
-	@Override
-	public void useModuleOrderEntriesInModuleDependencyOrder(@NotNull final AbstractRootPolicy<Object> abstractRootPolicy)
-	{
-		@Nullable final Object result = moduleRootManager.processOrder(abstractRootPolicy, null);
+		@Nullable final R result = moduleRootManager.processOrder(rootPolicy, initialValue);
+		assert result == null;
 	}
 
 	@NotNull

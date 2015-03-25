@@ -1,4 +1,4 @@
-package com.java2c.intellij;
+package com.java2c.intellij.builder.validation;
 
 import com.intellij.codeInspection.reference.RefElement;
 import com.intellij.lang.annotation.HighlightSeverity;
@@ -7,7 +7,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.SmartPsiElementPointer;
-import com.java2c.intellij.projectValidationMessagesRecorders.ProjectValidationMessagesRecorder;
+import com.java2c.intellij.inspection.ProblemRefElementHandler;
+import com.java2c.intellij.builder.validation.projectValidationMessagesRecorders.ProjectValidationMessagesRecorder;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

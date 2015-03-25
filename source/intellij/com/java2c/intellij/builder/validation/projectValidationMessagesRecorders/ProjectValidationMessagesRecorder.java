@@ -1,4 +1,4 @@
-package com.java2c.intellij.projectValidationMessagesRecorders;
+package com.java2c.intellij.builder.validation.projectValidationMessagesRecorders;
 
 import com.intellij.openapi.compiler.CompilerMessageCategory;
 import com.intellij.openapi.project.Project;
