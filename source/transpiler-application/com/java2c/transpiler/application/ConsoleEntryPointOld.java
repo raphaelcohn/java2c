@@ -1,12 +1,12 @@
 package com.java2c.transpiler.application;
 
-import static com.java2c.utility.EnglishFormatter.format;
-import com.java2c.javaCompiler.*;
-import com.java2c.javaCompiler.pathExpressions.IllegalRelativePathExpressionException;
-import com.java2c.javaCompiler.pathExpressions.RelativePathExpression;
-import com.java2c.javaCompiler.pathExpressions.RootPathAndExpression;
-import com.java2c.utility.ImpossibleStateException;
-import com.java2c.transpiler.warnings.StandardErrorWarnings;
+import static com.compilerUser.text.EnglishFormatter.format;
+
+import com.compilerUser.moduleName.ModuleName;
+import com.compilerUser.pathExpressions.IllegalRelativePathExpressionException;
+import com.compilerUser.pathExpressions.RelativePathExpression;
+import com.compilerUser.pathExpressions.RootPathAndExpression;
+import com.compilerUser.exceptions.ImpossibleStateException;
 import joptsimple.OptionException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;

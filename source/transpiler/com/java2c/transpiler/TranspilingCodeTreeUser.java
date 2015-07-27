@@ -1,6 +1,6 @@
 package com.java2c.transpiler;
 
-import com.java2c.codeTreeUsers.CodeTreeUser;
+import com.compilerUser.codeTreeUsers.CodeTreeUser;
 import com.java2c.transpiler.elementHandlers.RootElementHandler;
 import com.sun.source.util.Trees;
 import org.jetbrains.annotations.NotNull;

@@ -8,15 +8,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="intellij-annotations" level="project" />
-    <orderEntry type="library" name="jopt-simple" level="project" />
-    <orderEntry type="module" module-name="transpiler" />
-    <orderEntry type="module" module-name="text" />
-    <orderEntry type="module" module-name="exceptions" />
-    <orderEntry type="module" module-name="warnings" />
-    <orderEntry type="module" module-name="moduleName" />
-    <orderEntry type="module" module-name="pathExpressions" />
-    <orderEntry type="module" module-name="processors" />
     <orderEntry type="module" module-name="javaSourceFiles" />
-    <orderEntry type="module" module-name="moduleCompiler" />
+    <orderEntry type="module" module-name="warnings" />
+    <orderEntry type="module" module-name="exceptions" />
+    <orderEntry type="module" module-name="text" />
   </component>
 </module>

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.lang.model.element.TypeElement;
 
-import static com.java2c.utility.EnglishFormatter.format;
+import static com.compilerUser.text.EnglishFormatter.format;
 
 public final class ClassAnnotationNotPermittedOnThisTypeElementException extends IncorrectSourceCodeException
 {

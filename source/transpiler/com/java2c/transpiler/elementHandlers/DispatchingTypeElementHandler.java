@@ -10,7 +10,7 @@ import javax.lang.model.element.TypeElement;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static com.java2c.utility.EnglishFormatter.format;
+import static com.compilerUser.text.EnglishFormatter.format;
 import static javax.lang.model.element.ElementKind.*;
 
 public final class DispatchingTypeElementHandler implements ElementHandler<TypeElement>

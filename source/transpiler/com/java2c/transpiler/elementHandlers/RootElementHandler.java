@@ -7,7 +7,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
-import static com.java2c.utility.EnglishFormatter.format;
+import static com.compilerUser.text.EnglishFormatter.format;
 
 public final class RootElementHandler implements ElementHandler<Element>
 {

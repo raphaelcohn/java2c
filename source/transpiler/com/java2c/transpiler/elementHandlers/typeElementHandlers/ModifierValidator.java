@@ -8,7 +8,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import java.util.Set;
 
-import static com.java2c.utility.EnglishFormatter.format;
+import static com.compilerUser.text.EnglishFormatter.format;
 import static java.util.Collections.addAll;
 import static java.util.EnumSet.noneOf;
 

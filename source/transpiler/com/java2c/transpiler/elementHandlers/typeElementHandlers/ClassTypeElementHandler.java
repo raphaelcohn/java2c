@@ -8,12 +8,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.lang.model.element.*;
-import javax.lang.model.type.DeclaredType;
 import java.util.List;
-import java.util.Set;
 
-import static com.java2c.transpiler.AbstractSyntaxTreeInterpreter.interfaces;
-import static com.java2c.utility.EnglishFormatter.format;
+import static com.compilerUser.text.EnglishFormatter.format;
 import static javax.lang.model.element.Modifier.*;
 
 public final class ClassTypeElementHandler implements TypeElementHandler

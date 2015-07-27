@@ -1,13 +1,16 @@
 package com.java2c.transpiler.application;
 
-import com.java2c.javaCompiler.processors.CodeTreeUserAdaptingProcessor;
+import com.compilerUser.exceptions.FatalCompilationException;
+import com.compilerUser.moduleCompiler.JavaModuleCompiler;
+import com.compilerUser.moduleName.ModuleName;
+import com.compilerUser.moduleCompiler.WarningsAdaptingDiagnosticListener;
+import com.compilerUser.processors.CodeTreeUserAdaptingProcessor;
 import com.java2c.transpiler.TranspilingCodeTreeUser;
-import com.java2c.javaCompiler.*;
-import com.java2c.javaCompiler.javaSourceFiles.JavaSourceFilesFinder;
-import com.java2c.javaCompiler.pathExpressions.IllegalRelativePathException;
-import com.java2c.javaCompiler.pathExpressions.IllegalRelativePathExpressionException;
-import com.java2c.javaCompiler.pathExpressions.RelativePathExpression;
-import com.java2c.javaCompiler.pathExpressions.RootPathAndExpression;
+import com.compilerUser.javaSourceFiles.JavaSourceFilesFinder;
+import com.compilerUser.pathExpressions.IllegalRelativePathException;
+import com.compilerUser.pathExpressions.IllegalRelativePathExpressionException;
+import com.compilerUser.pathExpressions.RelativePathExpression;
+import com.compilerUser.pathExpressions.RootPathAndExpression;
 import com.java2c.transpiler.elementHandlers.RootElementHandler;
 import com.java2c.transpiler.elementHandlers.PackageElementHandler;
 import com.java2c.transpiler.elementHandlers.DispatchingTypeElementHandler;
@@ -15,8 +18,8 @@ import com.java2c.transpiler.elementHandlers.typeElementHandlers.AnnotationTypeE
 import com.java2c.transpiler.elementHandlers.typeElementHandlers.ClassTypeElementHandler;
 import com.java2c.transpiler.elementHandlers.typeElementHandlers.EnumTypeElementHandler;
 import com.java2c.transpiler.elementHandlers.typeElementHandlers.InterfaceTypeElementHandler;
-import com.java2c.transpiler.warnings.Warnings;
-import com.java2c.utility.ImpossibleStateException;
+import com.compilerUser.warnings.Warnings;
+import com.compilerUser.exceptions.ImpossibleStateException;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,7 +30,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 
-import static com.java2c.utility.EnglishFormatter.format;
+import static com.compilerUser.text.EnglishFormatter.format;
 import static java.nio.file.Files.createTempDirectory;
 import static java.nio.file.Files.delete;
 import static javax.tools.ToolProvider.getSystemJavaCompiler;
