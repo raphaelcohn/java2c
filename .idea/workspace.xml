@@ -2,54 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7849b4d-d4e4-462e-9b33-c56df3e49e7f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler-application/com/java2c/transpiler/application/ConsoleEntryPointOld.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler-application/com/java2c/transpiler/application/StandardErrorWarnings.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler-application/com/java2c/transpiler/application/TranspilerApplicationOld.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler-application/transpiler-application.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/CFileCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/CMaker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/OurAbstractSyntaxTreeInterpreter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/OurAbstractSyntaxTreeInterpreterFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/UnannotatedBanishedMethods.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/StorageClass.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/VariableDeclaration.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/gccAttributes/AttributeName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttribute.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttributeParameter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttributes.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/gccAttributes/Writable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/gccAttributes/function/GccFunctionAttributeName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/c/gccAttributes/variable/GccVariableAttributeName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/elementConverters/CType.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/elementConverters/CategorisedClassMembers.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/elementConverters/ConversionException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/elementConverters/ElementConverter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/elementConverters/FieldAttributesProcessors.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/elementConverters/TopLevelInterfaceElementConverter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/elementHandlers/PackageElementHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/exceptions/ClassAnnotationNotPermittedOnThisTypeElementException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/AbstractFieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/AlignmentFieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/DeprecatedFieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/FieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/NullCheckFieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/PackedFieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/SectionFieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/ThreadLocalModelFieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/fieldAttributesProcessors/UnusedFieldAttributesProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/typeElementHandlers/AbstractTypeElementHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/typeElementHandlers/AnnotationTypeElementHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/typeElementHandlers/ClassTypeElementHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/typeElementHandlers/EnumTypeElementHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/com/java2c/transpiler/typeElementHandlers/InterfaceTypeElementHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/transpiler/transpiler/transpiler.iml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" afterPath="$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" afterPath="$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/model.iml" afterPath="$PROJECT_DIR$/source/model/model/model.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/samples/samples.iml" afterPath="$PROJECT_DIR$/source/model/samples/samples.iml" />
     </list>
     <ignored path="java2c.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,11 +24,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="COPYRIGHT" pinned="false" current-in-tab="true">
+      <file leaf-file-name="COPYRIGHT" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/COPYRIGHT">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LICENSE" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LICENSE">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="158" selection-start-line="0" selection-start-column="158" selection-end-line="0" selection-end-column="158" />
               <folding />
             </state>
           </provider>
@@ -360,18 +323,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LICENSE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="158" selection-start-line="0" selection-start-column="158" selection-end-line="0" selection-end-column="158" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/COPYRIGHT">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="158" selection-start-line="0" selection-start-column="158" selection-end-line="0" selection-end-column="158" />
           <folding />
         </state>
       </provider>
