@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="intellij-annotations" level="project" />
+    <orderEntry type="library" name="intellij-annotations" level="project" />
   </component>
 </module>

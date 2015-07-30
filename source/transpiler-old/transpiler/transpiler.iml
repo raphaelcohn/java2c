@@ -12,6 +12,7 @@
     <orderEntry type="module" module-name="codeTreeUsers" />
     <orderEntry type="module" module-name="elementHandlers" />
     <orderEntry type="module" module-name="exceptions" />
+    <orderEntry type="library" name="intellij-annotations" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">

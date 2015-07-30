@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" filepath="$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" group="model/libraries" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" filepath="$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" group="model/libraries" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" filepath="$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" group="model/libraries" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/model/model.iml" filepath="$PROJECT_DIR$/source/model/model/model.iml" group="model" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/samples/samples.iml" filepath="$PROJECT_DIR$/source/model/samples/samples.iml" group="model" />
+      <module fileurl="file://$PROJECT_DIR$/source/transpiler-old/transpiler/transpiler.iml" filepath="$PROJECT_DIR$/source/transpiler-old/transpiler/transpiler.iml" group="transpiler-old" />
+      <module fileurl="file://$PROJECT_DIR$/source/transpiler-old/transpiler-application/transpiler-application.iml" filepath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/transpiler-application.iml" group="transpiler-old" />
+    </modules>
+  </component>
+</project>

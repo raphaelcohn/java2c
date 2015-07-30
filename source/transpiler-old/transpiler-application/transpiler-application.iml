@@ -18,5 +18,6 @@
     <orderEntry type="module" module-name="processors" />
     <orderEntry type="module" module-name="javaSourceFiles" />
     <orderEntry type="module" module-name="moduleCompiler" />
+    <orderEntry type="library" name="intellij-annotations" level="project" />
   </component>
 </module>
