@@ -2,11 +2,10 @@ package com.java2c.transpiler.typeElementHandlers;
 
 import com.compilerUser.elementHandlers.typeElementHandlers.ModifierValidator;
 import com.compilerUser.elementHandlers.typeElementHandlers.TypeElementHandler;
-import com.java2c.model.types.scalars.*;
 import com.compilerUser.elementHandlers.AbstractSyntaxTreeInterpreter;
 import com.compilerUser.elementHandlers.ElementHandler;
+import com.compilerUser.exceptions.IncorrectSourceCodeException;
 import com.java2c.transpiler.OurAbstractSyntaxTreeInterpreter;
-import com.java2c.transpiler.exceptions.IncorrectSourceCodeException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,7 +45,6 @@ public final class ClassTypeElementHandler implements TypeElementHandler<OurAbst
 		ScalarIsFinalModifierValidator.validate(abstractSyntaxTreeInterpreter, element);
 
 		// Must contain only one constructor taking long, except for constructor that take other values, eg
-		xxxx;
 
 		final List<? extends Element> enclosedElements = element.getEnclosedElements();
 		for (final Element enclosedElement : enclosedElements)
@@ -77,7 +75,6 @@ public final class ClassTypeElementHandler implements TypeElementHandler<OurAbst
 				}
 				else
 				{
-					if (;)
 				}
 
 				/*

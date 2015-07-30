@@ -113,8 +113,6 @@
       <module fileurl="file://$PROJECT_DIR$/pathExpressions/pathExpressions.iml" filepath="$PROJECT_DIR$/pathExpressions/pathExpressions.iml" group="compilerUser" />
       <module fileurl="file://$PROJECT_DIR$/processors/processors.iml" filepath="$PROJECT_DIR$/processors/processors.iml" group="compilerUser" />
       <module fileurl="file://$PROJECT_DIR$/text/text.iml" filepath="$PROJECT_DIR$/text/text.iml" group="compilerUser" />
-      <module fileurl="file://$PROJECT_DIR$/transpiler/transpiler.iml" filepath="$PROJECT_DIR$/transpiler/transpiler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/transpiler-application/transpiler-application.iml" filepath="$PROJECT_DIR$/transpiler-application/transpiler-application.iml" />
       <module fileurl="file://$PROJECT_DIR$/warnings/warnings.iml" filepath="$PROJECT_DIR$/warnings/warnings.iml" group="compilerUser" />
     </modules>
   </component>
