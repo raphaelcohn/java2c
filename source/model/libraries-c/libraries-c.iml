@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="intellij-annotations" level="project" />
     <orderEntry type="library" name="intellij-annotations" level="project" />
+    <orderEntry type="module" module-name="model" />
   </component>
 </module>

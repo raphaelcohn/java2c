@@ -19,5 +19,7 @@
     <orderEntry type="module" module-name="javaSourceFiles" />
     <orderEntry type="module" module-name="moduleCompiler" />
     <orderEntry type="library" name="intellij-annotations" level="project" />
+    <orderEntry type="library" name="jopt-simple" level="project" />
+    <orderEntry type="library" name="compilerUser" level="project" />
   </component>
 </module>
