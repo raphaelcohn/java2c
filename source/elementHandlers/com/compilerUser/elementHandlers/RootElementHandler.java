@@ -1,6 +1,5 @@
-package com.java2c.transpiler.elementHandlers;
+package com.compilerUser.elementHandlers;
 
-import com.java2c.transpiler.AbstractSyntaxTreeInterpreter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.lang.model.element.Element;
@@ -9,15 +8,15 @@ import javax.lang.model.element.TypeElement;
 
 import static com.compilerUser.text.EnglishFormatter.format;
 
-public final class RootElementHandler implements ElementHandler<Element>
+public final class RootElementHandler<A extends AbstractSyntaxTreeInterpreter> implements ElementHandler<Element, A>
 {
 	@NotNull
-	private final ElementHandler<PackageElement> packageElementHandler;
+	private final ElementHandler<PackageElement, A> packageElementHandler;
 
 	@NotNull
-	private final ElementHandler<TypeElement> typeElementHandler;
+	private final ElementHandler<TypeElement, A> typeElementHandler;
 
-	public RootElementHandler(@SuppressWarnings("TypeMayBeWeakened") @NotNull final ElementHandler<PackageElement> packageElementHandler, @SuppressWarnings("TypeMayBeWeakened") @NotNull final ElementHandler<TypeElement> typeElementHandler)
+	public RootElementHandler(@SuppressWarnings("TypeMayBeWeakened") @NotNull final ElementHandler<PackageElement, A> packageElementHandler, @SuppressWarnings("TypeMayBeWeakened") @NotNull final ElementHandler<TypeElement, A> typeElementHandler)
 	{
 		this.packageElementHandler = packageElementHandler;
 		this.typeElementHandler = typeElementHandler;
@@ -25,7 +24,7 @@ public final class RootElementHandler implements ElementHandler<Element>
 
 	@SuppressWarnings("ChainOfInstanceofChecks")
 	@Override
-	public void handle(@NotNull final AbstractSyntaxTreeInterpreter abstractSyntaxTreeInterpreter, @NotNull final Element element)
+	public void handle(@NotNull final A abstractSyntaxTreeInterpreter, @NotNull final Element element)
 	{
 		if (element instanceof TypeElement)
 		{

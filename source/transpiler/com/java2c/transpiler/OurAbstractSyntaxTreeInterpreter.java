@@ -1,5 +1,7 @@
 package com.java2c.transpiler;
 
+import com.compilerUser.elementHandlers.AbstractAbstractSyntaxTreeInterpreter;
+import com.compilerUser.elementHandlers.AbstractSyntaxTreeInterpreter;
 import com.java2c.model.other.CCodeTemplate;
 import com.java2c.model.types.AbstractCType;
 import com.java2c.model.types.Banished;
@@ -7,8 +9,8 @@ import com.java2c.model.types.Uncastable;
 import com.java2c.model.types.scalars.AbstractScalar;
 import com.java2c.model.types.scalars.Scalar;
 import com.java2c.transpiler.elementConverters.CType;
-import com.java2c.transpiler.elementHandlers.typeElementHandlers.ModifierValidator;
-import com.java2c.transpiler.exceptions.IncorrectSourceCodeException;
+import com.compilerUser.elementHandlers.typeElementHandlers.ModifierValidator;
+import com.compilerUser.exceptions.IncorrectSourceCodeException;
 import com.sun.source.util.TreePath;
 import com.sun.source.util.Trees;
 import org.jetbrains.annotations.NonNls;
@@ -30,7 +32,7 @@ import static javax.lang.model.type.TypeKind.DECLARED;
 import static javax.lang.model.type.TypeKind.ERROR;
 import static javax.lang.model.type.TypeKind.NONE;
 
-public final class AbstractSyntaxTreeInterpreter
+public final class OurAbstractSyntaxTreeInterpreter extends AbstractAbstractSyntaxTreeInterpreter
 {
 	@NotNull
 	@NonNls
@@ -81,15 +83,6 @@ public final class AbstractSyntaxTreeInterpreter
 	 */
 
 	@NotNull
-	private final Types typeUtilities;
-
-	@NotNull
-	private final Elements elementUtilities;
-
-	@NotNull
-	private final Trees trees;
-
-	@NotNull
 	private final DeclaredType objectTypeMirror;
 
 	@NotNull
@@ -101,22 +94,14 @@ public final class AbstractSyntaxTreeInterpreter
 	@NotNull
 	private final DeclaredType abstractScalarTypeMirror;
 
-	public AbstractSyntaxTreeInterpreter(@NotNull final Types typeUtilities, @NotNull final Elements elementUtilities, @NotNull final Trees trees)
+	public OurAbstractSyntaxTreeInterpreter(@NotNull final Types typeUtilities, @NotNull final Elements elementUtilities, @NotNull final Trees trees)
 	{
-		this.typeUtilities = typeUtilities;
-		this.elementUtilities = elementUtilities;
-		this.trees = trees;
+		super(typeUtilities, elementUtilities, trees);
 
 		objectTypeMirror = (DeclaredType) typeElementFor(Object.class).asType();
 		cTypeTypeMirror = (DeclaredType) typeElementFor(CType.class).asType();
 		abstractCTypeTypeMirror = (DeclaredType) typeElementFor(AbstractCType.class).asType();
 		abstractScalarTypeMirror = (DeclaredType) typeElementFor(AbstractScalar.class).asType();
-	}
-
-	@NotNull
-	public String getCanonicalClassName(@NotNull final TypeElement element)
-	{
-		return elementUtilities.getBinaryName(element).toString();
 	}
 
 	@NotNull
@@ -228,65 +213,10 @@ public final class AbstractSyntaxTreeInterpreter
 		return hasAnnotationDirectlyOrInherited(typeElement, CCodeTemplate.class);
 	}
 
+	@Override
 	public boolean isUncastable(@SuppressWarnings("TypeMayBeWeakened") @NotNull final TypeElement typeElement)
 	{
 		return hasAnnotationDirectlyOrInherited(typeElement, Uncastable.class) || hasAnnotationDirectlyOrInherited(typeElement, Scalar.class);
-	}
-
-	public boolean isEqualRawTypeElement(@SuppressWarnings("TypeMayBeWeakened") @NotNull final DeclaredType classInterfaceEnumOrAnnotation, @NotNull final Class<?> clazz)
-	{
-		final TypeElement typeElement = (TypeElement) classInterfaceEnumOrAnnotation.asElement();
-		return typeElement.equals(typeElementFor(clazz));
-		// return typeUtilities.isSameType(classInterfaceEnumOrAnnotation, typeFor(clazz));
-	}
-
-
-
-
-
-
-	@NotNull
-	public TypeElement typeElementFor(@NotNull final Class<?> clazz)
-	{
-		final String canonicalName = clazz.getCanonicalName();
-		@Nullable final TypeElement typeElement = elementUtilities.getTypeElement(canonicalName);
-		if (typeElement == null)
-		{
-			throw new IllegalArgumentException(format("No known TypeElement for clazz '%1$s'; is the --additional-classpath argument specified correctly?", canonicalName));
-		}
-		return typeElement;
-	}
-
-	@NotNull
-	public WildcardType wildcardTypeSuper(@NotNull final TypeMirror superBound)
-	{
-		return typeUtilities.getWildcardType(null, superBound);
-	}
-
-	@NotNull
-	public WildcardType wildcardTypeExtends(@NotNull final TypeMirror extendsBound)
-	{
-		return typeUtilities.getWildcardType(extendsBound, null);
-	}
-
-	// null for PackageElement
-	@Nullable
-	public TreePath treePathForElement(@NotNull final Element element)
-	{
-		return trees.getPath(element);
-	}
-
-	private boolean hasAnnotationDirectlyOrInherited(@NotNull final Element element, @NotNull final Class<? extends Annotation> annotationClass)
-	{
-		final List<? extends AnnotationMirror> allAnnotationMirrors = elementUtilities.getAllAnnotationMirrors(element);
-		for (final AnnotationMirror annotationMirror : allAnnotationMirrors)
-		{
-			if (isEqualRawTypeElement(annotationMirror.getAnnotationType(), annotationClass))
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 
 }

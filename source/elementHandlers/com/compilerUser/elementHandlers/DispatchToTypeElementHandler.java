@@ -1,7 +1,6 @@
-package com.java2c.transpiler.elementHandlers;
+package com.compilerUser.elementHandlers;
 
-import com.java2c.transpiler.AbstractSyntaxTreeInterpreter;
-import com.java2c.transpiler.elementHandlers.typeElementHandlers.TypeElementHandler;
+import com.compilerUser.elementHandlers.typeElementHandlers.TypeElementHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,12 +12,12 @@ import java.util.Map;
 import static com.compilerUser.text.EnglishFormatter.format;
 import static javax.lang.model.element.ElementKind.*;
 
-public final class DispatchingTypeElementHandler implements ElementHandler<TypeElement>
+public final class DispatchToTypeElementHandler<A extends AbstractSyntaxTreeInterpreter> implements ElementHandler<TypeElement, A>
 {
 	@NotNull
-	private final Map<ElementKind, TypeElementHandler> dispatchTable;
+	private final Map<ElementKind, TypeElementHandler<A>> dispatchTable;
 
-	public DispatchingTypeElementHandler(@NotNull final TypeElementHandler annotationTypeElementHandler, @NotNull final TypeElementHandler interfaceTypeElementHandler, @NotNull final TypeElementHandler enumTypeElementHandler, @NotNull final TypeElementHandler classTypeElementHandler)
+	public DispatchToTypeElementHandler(@NotNull final TypeElementHandler<A> annotationTypeElementHandler, @NotNull final TypeElementHandler<A> interfaceTypeElementHandler, @NotNull final TypeElementHandler<A> enumTypeElementHandler, @NotNull final TypeElementHandler<A> classTypeElementHandler)
 	{
 		dispatchTable = new EnumMap<>(ElementKind.class);
 		dispatchTable.put(ANNOTATION_TYPE, annotationTypeElementHandler);
@@ -28,10 +27,10 @@ public final class DispatchingTypeElementHandler implements ElementHandler<TypeE
 	}
 
 	@Override
-	public void handle(@NotNull final AbstractSyntaxTreeInterpreter abstractSyntaxTreeInterpreter, @NotNull final TypeElement element)
+	public void handle(@NotNull final A abstractSyntaxTreeInterpreter, @NotNull final TypeElement element)
 	{
 		final ElementKind elementKind = element.getKind();
-		@Nullable final TypeElementHandler typeElementHandlerToDispatchTo = dispatchTable.get(elementKind);
+		@Nullable final TypeElementHandler<A> typeElementHandlerToDispatchTo = dispatchTable.get(elementKind);
 		if (typeElementHandlerToDispatchTo == null)
 		{
 			throw new IllegalStateException(format("Did not expect a TypeElement of ElementKind '%1$s'", elementKind.name()));

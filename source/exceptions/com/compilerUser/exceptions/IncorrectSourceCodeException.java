@@ -1,4 +1,4 @@
-package com.java2c.transpiler.exceptions;
+package com.compilerUser.exceptions;
 
 import org.jetbrains.annotations.NotNull;
 

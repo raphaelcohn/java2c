@@ -1,23 +1,25 @@
 package com.java2c.transpiler.application;
 
+import com.java2c.transpiler.OurAbstractSyntaxTreeInterpreter;
+import com.java2c.transpiler.OurAbstractSyntaxTreeInterpreterFactory;
 import com.compilerUser.exceptions.FatalCompilationException;
 import com.compilerUser.moduleCompiler.JavaModuleCompiler;
 import com.compilerUser.moduleName.ModuleName;
 import com.compilerUser.moduleCompiler.WarningsAdaptingDiagnosticListener;
 import com.compilerUser.processors.CodeTreeUserAdaptingProcessor;
-import com.java2c.transpiler.TranspilingCodeTreeUser;
+import com.compilerUser.elementHandlers.ElementHandlingCodeTreeUser;
 import com.compilerUser.javaSourceFiles.JavaSourceFilesFinder;
 import com.compilerUser.pathExpressions.IllegalRelativePathException;
 import com.compilerUser.pathExpressions.IllegalRelativePathExpressionException;
 import com.compilerUser.pathExpressions.RelativePathExpression;
 import com.compilerUser.pathExpressions.RootPathAndExpression;
-import com.java2c.transpiler.elementHandlers.RootElementHandler;
+import com.compilerUser.elementHandlers.RootElementHandler;
 import com.java2c.transpiler.elementHandlers.PackageElementHandler;
-import com.java2c.transpiler.elementHandlers.DispatchingTypeElementHandler;
-import com.java2c.transpiler.elementHandlers.typeElementHandlers.AnnotationTypeElementHandler;
-import com.java2c.transpiler.elementHandlers.typeElementHandlers.ClassTypeElementHandler;
-import com.java2c.transpiler.elementHandlers.typeElementHandlers.EnumTypeElementHandler;
-import com.java2c.transpiler.elementHandlers.typeElementHandlers.InterfaceTypeElementHandler;
+import com.compilerUser.elementHandlers.DispatchToTypeElementHandler;
+import com.java2c.transpiler.typeElementHandlers.AnnotationTypeElementHandler;
+import com.java2c.transpiler.typeElementHandlers.ClassTypeElementHandler;
+import com.java2c.transpiler.typeElementHandlers.EnumTypeElementHandler;
+import com.java2c.transpiler.typeElementHandlers.InterfaceTypeElementHandler;
 import com.compilerUser.warnings.Warnings;
 import com.compilerUser.exceptions.ImpossibleStateException;
 import org.jetbrains.annotations.NonNls;
@@ -89,7 +91,24 @@ public final class TranspilerApplicationOld
 
 		javaModuleCompiler = new JavaModuleCompiler(warnings, new WarningsAdaptingDiagnosticListener(warnings), getJavaCompiler(), new JavaSourceFilesFinder(warnings));
 
-		processor = new CodeTreeUserAdaptingProcessor(new TranspilingCodeTreeUser(new RootElementHandler(new PackageElementHandler(), new DispatchingTypeElementHandler(new AnnotationTypeElementHandler(), new InterfaceTypeElementHandler(), new EnumTypeElementHandler(), new ClassTypeElementHandler()))));
+		processor = new CodeTreeUserAdaptingProcessor
+		(
+			new ElementHandlingCodeTreeUser<>
+			(
+				new RootElementHandler<>
+				(
+					new PackageElementHandler(),
+					new DispatchToTypeElementHandler<>
+					(
+						new AnnotationTypeElementHandler(),
+						new InterfaceTypeElementHandler(),
+						new EnumTypeElementHandler(),
+						new ClassTypeElementHandler()
+					)
+				),
+				new OurAbstractSyntaxTreeInterpreterFactory()
+			)
+		);
 	}
 
 	public void execute()

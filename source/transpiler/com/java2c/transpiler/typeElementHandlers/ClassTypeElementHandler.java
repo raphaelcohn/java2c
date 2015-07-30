@@ -1,8 +1,11 @@
-package com.java2c.transpiler.elementHandlers.typeElementHandlers;
+package com.java2c.transpiler.typeElementHandlers;
 
+import com.compilerUser.elementHandlers.typeElementHandlers.ModifierValidator;
+import com.compilerUser.elementHandlers.typeElementHandlers.TypeElementHandler;
 import com.java2c.model.types.scalars.*;
-import com.java2c.transpiler.AbstractSyntaxTreeInterpreter;
-import com.java2c.transpiler.elementHandlers.ElementHandler;
+import com.compilerUser.elementHandlers.AbstractSyntaxTreeInterpreter;
+import com.compilerUser.elementHandlers.ElementHandler;
+import com.java2c.transpiler.OurAbstractSyntaxTreeInterpreter;
 import com.java2c.transpiler.exceptions.IncorrectSourceCodeException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,10 +16,10 @@ import java.util.List;
 import static com.compilerUser.text.EnglishFormatter.format;
 import static javax.lang.model.element.Modifier.*;
 
-public final class ClassTypeElementHandler implements TypeElementHandler
+public final class ClassTypeElementHandler implements TypeElementHandler<OurAbstractSyntaxTreeInterpreter>
 {
 	@Override
-	public void handle(@NotNull final AbstractSyntaxTreeInterpreter abstractSyntaxTreeInterpreter, @NotNull final TypeElement element, @NotNull final ElementHandler<TypeElement> dispatchingTypeElementHandler)
+	public void handle(@NotNull final OurAbstractSyntaxTreeInterpreter abstractSyntaxTreeInterpreter, @NotNull final TypeElement element, @NotNull final ElementHandler<TypeElement, OurAbstractSyntaxTreeInterpreter> dispatchingTypeElementHandler)
 	{
 		abstractSyntaxTreeInterpreter.guardClassInheritsFromAbstractCType(element);
 		if (abstractSyntaxTreeInterpreter.isSuperclassAbstractScalar(element))
@@ -32,7 +35,7 @@ public final class ClassTypeElementHandler implements TypeElementHandler
 	@NotNull
 	private static final ModifierValidator ScalarIsFinalModifierValidator = new ModifierValidator(new Modifier[]{FINAL}, ABSTRACT, PRIVATE, PROTECTED, NATIVE, STRICTFP, SYNCHRONIZED, TRANSIENT, VOLATILE);
 
-	private void handleAbstractScalarClass(@NotNull final AbstractSyntaxTreeInterpreter abstractSyntaxTreeInterpreter, @NotNull final TypeElement element, @NotNull final ElementHandler<TypeElement> dispatchingTypeElementHandler)
+	private void handleAbstractScalarClass(@NotNull final OurAbstractSyntaxTreeInterpreter abstractSyntaxTreeInterpreter, @NotNull final TypeElement element, @NotNull final ElementHandler<TypeElement, OurAbstractSyntaxTreeInterpreter> dispatchingTypeElementHandler)
 	{
 		@Nullable final Scalar scalar = element.getAnnotation(Scalar.class);
 		if (scalar == null)

@@ -105,6 +105,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/codeTreeUsers/codeTreeUsers.iml" filepath="$PROJECT_DIR$/codeTreeUsers/codeTreeUsers.iml" group="compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/elementHandlers/elementHandlers.iml" filepath="$PROJECT_DIR$/elementHandlers/elementHandlers.iml" group="compilerUser" />
       <module fileurl="file://$PROJECT_DIR$/exceptions/exceptions.iml" filepath="$PROJECT_DIR$/exceptions/exceptions.iml" group="compilerUser" />
       <module fileurl="file://$PROJECT_DIR$/javaSourceFiles/javaSourceFiles.iml" filepath="$PROJECT_DIR$/javaSourceFiles/javaSourceFiles.iml" group="compilerUser" />
       <module fileurl="file://$PROJECT_DIR$/moduleCompiler/moduleCompiler.iml" filepath="$PROJECT_DIR$/moduleCompiler/moduleCompiler.iml" group="compilerUser" />

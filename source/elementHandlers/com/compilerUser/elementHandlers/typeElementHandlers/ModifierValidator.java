@@ -1,7 +1,7 @@
-package com.java2c.transpiler.elementHandlers.typeElementHandlers;
+package com.compilerUser.elementHandlers.typeElementHandlers;
 
-import com.java2c.transpiler.AbstractSyntaxTreeInterpreter;
-import com.java2c.transpiler.exceptions.IncorrectSourceCodeException;
+import com.compilerUser.elementHandlers.AbstractSyntaxTreeInterpreter;
+import com.compilerUser.exceptions.IncorrectSourceCodeException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.lang.model.element.Modifier;

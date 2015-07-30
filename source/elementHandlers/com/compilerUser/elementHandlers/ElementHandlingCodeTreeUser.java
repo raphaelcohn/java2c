@@ -1,7 +1,6 @@
-package com.java2c.transpiler;
+package com.compilerUser.elementHandlers;
 
 import com.compilerUser.codeTreeUsers.CodeTreeUser;
-import com.java2c.transpiler.elementHandlers.RootElementHandler;
 import com.sun.source.util.Trees;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,20 +12,24 @@ import java.util.Set;
 
 import static javax.tools.Diagnostic.Kind.ERROR;
 
-public final class TranspilingCodeTreeUser implements CodeTreeUser
+public final class ElementHandlingCodeTreeUser<A extends AbstractSyntaxTreeInterpreter> implements CodeTreeUser
 {
 	@NotNull
-	private final RootElementHandler rootElementHandler;
+	private final RootElementHandler<A> rootElementHandler;
 
-	public TranspilingCodeTreeUser(@NotNull final RootElementHandler rootElementHandler)
+	@NotNull
+	private final AbstractSyntaxTreeInterpreterFactory<A> abstractSyntaxTreeInterpreterFactory;
+
+	public ElementHandlingCodeTreeUser(@NotNull final RootElementHandler<A> rootElementHandler, @NotNull final AbstractSyntaxTreeInterpreterFactory<A> abstractSyntaxTreeInterpreterFactory)
 	{
 		this.rootElementHandler = rootElementHandler;
+		this.abstractSyntaxTreeInterpreterFactory = abstractSyntaxTreeInterpreterFactory;
 	}
 
 	@Override
 	public void process(@NotNull final Messager messager, @NotNull final Types typeUtilities, @NotNull final Elements elementUtilities, @NotNull final Trees trees, @NotNull final Set<? extends Element> rootElements)
 	{
-		final AbstractSyntaxTreeInterpreter abstractSyntaxTreeInterpreter = new AbstractSyntaxTreeInterpreter(typeUtilities, elementUtilities, trees);
+		final A abstractSyntaxTreeInterpreter = abstractSyntaxTreeInterpreterFactory.create(typeUtilities, elementUtilities, trees);
 
 		for (final Element rootElement : rootElements)
 		{
