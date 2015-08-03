@@ -2,149 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7849b4d-d4e4-462e-9b33-c56df3e49e7f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/compilerUser.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jopt_simple.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/compilerUser" afterPath="$PROJECT_DIR$/library/compilerUser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/ATypicalStruct.java" afterPath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/ATypicalStruct.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/AbstractCType.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/AbstractCType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/AbstractFieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/AbstractFieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/AbstractScalar.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/AbstractScalar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/AbstractStruct.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/AbstractStruct.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/AbstractTypeElementHandler.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/AbstractTypeElementHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/AlignmentFieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/AlignmentFieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/Allocator.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/Allocator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/AnInterface.java" afterPath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/AnInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/AnnotationTypeElementHandler.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/AnnotationTypeElementHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/AttributeName.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/AttributeName.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/Banished.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/Banished.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/BanishedException.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/BanishedException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/BooleanAlgebra.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/BooleanAlgebra.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/other/CCodeTemplate.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/other/CCodeTemplate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/CFileCreator.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/CFileCreator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/CMaker.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/CMaker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/CType.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/CType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/CType.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/CType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/CategorisedClassMembers.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/CategorisedClassMembers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/exceptions/ClassAnnotationNotPermittedOnThisTypeElementException.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/exceptions/ClassAnnotationNotPermittedOnThisTypeElementException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/ClassTypeElementHandler.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/ClassTypeElementHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/Comparable.java" afterPath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/Comparable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/Comparison.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/Comparison.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/com/java2c/transpiler/application/ConsoleEntryPointOld.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/com/java2c/transpiler/application/ConsoleEntryPointOld.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/ConversionException.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/ConversionException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/DeprecatedFieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/DeprecatedFieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/ElementConverter.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/ElementConverter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/EnumTypeElementHandler.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/EnumTypeElementHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/Equality.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/Equality.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/Equality.java" afterPath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/Equality.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/FieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/FieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/FieldAttributesProcessors.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/FieldAttributesProcessors.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraryHelpers-c/com/java2c/libraryHelpers/c/FileDescriptor.java" afterPath="$PROJECT_DIR$/source/model/libraryHelpers-c/com/java2c/libraryHelpers/c/FileDescriptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/FormatArgArchetype.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/FormatArgArchetype.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttribute.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttributeParameter.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttributeParameter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttributes.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/GccAttributes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/function/GccFunctionAttributeName.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/function/GccFunctionAttributeName.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/variable/GccVariableAttributeName.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/variable/GccVariableAttributeName.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/Inlining.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/Inlining.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/InterfaceTypeElementHandler.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/typeElementHandlers/InterfaceTypeElementHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/Mathematics.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/Mathematics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/other/NotAnObject.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/other/NotAnObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/NullCheckFieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/NullCheckFieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/OurAbstractSyntaxTreeInterpreter.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/OurAbstractSyntaxTreeInterpreter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/OurAbstractSyntaxTreeInterpreterFactory.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/OurAbstractSyntaxTreeInterpreterFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementHandlers/PackageElementHandler.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementHandlers/PackageElementHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/packages/PackageGccCompilationOptions.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/packages/PackageGccCompilationOptions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/PackedFieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/PackedFieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/other/PreprocessorConstant.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/other/PreprocessorConstant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/Purity.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/Purity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraryHelpers-c/com/java2c/libraryHelpers/c/RegularFileDescriptor.java" afterPath="$PROJECT_DIR$/source/model/libraryHelpers-c/com/java2c/libraryHelpers/c/RegularFileDescriptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/Scalar.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/Scalar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/SectionFieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/SectionFieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/SignedMathematics.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/scalars/SignedMathematics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraryHelpers-c/com/java2c/libraryHelpers/c/SocketFileDescriptor.java" afterPath="$PROJECT_DIR$/source/model/libraryHelpers-c/com/java2c/libraryHelpers/c/SocketFileDescriptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/com/java2c/transpiler/application/StandardErrorWarnings.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/com/java2c/transpiler/application/StandardErrorWarnings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/StorageClass.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/StorageClass.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdarg/StructMember.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdarg/StructMember.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/ThreadLocalModel.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/ThreadLocalModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/ThreadLocalModelFieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/ThreadLocalModelFieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/TlsModel.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/TlsModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/TopLevelInterfaceElementConverter.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/elementConverters/TopLevelInterfaceElementConverter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/com/java2c/transpiler/application/TranspilerApplicationOld.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/com/java2c/transpiler/application/TranspilerApplicationOld.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/UnannotatedBanishedMethods.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/UnannotatedBanishedMethods.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/Uncastable.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/types/Uncastable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/UnusedFieldAttributesProcessor.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/fieldAttributesProcessors/UnusedFieldAttributesProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/VariableDeclaration.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/VariableDeclaration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/Writable.java" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/com/java2c/transpiler/c/gccAttributes/Writable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/aligned.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/aligned.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/cold.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/cold.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/flatten.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/flatten.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/parameters/format.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/parameters/format.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/parameters/format_arg.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/parameters/format_arg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/hot.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/hot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/inline.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/inline.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int16_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int16_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int32_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int32_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int64_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int64_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int8_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int8_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_fast16_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_fast16_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_fast32_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_fast32_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_fast64_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_fast64_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_fast8_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_fast8_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_least16_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_least16_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_least32_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_least32_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_least64_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_least64_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_least8_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/int_least8_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/intmax_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/intmax_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/intptr_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/intptr_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" afterPath="$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" afterPath="$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/other/literal.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/other/literal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/malloc.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/malloc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/unistd/off_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/unistd/off_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/package-info.java" afterPath="$PROJECT_DIR$/source/model/samples/com/java2c/samples/package-info.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/packed.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/packed.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/pointer.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/pointer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/ptrdiff_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/ptrdiff_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/pure.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/functions/pure.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/rsize_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/rsize_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/samples/samples.iml" afterPath="$PROJECT_DIR$/source/model/samples/samples.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/section.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/variables/section.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/parameters/sentinel.java" afterPath="$PROJECT_DIR$/source/model/model/com/java2c/model/attributes/parameters/sentinel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_char.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_char.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_int.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_int.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_long.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_long.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_long_long.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_long_long.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_short.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/signed_short.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/size_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/size_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdarg/stdarg.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdarg/stdarg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/stddef.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/stddef.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/stdint.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/stdint.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/compilerUser_jar.compilerUser.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/compilerUser.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/transpiler-application.iml" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/transpiler-application.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/transpiler-old/transpiler/transpiler.iml" afterPath="$PROJECT_DIR$/source/transpiler-old/transpiler/transpiler.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint16_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint16_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint32_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint32_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint64_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint64_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint8_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint8_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_fast16_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_fast16_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_fast32_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_fast32_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_fast64_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_fast64_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_fast8_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_fast8_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_least16_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_least16_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_least32_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_least32_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_least64_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_least64_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_least8_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uint_least8_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uintmax_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uintmax_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uintptr_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdint/uintptr_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/unistd/unistd.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/unistd/unistd.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_char.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_char.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_int.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_int.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_long.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_long.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_long_long.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_long_long.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_short.java" afterPath="$PROJECT_DIR$/source/model/libraries-builtin/com/java2c/libraries/builtin/unsigned_short.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdarg/va_list.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stdarg/va_list.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/wchar_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/wchar_t.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/wint_t.java" afterPath="$PROJECT_DIR$/source/model/libraries-c/com/java2c/libraries/c/stddef/wint_t.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="java2c.iws" />
@@ -191,7 +53,6 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2560" />
     <option name="y" value="23" />
     <option name="width" value="2560" />
     <option name="height" value="1573" />
@@ -235,6 +96,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -252,108 +115,10 @@
               <option name="myItemId" value="transpiler-old" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="transpiler-application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java2c" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="transpiler-old" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="transpiler-application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java2c" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="transpiler-old" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java2c" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java2c" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java2c" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java2c" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="types" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -462,13 +227,12 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2560" y="23" width="2560" height="1573" extended-state="0" />
+    <frame x="0" y="23" width="2560" height="1573" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -479,14 +243,15 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24980143" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -698,10 +463,12 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+          <last-edited>compilerUser_jar.compilerUser</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.17997977" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -724,7 +491,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.17997977" />
               </list>
             </option>
           </splitter-proportions>
@@ -736,7 +503,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.17997977" />
               </list>
             </option>
           </splitter-proportions>
@@ -744,7 +511,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>transpiler-old</last-edited>
+          <last-edited>transpiler-application|transpiler-old</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -768,7 +535,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>compilerUser</last-edited>
+          <last-edited>intellij-annotations</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

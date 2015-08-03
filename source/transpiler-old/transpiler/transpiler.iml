@@ -13,8 +13,8 @@
     <orderEntry type="module" module-name="elementHandlers" />
     <orderEntry type="module" module-name="exceptions" />
     <orderEntry type="library" name="intellij-annotations" level="project" />
-    <orderEntry type="library" name="compilerUser" level="project" />
     <orderEntry type="module" module-name="model" />
+    <orderEntry type="module" module-name="jar" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">

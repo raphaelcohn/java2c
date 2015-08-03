@@ -2,24 +2,24 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" filepath="$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" group="model/libraries"/>
-      <module fileurl="file://$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" filepath="$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" group="model/libraries"/>
-      <module fileurl="file://$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" filepath="$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" group="model/libraries"/>
-      <module fileurl="file://$PROJECT_DIR$/source/model/model/model.iml" filepath="$PROJECT_DIR$/source/model/model/model.iml" group="model"/>
-      <module fileurl="file://$PROJECT_DIR$/source/model/samples/samples.iml" filepath="$PROJECT_DIR$/source/model/samples/samples.iml" group="model"/>
-      <module fileurl="file://$PROJECT_DIR$/source/transpiler-old/transpiler/transpiler.iml" filepath="$PROJECT_DIR$/source/transpiler-old/transpiler/transpiler.iml" group="transpiler-old"/>
-      <module fileurl="file://$PROJECT_DIR$/source/transpiler-old/transpiler-application/transpiler-application.iml" filepath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/transpiler-application.iml" group="transpiler-old"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/codeTreeUsers/codeTreeUsers.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/elementHandlers/elementHandlers.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/exceptions/exceptions.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/jar/jar.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/javaSourceFiles/javaSourceFiles.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/moduleCompiler/moduleCompiler.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/moduleName/moduleName.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/pathExpressions/pathExpressions.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/processors/processors.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/text/text.iml" filepath="" group="library/compilerUser"/>
-      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/warnings/warnings.iml" filepath="" group="library/compilerUser"/>
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/codeTreeUsers/codeTreeUsers.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/codeTreeUsers/codeTreeUsers.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/elementHandlers/elementHandlers.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/elementHandlers/elementHandlers.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/exceptions/exceptions.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/exceptions/exceptions.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/jar/jar.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/jar/jar.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/javaSourceFiles/javaSourceFiles.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/javaSourceFiles/javaSourceFiles.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" filepath="$PROJECT_DIR$/source/model/libraries-builtin/libraries-builtin.iml" group="model/libraries" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" filepath="$PROJECT_DIR$/source/model/libraries-c/libraries-c.iml" group="model/libraries" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" filepath="$PROJECT_DIR$/source/model/libraryHelpers-c/libraryHelpers-c.iml" group="model/libraries" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/model/model.iml" filepath="$PROJECT_DIR$/source/model/model/model.iml" group="model" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/moduleCompiler/moduleCompiler.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/moduleCompiler/moduleCompiler.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/moduleName/moduleName.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/moduleName/moduleName.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/pathExpressions/pathExpressions.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/pathExpressions/pathExpressions.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/processors/processors.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/processors/processors.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/source/model/samples/samples.iml" filepath="$PROJECT_DIR$/source/model/samples/samples.iml" group="model" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/text/text.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/text/text.iml" group="library/compilerUser" />
+      <module fileurl="file://$PROJECT_DIR$/source/transpiler-old/transpiler/transpiler.iml" filepath="$PROJECT_DIR$/source/transpiler-old/transpiler/transpiler.iml" group="transpiler-old" />
+      <module fileurl="file://$PROJECT_DIR$/source/transpiler-old/transpiler-application/transpiler-application.iml" filepath="$PROJECT_DIR$/source/transpiler-old/transpiler-application/transpiler-application.iml" group="transpiler-old" />
+      <module fileurl="file://$PROJECT_DIR$/library/compilerUser/source/warnings/warnings.iml" filepath="$PROJECT_DIR$/library/compilerUser/source/warnings/warnings.iml" group="library/compilerUser" />
     </modules>
   </component>
 </project>

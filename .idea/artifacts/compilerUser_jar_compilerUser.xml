@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="compilerUser_jar.compilerUser">
+    <output-path>$PROJECT_DIR$/.idea/out/artifacts</output-path>
+    <root id="archive" name="compilerUser.jar">
+      <element id="module-output" name="elementHandlers" />
+      <element id="module-output" name="text" />
+      <element id="module-output" name="exceptions" />
+      <element id="module-output" name="warnings" />
+      <element id="module-output" name="javaSourceFiles" />
+      <element id="module-output" name="moduleCompiler" />
+      <element id="module-output" name="moduleName" />
+      <element id="module-output" name="pathExpressions" />
+      <element id="module-output" name="processors" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/codeTreeUsers" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/elementHandlers" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/exceptions" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/javaSourceFiles" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/moduleCompiler" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/moduleName" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/pathExpressions" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/processors" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/text" />
+      <element id="dir-copy" path="$PROJECT_DIR$/library/compilerUser/source/warnings" />
+      <element id="module-output" name="codeTreeUsers" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/library/compilerUser/jar/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
