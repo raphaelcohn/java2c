@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="intellij-annotations">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/library/intellij-annotations/current/annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/compilerUser/library/intellij-annotations/current/annotations.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
