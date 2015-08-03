@@ -4,3 +4,6 @@
 [submodule "library/compilerUser"]
 	path = library/compilerUser
 	url = https://github.com/raphaelcohn/compilerUser.git
+[submodule "tools/intellij-multiproject"]
+	path = tools/intellij-multiproject
+	url = https://github.com/raphaelcohn/intellij-multiproject.git
